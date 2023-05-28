@@ -72,12 +72,12 @@
                   aria-labelledby="navbarDropdownPortfolio"
                 >
                   <li>
-                    <a class="dropdown-item" href="portfolio-overview.html"
+                    <a class="dropdown-item" href="portfolio-overview.cfm"
                       >Portfolio Overview</a
                     >
                   </li>
                   <li>
-                    <a class="dropdown-item" href="portfolio-item.html"
+                    <a class="dropdown-item" href="portfolio-item.cfm"
                       >Portfolio Item</a
                     >
                   </li>

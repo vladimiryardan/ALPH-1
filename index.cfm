@@ -59,10 +59,8 @@
       <section class="py-5" id="features">
         <div class="container px-5 my-5">
           <div class="row gx-5">
-            <div class="col-lg-4 mb-5 mb-lg-0">
-              <img src="./images/attic-ladder-main.png" class="img-fluid" />
-            </div>
-            <div class="col-lg-8">
+
+            <div class="col-lg-12">
               <div class="row gx-5 row-cols-1 row-cols-md-2">
                 <div class="col mb-5 h-100">
                   <div
@@ -177,7 +175,7 @@
               <div class="card h-100 shadow border-0">
                 <img
                   class="card-img-top"
-                  src="https://dummyimage.com/600x350/ced4da/6c757d"
+                  src="./images/600x350_attic_ladder_types2.png"
                   alt="..."
                 />
                 <div class="card-body p-4">
@@ -186,8 +184,8 @@
                   </div>
                   <a
                     class="text-decoration-none link-dark stretched-link"
-                    href="#!"
-                    ><h5 class="card-title mb-3">Blog post title</h5></a
+                    href="attic_ladder_types.cfm"
+                    ><h5 class="card-title mb-3">Attic Ladders Types</h5></a
                   >
                   <p class="card-text mb-0">
                     Some quick example text to build on the card title and make
@@ -301,4 +299,9 @@
         </div>
       </section>
     </main>
+<!---
+############
+Footer
+############
+--->   
  <cfinclude template = "inc_footer.cfm">

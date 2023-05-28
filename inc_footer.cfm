@@ -10,7 +10,9 @@
         >
           <div class="col-auto">
             <div class="small m-0 text-white">
-              Copyright &copy; Attic Ladder PH 2022
+              <cfoutput>
+              Copyright &copy; Attic Ladder PH #year(now())#
+              </cfoutput>
             </div>
           </div>
           <div class="col-auto">
