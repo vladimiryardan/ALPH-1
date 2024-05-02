@@ -102,3 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+*.docx
+.project
+settings.xml
+server-server.json
+.vscode/ALPH.cfproject

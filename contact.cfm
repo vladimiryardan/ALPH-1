@@ -47,252 +47,70 @@
       </header>
       <!-- 
       ############
-      Features section
+      Contact Form
       ############
       -->
-      <section class="py-5" id="features">
-        <div class="container px-5 my-5">
-          <div class="row gx-5">
-            <div class="col-lg-4 mb-5 mb-lg-0">
-              <img src="./images/attic-ladder-main.png" class="img-fluid" />
-            </div>
-            <div class="col-lg-8">
-              <div class="row gx-5 row-cols-1 row-cols-md-2">
-                <div class="col mb-5 h-100">
-                  <div
-                    class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
-                  >
-                    <i class="bi bi-collection"></i>
-                  </div>
-                  <h2 class="h5">Retractable</h2>
-                  <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
-                  </p>
+      <section class="py-5" id="Contact">
+        <div class="container">
+          <h2 class="text-center">Contact Us</h2>
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <form id="contactForm">
+                <div class="form-group">
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
                 </div>
-                <div class="col mb-5 h-100">
-                  <div
-                    class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
-                  >
-                    <i class="bi bi-building"></i>
-                  </div>
-                  <h2 class="h5">Space Saving</h2>
-                  <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
-                  </p>
+                <div class="form-group">
+                  <label for="email">Email:</label>
+                  <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
                 </div>
-                <div class="col mb-5 mb-md-0 h-100">
-                  <div
-                    class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
-                  >
-                    <i class="bi bi-hand-thumbs-up"></i>
-                  </div>
-                  <h2 class="h5">Easy To Operate</h2>
-                  <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
-                  </p>
+                <div class="form-group">
+                  <label for="message">Message:</label>
+                  <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" required></textarea>
                 </div>
-                <div class="col h-100">
-                  <div
-                    class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
-                  >
-                    <i class="bi bi-bricks"></i>
-                  </div>
-                  <h2 class="h5">Concealed</h2>
-                  <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
-                  </p>
-                </div>
-              </div>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+              </form>
+              <div id="successMessage" style="display: none; margin-top: 20px;" class="alert alert-success text-center">Thank you for your message!</div>
             </div>
           </div>
         </div>
+        
+        <script>
+          $(document).ready(function(){
+            $('#contactForm').submit(function(e){
+              e.preventDefault(); // Prevent form submission
+        
+              // Get form values
+              var name = $('#name').val();
+              var email = $('#email').val();
+              var message = $('#message').val();
+        
+              // You can perform validation here if needed
+        
+              // AJAX request to send form data to server
+              $.ajax({
+                url: 'process_contact.php', // Update with your server-side script URL
+                type: 'POST',
+                data: {
+                  name: name,
+                  email: email,
+                  message: message
+                },
+                success: function(response){
+                  // Show success message and clear form
+                  $('#successMessage').show();
+                  $('#contactForm')[0].reset();
+                },
+                error: function(xhr, status, error){
+                  // Show error message if request fails
+                  alert('An error occurred while submitting the form: ' + error);
+                }
+              });
+            });
+          });
+        </script>
       </section>
-      <!-- 
-      ############
-      Testimonial section
-      ############
-      -->
-      <div class="py-5 bg-light">
-        <div class="container px-5 my-5">
-          <div class="row gx-5 justify-content-center">
-            <div class="col-lg-10 col-xl-7">
-              <div class="text-center">
-                <div class="feedback">
-                  <i class="bi bi-chat-quote chat-quote-custom"></i>
-                  <div class="fs-4 mb-4 fst-italic">
-                    It's time to start designing for our Home. Architects and
-                    Engineers enables our Living Spaces that fits the purpose,
-                    to improve our Quality of Life.
-                  </div>
-                  <div class="white-line"></div>
-                  <div class="d-flex align-items-center justify-content-center">
-                    <!-- <img
-                    class="rounded-circle me-3"
-                    src="https://dummyimage.com/40x40/ced4da/6c757d"
-                    alt="..."
-                  /> -->
 
-                    <div class="fw-bold">
-                      Ar. Glenn Lim
-                      <span class="fw-bold text-primary mx-1">/</span>
-                      Attic Ladder Customer
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 
-      ############
-      Blog preview section
-      ############
-      -->
-      <section class="py-5">
-        <div class="container px-5 my-5">
-          <div class="row gx-5 justify-content-center">
-            <div class="col-lg-8 col-xl-6">
-              <div class="text-center">
-                <h2 class="fw-bolder">From our blog</h2>
-                <p class="lead fw-normal text-muted mb-5">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Eaque fugit ratione dicta mollitia. Officiis ad.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="row gx-5">
-            <div class="col-lg-4 mb-5">
-              <div class="card h-100 shadow border-0">
-                <img
-                  class="card-img-top"
-                  src="https://dummyimage.com/600x350/ced4da/6c757d"
-                  alt="..."
-                />
-                <div class="card-body p-4">
-                  <div class="badge bg-primary bg-gradient rounded-pill mb-2">
-                    News
-                  </div>
-                  <a
-                    class="text-decoration-none link-dark stretched-link"
-                    href="#!"
-                    ><h5 class="card-title mb-3">Blog post title</h5></a
-                  >
-                  <p class="card-text mb-0">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                </div>
-                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                  <div class="d-flex align-items-end justify-content-between">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="rounded-circle me-3"
-                        src="https://dummyimage.com/40x40/ced4da/6c757d"
-                        alt="..."
-                      />
-                      <div class="small">
-                        <div class="fw-bold">Kelly Rowan</div>
-                        <div class="text-muted">
-                          March 12, 2022 &middot; 6 min read
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mb-5">
-              <div class="card h-100 shadow border-0">
-                <img
-                  class="card-img-top"
-                  src="https://dummyimage.com/600x350/adb5bd/495057"
-                  alt="..."
-                />
-                <div class="card-body p-4">
-                  <div class="badge bg-primary bg-gradient rounded-pill mb-2">
-                    Media
-                  </div>
-                  <a
-                    class="text-decoration-none link-dark stretched-link"
-                    href="#!"
-                    ><h5 class="card-title mb-3">Another blog post title</h5></a
-                  >
-                  <p class="card-text mb-0">
-                    This text is a bit longer to illustrate the adaptive height
-                    of each card. Some quick example text to build on the card
-                    title and make up the bulk of the card's content.
-                  </p>
-                </div>
-                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                  <div class="d-flex align-items-end justify-content-between">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="rounded-circle me-3"
-                        src="https://dummyimage.com/40x40/ced4da/6c757d"
-                        alt="..."
-                      />
-                      <div class="small">
-                        <div class="fw-bold">Josiah Barclay</div>
-                        <div class="text-muted">
-                          March 23, 2022 &middot; 4 min read
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mb-5">
-              <div class="card h-100 shadow border-0">
-                <img
-                  class="card-img-top"
-                  src="https://dummyimage.com/600x350/6c757d/343a40"
-                  alt="..."
-                />
-                <div class="card-body p-4">
-                  <div class="badge bg-primary bg-gradient rounded-pill mb-2">
-                    News
-                  </div>
-                  <a
-                    class="text-decoration-none link-dark stretched-link"
-                    href="#!"
-                    ><h5 class="card-title mb-3">
-                      The last blog post title is a little bit longer than the
-                      others
-                    </h5></a
-                  >
-                  <p class="card-text mb-0">
-                    Some more quick example text to build on the card title and
-                    make up the bulk of the card's content.
-                  </p>
-                </div>
-                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                  <div class="d-flex align-items-end justify-content-between">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="rounded-circle me-3"
-                        src="https://dummyimage.com/40x40/ced4da/6c757d"
-                        alt="..."
-                      />
-                      <div class="small">
-                        <div class="fw-bold">Evelyn Martinez</div>
-                        <div class="text-muted">
-                          April 2, 2022 &middot; 10 min read
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+     
     </main>
  <cfinclude template = "inc_footer.cfm">

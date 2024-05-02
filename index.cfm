@@ -224,7 +224,7 @@
                   </div>
                   <a
                     class="text-decoration-none link-dark stretched-link"
-                    href="#!"
+                    href=""
                     ><h5 class="card-title mb-3">Another blog post title</h5></a
                   >
                   <p class="card-text mb-0">
@@ -265,7 +265,7 @@
                   </div>
                   <a
                     class="text-decoration-none link-dark stretched-link"
-                    href="#!"
+                    href=""
                     ><h5 class="card-title mb-3">
                       The last blog post title is a little bit longer than the
                       others

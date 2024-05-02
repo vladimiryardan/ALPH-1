@@ -42,9 +42,7 @@
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  >Blog</a
-                >
+                  aria-expanded="false">Blog</a>
                 <ul
                   class="dropdown-menu dropdown-menu-end"
                   aria-labelledby="navbarDropdownBlog"
