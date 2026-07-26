@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design the Future</title>
+    <link rel="stylesheet" href="styles.css">
+    <style type="text/css">
+        /* General Reset */
+body, h1, h2, p, ul {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    color: #000;
+    line-height: 1.6;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding: 20px 0;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+}
+
+.logo span {
+    font-weight: bold;
+    color: #444;
+}
+
+.work-with-us {
+    padding: 10px 20px;
+    border: 1px solid #000;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.hero h1 {
+    font-size: 3rem;
+}
+
+.hero .highlight {
+    font-style: italic;
+}
+
+.hero .arrow {
+    margin-top: 20px;
+    font-size: 2rem;
+}
+
+/* Image Grid */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 20px auto;
+    width: 90%;
+}
+
+.image img {
+    width: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <h1>Studio<span>Agatho</span></h1>
+        </div>
+        <button class="work-with-us">Work with us</button>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Design <span class="highlight">the future</span></h1>
+        <div class="arrow">→</div>
+    </section>
+
+    <!-- Image Grid Section -->
+    <section class="image-grid">
+        <div class="image"><img src="image1.jpg" alt="Pendant Light"></div>
+        <div class="image"><img src="image2.jpg" alt="Offer Sign"></div>
+        <div class="image"><img src="image3.jpg" alt="Laptop"></div>
+        <div class="image"><img src="image4.jpg" alt="Fashion Model"></div>
+    </section>
+</body>
+</html>

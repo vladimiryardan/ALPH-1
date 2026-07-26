@@ -1,5 +1,4 @@
  <cfinclude template = "inc_header.cfm">
- <cfset activeNav = "contact">
   <!--
     ############
     body

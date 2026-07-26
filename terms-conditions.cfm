@@ -1,389 +1,200 @@
- <cfinclude template = "inc_header.cfm">
-  <!--
+<cfinclude template = "inc_header.cfm">
+<!--
+  ############
+  body
+  ############
+-->
+<body class="d-flex flex-column h-100">
+  <main class="flex-shrink-0">
+    <cfinclude template = "inc_nav.cfm">
+
+    <!-- 
     ############
-    body
+    Header
     ############
-  -->
-  <body class="d-flex flex-column h-100">
-    <main class="flex-shrink-0">
-      <!-- 
-      ############
-      Navigation
-      ############
-      -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container px-5">
-          <a class="navbar-brand" href="index.cfm">
-            <!-- Attic Ladder PH -->
-            <img src="./images/vertical-logo-v2.png" class="logoz" />
-            <!-- src="./images/Logo-only-whitev2.png" -->
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="pricing.html">Pricing</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="faq.html">FAQ</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  id="navbarDropdownBlog"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  >Blog</a
-                >
-                <ul
-                  class="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="navbarDropdownBlog"
-                >
-                  <li>
-                    <a class="dropdown-item" href="blog-home.html">Blog Home</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="blog-post.html">Blog Post</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  id="navbarDropdownPortfolio"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  >Portfolio</a
-                >
-                <ul
-                  class="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="navbarDropdownPortfolio"
-                >
-                  <li>
-                    <a class="dropdown-item" href="portfolio-overview.html"
-                      >Portfolio Overview</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="portfolio-item.html"
-                      >Portfolio Item</a
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+    -->
+    <header class="bg-dark py-5">
+      <div class="container px-5">
+        <div class="row gx-5 align-items-center justify-content-center">
+          <div class="col-lg-8 col-xl-7 col-xxl-6">
+            <div class="my-5 text-center text-xl-start">
+              <h1 class="display-5 fw-bolder text-white mb-2">
+                Attic Ladder
+                <br />Free Space Lifestyle
+              </h1>
+              <p class="lead fw-normal text-white-50 mb-4">
+                Create more spaces for the family.
+                <br />Build accessible storage and rooms.
+              </p>
 
-      <!-- 
-      ############
-      Header
-      ############
-      -->
-      <header class="bg-dark py-5">
-        <div class="container px-5">
-          <div class="row gx-5 align-items-center justify-content-center">
-            <div class="col-lg-8 col-xl-7 col-xxl-6">
-              <div class="my-5 text-center text-xl-start">
-                <h1 class="display-5 fw-bolder text-white mb-2">
-                  Attic Ladder
-                  <br />Free Space Lifestyle
-                </h1>
-                <p class="lead fw-normal text-white-50 mb-4">
-                  Create more spaces for the family.
-                  <br />Build accessible storage and rooms.
-                </p>
-
-                <!-- <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
-                                    <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
-                                </div> -->
-              </div>
-            </div>
-            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-              <img
-                class="img-fluid rounded-3 my-5"
-                src="./images/attic-ladder-viewport.png"
-                alt="..."
-              />
-              <!--src="./images/attic-ladder-main.png"
-                -->
+              <!-- <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                  <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
+                                  <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
+                              </div> -->
             </div>
           </div>
-        </div>
-      </header>
-      <!-- 
-      ############
-      Features section
-      ############
-      -->
-      <section class="py-5" id="features">
-        <div class="container px-5 my-5">
-          <div class="row gx-5">
-            <div class="col-lg-4 mb-5 mb-lg-0">
-              <img src="./images/attic-ladder-main.png" class="img-fluid" />
-            </div>
-            <div class="col-lg-8">
-              <div class="row gx-5 row-cols-1 row-cols-md-2">
-                <div class="col mb-5 h-100">
-                  <div
-                    class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
-                  >
-                    <i class="bi bi-collection"></i>
-                  </div>
-                  <h2 class="h5">Retractable</h2>
-                  <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
-                  </p>
-                </div>
-                <div class="col mb-5 h-100">
-                  <div
-                    class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
-                  >
-                    <i class="bi bi-building"></i>
-                  </div>
-                  <h2 class="h5">Space Saving</h2>
-                  <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
-                  </p>
-                </div>
-                <div class="col mb-5 mb-md-0 h-100">
-                  <div
-                    class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
-                  >
-                    <i class="bi bi-hand-thumbs-up"></i>
-                  </div>
-                  <h2 class="h5">Easy To Operate</h2>
-                  <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
-                  </p>
-                </div>
-                <div class="col h-100">
-                  <div
-                    class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
-                  >
-                    <i class="bi bi-bricks"></i>
-                  </div>
-                  <h2 class="h5">Concealed</h2>
-                  <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- 
-      ############
-      Testimonial section
-      ############
-      -->
-      <div class="py-5 bg-light">
-        <div class="container px-5 my-5">
-          <div class="row gx-5 justify-content-center">
-            <div class="col-lg-10 col-xl-7">
-              <div class="text-center">
-                <div class="feedback">
-                  <i class="bi bi-chat-quote chat-quote-custom"></i>
-                  <div class="fs-4 mb-4 fst-italic">
-                    It's time to start designing for our Home. Architects and
-                    Engineers enables our Living Spaces that fits the purpose,
-                    to improve our Quality of Life.
-                  </div>
-                  <div class="white-line"></div>
-                  <div class="d-flex align-items-center justify-content-center">
-                    <!-- <img
-                    class="rounded-circle me-3"
-                    src="https://dummyimage.com/40x40/ced4da/6c757d"
-                    alt="..."
-                  /> -->
-
-                    <div class="fw-bold">
-                      Ar. Glenn Lim
-                      <span class="fw-bold text-primary mx-1">/</span>
-                      Attic Ladder Customer
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+            <img
+              class="img-fluid rounded-3 my-5"
+              src="./images/attic-ladder-viewport.png"
+              alt="..."
+            />
+            <!--src="./images/attic-ladder-main.png"
+              -->
           </div>
         </div>
       </div>
-      <!-- 
-      ############
-      Blog preview section
-      ############
-      -->
-      <section class="py-5">
-        <div class="container px-5 my-5">
-          <div class="row gx-5 justify-content-center">
-            <div class="col-lg-8 col-xl-6">
-              <div class="text-center">
-                <h2 class="fw-bolder">From our blog</h2>
-                <p class="lead fw-normal text-muted mb-5">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Eaque fugit ratione dicta mollitia. Officiis ad.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="row gx-5">
-            <div class="col-lg-4 mb-5">
-              <div class="card h-100 shadow border-0">
-                <img
-                  class="card-img-top"
-                  src="https://dummyimage.com/600x350/ced4da/6c757d"
-                  alt="..."
-                />
-                <div class="card-body p-4">
-                  <div class="badge bg-primary bg-gradient rounded-pill mb-2">
-                    News
-                  </div>
-                  <a
-                    class="text-decoration-none link-dark stretched-link"
-                    href="#!"
-                    ><h5 class="card-title mb-3">Blog post title</h5></a
-                  >
-                  <p class="card-text mb-0">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                </div>
-                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                  <div class="d-flex align-items-end justify-content-between">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="rounded-circle me-3"
-                        src="https://dummyimage.com/40x40/ced4da/6c757d"
-                        alt="..."
-                      />
-                      <div class="small">
-                        <div class="fw-bold">Kelly Rowan</div>
-                        <div class="text-muted">
-                          March 12, 2022 &middot; 6 min read
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mb-5">
-              <div class="card h-100 shadow border-0">
-                <img
-                  class="card-img-top"
-                  src="https://dummyimage.com/600x350/adb5bd/495057"
-                  alt="..."
-                />
-                <div class="card-body p-4">
-                  <div class="badge bg-primary bg-gradient rounded-pill mb-2">
-                    Media
-                  </div>
-                  <a
-                    class="text-decoration-none link-dark stretched-link"
-                    href="#!"
-                    ><h5 class="card-title mb-3">Another blog post title</h5></a
-                  >
-                  <p class="card-text mb-0">
-                    This text is a bit longer to illustrate the adaptive height
-                    of each card. Some quick example text to build on the card
-                    title and make up the bulk of the card's content.
-                  </p>
-                </div>
-                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                  <div class="d-flex align-items-end justify-content-between">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="rounded-circle me-3"
-                        src="https://dummyimage.com/40x40/ced4da/6c757d"
-                        alt="..."
-                      />
-                      <div class="small">
-                        <div class="fw-bold">Josiah Barclay</div>
-                        <div class="text-muted">
-                          March 23, 2022 &middot; 4 min read
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mb-5">
-              <div class="card h-100 shadow border-0">
-                <img
-                  class="card-img-top"
-                  src="https://dummyimage.com/600x350/6c757d/343a40"
-                  alt="..."
-                />
-                <div class="card-body p-4">
-                  <div class="badge bg-primary bg-gradient rounded-pill mb-2">
-                    News
-                  </div>
-                  <a
-                    class="text-decoration-none link-dark stretched-link"
-                    href="#!"
-                    ><h5 class="card-title mb-3">
-                      The last blog post title is a little bit longer than the
-                      others
-                    </h5></a
-                  >
-                  <p class="card-text mb-0">
-                    Some more quick example text to build on the card title and
-                    make up the bulk of the card's content.
-                  </p>
-                </div>
-                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                  <div class="d-flex align-items-end justify-content-between">
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="rounded-circle me-3"
-                        src="https://dummyimage.com/40x40/ced4da/6c757d"
-                        alt="..."
-                      />
-                      <div class="small">
-                        <div class="fw-bold">Evelyn Martinez</div>
-                        <div class="text-muted">
-                          April 2, 2022 &middot; 10 min read
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    </header>
+   
+   
+    <!-- 
+    ############
+    Conditions
+    ############
+    -->
+    <section class="py-5" id="Conditions">
+      <div class="container">
+        <h1 class="text-center"> Attic Ladder Online Store Terms and Conditions</h1>
+        <div class="row justify-content-center">
+          <div class="col-md-8 gy-5">
+
+            <h3>
+              1. Terms
+            </h3>
+            
+            <p>
+              By accessing this web site, you are agreeing to be bound by these 
+              web site Terms and Conditions of Use, all applicable laws and regulations, 
+              and agree that you are responsible for compliance with any applicable local 
+              laws. If you do not agree with any of these terms, you are prohibited from 
+              using or accessing this site. The materials contained in this web site are 
+              protected by applicable copyright and trade mark law.
+            </p>
+            
+            <h3>
+              2. Use License
+            </h3>
+            
+            <ol type="a">
+              <li>
+                Permission is granted to temporarily download one copy of the materials 
+                (information or software) on Attic Ladder Ph's web site for personal, 
+                non-commercial transitory viewing only. This is the grant of a license, 
+                not a transfer of title, and under this license you may not:
+                
+                <ol type="i">
+                  <li>modify or copy the materials;</li>
+                  <li>use the materials for any commercial purpose, or for any public display (commercial or non-commercial);</li>
+                  <li>attempt to decompile or reverse engineer any software contained on Attic Ladder Ph's web site;</li>
+                  <li>remove any copyright or other proprietary notations from the materials; or</li>
+                  <li>transfer the materials to another person or "mirror" the materials on any other server.</li>
+                </ol>
+              </li>
+              <li>
+                This license shall automatically terminate if you violate any of these restrictions and may be terminated by Attic Ladder Ph at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.
+              </li>
+            </ol>
+            
+            <h3>
+              3. Disclaimer
+            </h3>
+            
+            <ol type="a">
+              <li>
+                The materials on Attic Ladder Ph's web site are provided "as is". Attic Ladder Ph makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Attic Ladder Ph does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.
+              </li>
+            </ol>
+            
+            <h3>
+              4. Limitations
+            </h3>
+            
+            <p>
+              In no event shall Attic Ladder Ph or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Attic Ladder Ph's Internet site, even if Attic Ladder Ph or a Attic Ladder Ph authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.
+            </p>
+                  
+            <h3>
+              5. Revisions and Errata
+            </h3>
+            
+            <p>
+              The materials appearing on Attic Ladder Ph's web site could include technical, typographical, or photographic errors. Attic Ladder Ph does not warrant that any of the materials on its web site are accurate, complete, or current. Attic Ladder Ph may make changes to the materials contained on its web site at any time without notice. Attic Ladder Ph does not, however, make any commitment to update the materials.
+            </p>
+            
+            <h3>
+              6. Links
+            </h3>
+            
+            <p>
+              Attic Ladder Ph has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Attic Ladder Ph of the site. Use of any such linked web site is at the user's own risk.
+            </p>
+            
+            <h3>
+              7. Site Terms of Use Modifications
+            </h3>
+            
+            <p>
+              Attic Ladder Ph may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.
+            </p>
+            
+            <h3>
+              8. Governing Law
+            </h3>
+            
+            <p>
+              Any claim relating to Attic Ladder Ph's web site shall be governed by the laws of the Philippines without regard to its conflict of law provisions.
+            </p>
+            
+            <p>
+              General Terms and Conditions applicable to Use of a Web Site.
+            </p>
+            
+            
+            
+            <h2>
+              Privacy Policy
+            </h2>
+            
+            <p>
+              Your privacy is very important to us. Accordingly, we have developed this Policy in order for you to understand how we collect, use, communicate and disclose and make use of personal information. The following outlines our privacy policy.
+            </p>
+            
+            <ul>
+              <li>
+                Before or at the time of collecting personal information, we will identify the purposes for which information is being collected.
+              </li>
+              <li>
+                We will collect and use of personal information solely with the objective of fulfilling those purposes specified by us and for other compatible purposes, unless we obtain the consent of the individual concerned or as required by law.		
+              </li>
+              <li>
+                We will only retain personal information as long as necessary for the fulfillment of those purposes. 
+              </li>
+              <li>
+                We will collect personal information by lawful and fair means and, where appropriate, with the knowledge or consent of the individual concerned. 
+              </li>
+              <li>
+                Personal data should be relevant to the purposes for which it is to be used, and, to the extent necessary for those purposes, should be accurate, complete, and up-to-date. 
+              </li>
+              <li>
+                We will protect personal information by reasonable security safeguards against loss or theft, as well as unauthorized access, disclosure, copying, use or modification.
+              </li>
+              <li>
+                We will make readily available to customers information about our policies and practices relating to the management of personal information. 
+              </li>
+            </ul>
+            
+            <p>
+              We are committed to conducting our business in accordance with these principles in order to ensure that the confidentiality of personal information is protected and maintained. 
+            </p>		
+            
+                            
+            
+          </div>  
         </div>
-      </section>
-    </main>
- <cfinclude template = "inc_footer.cfm">
+      </div>
+    </section>
+
+   
+  </main>
+ 
+<cfinclude template = "inc_footer.cfm">

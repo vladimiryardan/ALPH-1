@@ -1,3 +1,5 @@
+<cfparam  name="activeNav" default="home"> 
+
 <!-- 
       ############
       Navigation
@@ -24,17 +26,22 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="index.cfm">Home</a>
+                <a class="nav-link <cfoutput >#(activeNav EQ 'home' ? 'active' : '')#</cfoutput>" href="index.cfm">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.cfm">About</a>
+                <a class="nav-link <cfoutput >#(activeNav EQ 'gallery' ? 'active' : '')#</cfoutput>" href="gallery.cfm">Gallery</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.cfm">Contact</a>
+                <a class="nav-link <cfoutput >#(activeNav EQ 'contact' ? 'active' : '')#</cfoutput>" href="contact.cfm">Contact Us</a>
               </li>
+
+              <!--- FAQ
               <li class="nav-item">
                 <a class="nav-link" href="faq.cfm">FAQ</a>
               </li>
+              --->
+
+              <!--- BLOG 
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
@@ -55,6 +62,9 @@
                   </li>
                 </ul>
               </li>
+              --->
+
+              <!--- PORTFOLIO
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
@@ -65,22 +75,28 @@
                   aria-expanded="false"
                   >Portfolio</a
                 >
+
                 <ul
                   class="dropdown-menu dropdown-menu-end"
                   aria-labelledby="navbarDropdownPortfolio"
                 >
-                  <li>
-                    <a class="dropdown-item" href="portfolio-overview.cfm"
-                      >Portfolio Overview</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="portfolio-item.cfm"
-                      >Portfolio Item</a
-                    >
-                  </li>
+
+                <li>
+                  <a class="dropdown-item" href="portfolio-overview.cfm"
+                    >Portfolio Overview</a
+                  >
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="portfolio-item.cfm"
+                    >Portfolio Item</a
+                  >
+                </li>
+
                 </ul>
               </li>
+              --->
+
             </ul>
           </div>
         </div>

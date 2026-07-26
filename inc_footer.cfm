@@ -8,6 +8,18 @@
         <div
           class="row align-items-center justify-content-between flex-column flex-sm-row"
         >
+
+
+          <div class="col-auto">
+              <div class="small m-0 text-white">
+                  <p class="card-text">
+                    Vlad
+                    <span class="pl-5 pr-5"><i class="fas fa-phone-alt"></i></span>
+                    0977 849-7190
+                  </p>
+              </div>                 
+          </div>
+
           <div class="col-auto">
             <div class="small m-0 text-white">
               <cfoutput>
@@ -15,13 +27,18 @@
               </cfoutput>
             </div>
           </div>
+
           <div class="col-auto">
-            <a class="link-light small" href="privacy.cfm">Privacy</a>
-            <span class="text-white mx-1">&middot;</span>
-            <a class="link-light small" href="terms-conditions.cfm">Terms</a>
-            <span class="text-white mx-1">&middot;</span>
-            <a class="link-light small" href="contact.cfm">Contact</a>
-          </div>
+            <div class="small m-0 text-white">
+              <cfoutput>
+                <!--- facebook logo--->
+                <a href="https://www.facebook.com/atticladderph" class="btn btn-primary" target="_blank">
+                  <i class="fab fa-facebook-f"></i> 
+              </a>                
+              </cfoutput>
+            </div>
+          </div> 
+
         </div>
       </div>
     </footer>

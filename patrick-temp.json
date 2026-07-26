@@ -1,0 +1,95 @@
+{
+    "ShipmentRequest": {
+        "LabelSpecification": {
+            "LabelStockSize": {
+                "Width": "4",
+                "Height": "6"
+            },
+            "LabelImageFormat": {
+                "Code": "GIF"
+            },
+            "HTTPUserAgent": "Mozilla/4.5"
+        },
+        "Request": {
+            "RequestOption": "ship",
+            "TransactionReference": {
+                "CustomerContext": "201.13377.934"
+            }
+        },
+        "Shipment": {
+            "PaymentInformation": {
+                "ShipmentCharge": {
+                    "BillShipper": {
+                        "AccountNumber": "5403ef"
+                    },
+                    "Type": [
+                        "01"
+                    ]
+                }
+            },
+            "Package": {
+                "Dimensions": {
+                    "Length": "18",
+                    "UnitOfMeasurement": "IN",
+                    "Width": "3",
+                    "Height": "3"
+                },
+                "ReferenceNumber": {
+                    "Code": "PC",
+                    "Value": "201.13377.934 P&S"
+                },
+                "PackageServiceOptions": {
+                    "DeclaredValue": {
+                        "MonetaryValue": "19.99",
+                        "CurrencyCode": "USD"
+                    }
+                },
+                "PackagingType": {
+                    "Code": "02"
+                },
+                "PackageWeight": {
+                    "UnitOfMeasurement": {
+                        "Code": "LBS"
+                    },
+                    "Weight": "2"
+                }
+            },
+            "Service": {
+                "Code": "03"
+            },
+            "ShipTo": {
+                "Phone": {
+                    "Number": "8593056367"
+                },
+                "Address": {
+                    "PostalCode": "17042-5110",
+                    "City": "Lebanon",
+                    "CountryCode": "US",
+                    "StateProvinceCode": "PA",
+                    "AddressLine": [
+                        "11 S 10th St "
+                    ]
+                },
+                "Name": "testng",
+                "AttentionName": ""
+            },
+            "Shipper": {
+                "ShipperNumber": "5403ef",
+                "Phone": {
+                    "Number": "8593056367"
+                },
+                "Address": {
+                    "PostalCode": "40356",
+                    "City": "NICHOLASVILLE",
+                    "CountryCode": "US",
+                    "StateProvinceCode": "KY",
+                    "AddressLine": [
+                        "5004 Park Central Ave.Unit B "
+                    ]
+                },
+                "Name": "Kelley Commerce",
+                "AttentionName": "Kelley Commerce"
+            }
+        }
+    }
+}

@@ -1,5 +1,4 @@
  <cfinclude template = "inc_header.cfm">
- <cfset activeNav = "contact">
   <!--
     ############
     body
@@ -17,22 +16,20 @@
       -->
       <section class="py-5" id="Contact">
         <div class="container">
-          <h2 class="text-center">Contact Us</h2>
-         
+          
           <div class="row justify-content-center">
-            
-            <div class="col-md-8 ">
-              <p class="text-center tracking-wide">If you have inquiries about our products or services at Attic Ladder PH, don't hesitate to contact us. 
-                We're here to help!
-              </p>
+            <div class="col-md-6">
+              <!-- Contact Form -->
+              <h2 class="text-center">Contact Us</h2>
+              <p class="text-center tracking-wide">If you have inquiries about our products or services at Attic Ladder PH, don't hesitate to contact us. We're here to help!</p>
               <form id="contactForm">
                 <div class="form-group pb-3">
                   <label for="name">Name:</label>
                   <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
                 </div>
                 <div class="form-group pb-3">
-                  <label for="name">Company:</label>
-                  <input type="text" class="form-control" id="company" placeholder="Enter Company Name" >
+                  <label for="company">Company:</label>
+                  <input type="text" class="form-control" id="company" placeholder="Enter Company Name">
                 </div>                
                 <div class="form-group pb-3">
                   <label for="email">Email:</label>
@@ -44,7 +41,6 @@
                 </div>
                 <!-- ColdFusion CAPTCHA -->
                 <div class="form-group">
-                  <!--- <img src="generate_captcha.cfm" alt="CAPTCHA Image"> --->
                   <iframe id="frameCaptcha" src="generate_captcha.cfm" width="300" height="100" scrolling="no" frameborder="0" style="overflow:auto;"></iframe>
                   <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Enter CAPTCHA" required>
                 </div>                
@@ -52,7 +48,14 @@
               </form>
               <div id="successMessage" style="display: none; margin-top: 20px;" class="alert alert-success text-center">Thank you for your message!</div>
             </div>
+          
+            <div class="col-md-6">
+              <!-- Image -->
+              <img src="images/14.jpg" alt="Attic Ladder Image" class="img-fluid" style="max-width: 100%; height: auto;">
+            </div>
           </div>
+          
+          
         </div>
 
 <script
