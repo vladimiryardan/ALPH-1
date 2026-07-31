@@ -3,6 +3,7 @@
     Footer
     ############
     -->
+    <cfif NOT structKeyExists(variables, "hideFooter")>
     <footer class="bg-dark py-4 mt-auto">
       <div class="container px-5">
         <div
@@ -42,9 +43,41 @@
         </div>
       </div>
     </footer>
+  </cfif>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+
+<cfif NOT structKeyExists(variables, "hideFloatingContact")>
+<div class="contact-widget" id="contactWidget">
+
+  <div class="contact-popup" id="contactPopup">
+    <a href="https://www.facebook.com/messages/t/atticladderph" target="_blank" rel="noopener">
+      <i class="bi bi-messenger"></i>
+      Messenger
+    </a>
+
+    <a href="tel:+639778497190">
+      <i class="bi bi-telephone-fill"></i>
+      Call Us
+    </a>
+
+    <a href="quoterequest.cfm">
+      <i class="bi bi-envelope-fill"></i>
+      Request a Quote
+    </a>
+  </div>
+
+  <button type="button" class="contact-toggle" id="contactToggle">
+    <i class="bi bi-chat-dots-fill"></i>
+    <span>Contact Us</span>
+  </button>
+
+</div>
+</cfif>
+
   </body>
 </html>
