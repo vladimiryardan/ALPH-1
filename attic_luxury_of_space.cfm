@@ -133,9 +133,11 @@
                     In tackling overcrowding, we're not just solving a problem; we're creating a vision of a future where cities inspire, connect, and empower. 
                     Together, we can redefine the way we inhabit our world, ensuring that space is not just a luxury for the few but a foundation for a better life for all.
                 </p>
-    
+
+                <cfinclude template = "blog_inc_cta.cfm">
                 </section>
               </article>
+
               <!-- Comments section-->
             </div>
           </div>
