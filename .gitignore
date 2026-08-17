@@ -107,3 +107,12 @@ dist
 settings.xml
 server-server.json
 .vscode/ALPH.cfproject
+
+####
+#vlad 20260817
+# Local CommandBox/Lucee configuration - contains secrets
+server.json
+
+# Local development/test files
+mail-test.cfm
+temp_totp_check.py
