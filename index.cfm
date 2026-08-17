@@ -300,14 +300,13 @@
                   </div>
                   <a
                     class="text-decoration-none link-dark stretched-link"
-                    href="attic_the_cost_of_inflation.cfm"
+                    href="attic_ladder_smart_investment.cfm"
                     ><h5 class="card-title mb-3">
-                      The Cost of Inflation: How Capital Gains Taxes and Zonal Repricing Influence Economic Pressures
+                      Attic Ladder Is a Smart Investment
                     </h5></a
                   >
                   <p class="card-text mb-0">
-                    Explore how capital gains taxes and zonal repricing policies unintentionally fuel inflation and widen economic inequality. Government revenue, can drive up asset prices, discourage reinvestment, and increase living costs.
-                  </p>
+                    Discover how rising renovation costs are encouraging homeowners to maximize existing space instead of expanding. Learn why installing an attic ladder is a smart, affordable investment that improves storage, organization, and your home's long-term value. </p>
                 </div>
                 <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                   <div class="d-flex align-items-end justify-content-between">
