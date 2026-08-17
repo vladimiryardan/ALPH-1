@@ -1,17 +1,19 @@
 <cfcomponent>
 	<cfset this.datasource = "alph">
-	<cfset this.sessionManagement = true> 
-	<cfset this.sessionTimeout = createTimeSpan(0,0,30,0) > <!--- Optional: Set session timeout to 30 minutes --->
+	<cfset this.sessionManagement = true>
+	<cfset this.sessionTimeout = createTimeSpan(0,0,30,0)>
+	<cfset this.adminTotpSecret = "" >
 	<!--- http://127.0.0.1:60082/lucee/admin/server.cfm?action=server.error --->
 
 	<cfset this.showDebugOutput = true>
 	<!--- recatpcha: https://www.google.com/recaptcha/admin/site/762118480 atticladderph@gmail.com--->
-	
+
 
 
 	<cffunction name="onApplicationStart" access="public" returntype="boolean">
-		<!--- copy the configured datasource into application scope for pages --->
+		<!--- copy the configured datasource and shared TOTP secret into application scope for pages --->
 		<cfset application.datasource = this.datasource>
+		<cfset application.adminTotpSecret = this.adminTotpSecret>
 		<cfreturn true>
 	</cffunction>
 
