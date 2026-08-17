@@ -1,12 +1,12 @@
 {
   "liveServer.settings.port": 5501,
-  "java.import.gradle.enabled": false,
-  "java.project.importOnFirstTimeStartup": "disabled",
-  "java.configuration.checkProjectSettingsExclusions": false,
-  "java.autobuild.enabled": false,
-  "java.server.launchMode": "LightWeight",
-  "java.trace.server": "off",
-  "java.completion.enabled": false,
-  "java.format.enabled": false,
-  "java.debug.settings.enableRunDebugCodeLens": false
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": false,
+  "editor.quickSuggestions": {
+    "other": false,
+    "comments": false,
+    "strings": false
+  },
+  "editor.codeActionsOnSave": {},
+  "files.autoSave": "off"
 }
