@@ -183,9 +183,9 @@
 
                                 <select class="form-select" name="height">
 
-                                    <option value="Less than 8 ft">Less than 8 ft</option>
-                                    <option value="8–10 ft">8–10 ft</option>
-                                    <option value="Over 10 ft">Over 10 ft</option>
+                                    <option value="Less than 2.4 m">Less than 2.4 m</option>
+                                    <option value="2.4-3.0 m">2.4-3.0 m</option>
+                                    <option value="Over 3.0 m">Over 3.0 m</option>
                                     <option value="Not Sure">Not Sure</option>
 
                                 </select>
@@ -200,9 +200,14 @@
 
                                 <select class="form-select" name="opening">
 
+                                    <option value="Not Sure" selected>Not Sure</option>
                                     <option value="Existing Opening">Existing Opening</option>
                                     <option value="Need New Opening">Need New Opening</option>
-                                    <option value="Not Sure">Not Sure</option>
+                                    <option value="70cm x 90cm">70cm x 90cm</option>
+                                    <option value="70cm x 100cm">70cm x 100cm</option>
+                                    <option value="70cm x 120cm">70cm x 120cm</option>
+                                    <option value="80cm x 100cm">80cm x 100cm</option>
+                                    <option value="80cm x 120cm">80cm x 120cm</option>
 
                                 </select>
 

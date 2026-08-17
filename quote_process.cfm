@@ -84,12 +84,12 @@
     <cfset arrayAppend(errors, "Please select a valid property type.")>
 </cfif>
 
-<cfset allowedHeights = "Less than 8 ft,8-10 ft,Over 10 ft,Not Sure">
+<cfset allowedHeights = "Less than 2.4 m,2.4-3.0 m,Over 3.0 m,Not Sure">
 <cfif NOT listFindNoCase(allowedHeights, quote.height)>
     <cfset arrayAppend(errors, "Please select a valid ceiling height.")>
 </cfif>
 
-<cfset allowedOpenings = "Existing Opening,Need New Opening,Not Sure">
+<cfset allowedOpenings = "Existing Opening,Need New Opening,Not Sure,70cm x 90cm,70cm x 100cm,70cm x 120cm,80cm x 100cm,80cm x 120cm">
 <cfif NOT listFindNoCase(allowedOpenings, quote.opening)>
     <cfset arrayAppend(errors, "Please select a valid opening option.")>
 </cfif>
