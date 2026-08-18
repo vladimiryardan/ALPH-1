@@ -113,6 +113,10 @@ server-server.json
 # Local CommandBox/Lucee configuration - contains secrets
 server.json
 
+# Secure local environment files and nested folders
+/ZvladSecureFolderIgnore/
+
 # Local development/test files
 mail-test.cfm
 temp_totp_check.py
+
