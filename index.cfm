@@ -98,8 +98,8 @@
                   </div>
                   <h2 class="h5">Retractable</h2>
                   <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
+                    Folds neatly into the ceiling when not in use, keeping
+                    your attic access out of the way.
                   </p>
                 </div>
                 <div class="col mb-5 h-100">
@@ -110,8 +110,8 @@
                   </div>
                   <h2 class="h5">Space Saving</h2>
                   <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
+                    Access valuable storage space without sacrificing useful
+                    floor area in your home.
                   </p>
                 </div>
                 <div class="col mb-5 mb-md-0 h-100">
@@ -122,8 +122,8 @@
                   </div>
                   <h2 class="h5">Easy To Operate</h2>
                   <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
+                    Open and close your attic access smoothly whenever you
+                    need it.
                   </p>
                 </div>
                 <div class="col h-100">
@@ -134,8 +134,8 @@
                   </div>
                   <h2 class="h5">Concealed</h2>
                   <p class="mb-0">
-                    Paragraph of text beneath the heading to explain the
-                    heading. Here is just a bit more text.
+                    Sits discreetly in the ceiling for a clean, finished look
+                    when the ladder is closed.
                   </p>
                 </div>
               </div>
