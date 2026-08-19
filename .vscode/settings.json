@@ -24,8 +24,16 @@
     "diffEditor.removedTextBackground": "#e6a6a655",
     "diffEditor.removedTextBorder": "#c98282",
 
-    "diffEditorOverview.insertedForeground": "#7fa87f",
-    "diffEditorOverview.removedForeground": "#c98282",
+    "diffEditorOverview.insertedForeground": "#999999",
+    "diffEditorOverview.removedForeground": "#777777",
+
+    "editorGutter.addedBackground": "#AAAAAA",
+    "editorGutter.modifiedBackground": "#888888",
+    "editorGutter.deletedBackground": "#666666",
+
+    "editorOverviewRuler.addedForeground": "#AAAAAA",
+    "editorOverviewRuler.modifiedForeground": "#888888",
+    "editorOverviewRuler.deletedForeground": "#666666",
 
     "editor.selectionBackground": "#ADD6FF",
     "editor.inactiveSelectionBackground": "#DDE8F2"
