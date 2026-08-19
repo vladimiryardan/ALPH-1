@@ -8,5 +8,81 @@
     "strings": false
   },
   "editor.codeActionsOnSave": {},
-  "files.autoSave": "off"
+  "files.autoSave": "off",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "source.cfml",
+          "source.cfm",
+          "source.cfc"
+        ],
+        "settings": {
+          "foreground": "#d4d4d4",
+          "background": "#1e1e1e"
+        }
+      },
+      {
+        "scope": [
+          "comment.block.cfml",
+          "comment.line.cfml",
+          "comment.block.cfm",
+          "comment.line.cfm",
+          "comment.block.cfc",
+          "comment.line.cfc"
+        ],
+        "settings": {
+          "foreground": "#7f8c8d",
+          "background": "#1e1e1e",
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": [
+          "keyword.control.cfml",
+          "keyword.operator.cfml",
+          "storage.type.cfml",
+          "storage.modifier.cfml"
+        ],
+        "settings": {
+          "foreground": "#c586c0",
+          "background": "#1e1e1e"
+        }
+      },
+      {
+        "scope": [
+          "entity.name.tag.cfml",
+          "entity.name.function.cfml",
+          "variable.other.cfml",
+          "variable.language.cfml"
+        ],
+        "settings": {
+          "foreground": "#4ec9b0",
+          "background": "#1e1e1e"
+        }
+      },
+      {
+        "scope": [
+          "string.quoted.double.cfml",
+          "string.quoted.single.cfml",
+          "constant.numeric.cfml",
+          "constant.language.cfml"
+        ],
+        "settings": {
+          "foreground": "#ce9178",
+          "background": "#1e1e1e"
+        }
+      }
+    ]
+  },
+  "workbench.colorCustomizations": {
+    "diffEditor.insertedLineBackground": "#6f927a22",
+    "diffEditor.insertedTextBackground": "#6f927a2b",
+    "diffEditor.insertedTextBorder": "#53705e",
+    "diffEditor.removedLineBackground": "#a8797922",
+    "diffEditor.removedTextBackground": "#a879792b",
+    "diffEditor.removedTextBorder": "#b86b6b",
+    "diffEditorOverview.insertedForeground": "#53705e",
+    "diffEditorOverview.removedForeground": "#b86b6b"
+  }
 }
