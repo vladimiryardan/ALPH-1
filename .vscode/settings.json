@@ -15,6 +15,21 @@
 
   "files.autoSave": "off",
 
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "entity.name.function",
+          "support.function",
+          "variable.function"
+        ],
+        "settings": {
+          "foreground": "#0066CC"
+        }
+      }
+    ]
+  },
+
   "workbench.colorCustomizations": {
     "diffEditor.insertedLineBackground": "#d9ead355",
     "diffEditor.insertedTextBackground": "#b7d7b755",
