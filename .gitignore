@@ -119,4 +119,5 @@ server.json
 # Local development/test files
 mail-test.cfm
 temp_totp_check.py
+start-dev.sh
 
