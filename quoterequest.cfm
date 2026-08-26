@@ -3,6 +3,14 @@
 <cfset hideFooter = true>
 <cfset hideFloatingContact = true>
 
+<!--- Keep the quote page renderable while local reCAPTCHA configuration is being loaded. --->
+<cfif NOT structKeyExists(application, "recaptcha") OR NOT isStruct(application.recaptcha)>
+    <cfset application.recaptcha = {}>
+</cfif>
+<cfif NOT structKeyExists(application.recaptcha, "siteKey")>
+    <cfset application.recaptcha.siteKey = "">
+</cfif>
+
   <!--
     ############
     body
@@ -245,6 +253,29 @@
 
                             </div>
 
+                            <div class="mb-4">
+
+                                <label class="form-label">
+                                    Security Verification *
+                                </label>
+
+                                <cfif len(trim(application.recaptcha.siteKey))>
+                                    <cfoutput>
+                                    <div
+                                        class="g-recaptcha"
+                                        id="quoteRecaptcha"
+                                        data-sitekey="#encodeForHTMLAttribute(application.recaptcha.siteKey)#">
+                                    </div>
+                                    </cfoutput>
+                                <cfelse>
+                                    <div class="alert alert-warning mb-0" role="alert">
+                                        Security verification is temporarily unavailable.
+                                        Please call or text us directly to request a quote.
+                                    </div>
+                                </cfif>
+
+                            </div>
+
                             <div class="text-center">
 
                                 <button
@@ -290,5 +321,8 @@
 </section>
      
     </main>
-   
+
+<!-- Google reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
  <cfinclude template = "inc_footer.cfm">

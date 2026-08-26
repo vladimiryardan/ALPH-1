@@ -6,9 +6,9 @@
 --->
 <cfset settings = {
     businessName = "Attic Ladder PH",
-    quoteRecipient = "quotes@atticladderph.com",
-    fromEmail = "website@atticladderph.com",
-    replyToEmail = "quotes@atticladderph.com",
+    quoteRecipient = application.smtp.toEmail,
+    fromEmail = application.smtp.fromEmail,
+    replyToEmail = application.smtp.replyToEmail,
     thankYouPage = "quote-thank-you.cfm",
     formPage = "quoterequest.cfm",
     uploadFolder = expandPath("./uploads/quote-requests"),
@@ -33,10 +33,89 @@
 <cfparam name="form.contact_method" default="">
 <cfparam name="form.notes" default="">
 <cfparam name="form.website" default="">
+<cfparam name="form.g-recaptcha-response" default="">
 
 <!--- Honeypot: bots often fill hidden fields. --->
 <cfif len(trim(form.website))>
     <cflocation url="#settings.thankYouPage#" addtoken="false">
+</cfif>
+
+<!---
+    Google reCAPTCHA v2 server-side verification
+--->
+<cfset recaptchaToken = trim(form["g-recaptcha-response"])>
+
+<cfif NOT len(recaptchaToken)>
+    <cfheader statuscode="400" statustext="Bad Request">
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Please check your form</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light">
+        <main class="container py-5">
+            <div class="card border-0 shadow-sm mx-auto" style="max-width:700px;">
+                <div class="card-body p-4 p-md-5">
+                    <h1 class="h3 mb-3">Please check your information</h1>
+                    <p class="text-danger mb-4">Please complete the reCAPTCHA verification.</p>
+                    <a class="btn btn-dark" href="<cfoutput>#encodeForHTMLAttribute(settings.formPage)#</cfoutput>" onclick="history.back(); return false;">Return to the form</a>
+                </div>
+            </div>
+        </main>
+    </body>
+    </html>
+    <cfabort>
+</cfif>
+
+<cfhttp
+    url="https://www.google.com/recaptcha/api/siteverify"
+    method="post"
+    result="recaptchaHttpResult"
+    throwonerror="false">
+
+    <cfhttpparam type="formfield" name="secret" value="#application.recaptcha.secretKey#">
+    <cfhttpparam type="formfield" name="response" value="#recaptchaToken#">
+    <cfhttpparam type="formfield" name="remoteip" value="#CGI.REMOTE_ADDR#">
+
+</cfhttp>
+
+<cfset recaptchaResult = {}>
+
+<cftry>
+    <cfset recaptchaResult = deserializeJSON(recaptchaHttpResult.fileContent)>
+
+    <cfcatch type="any">
+        <cfset recaptchaResult = { success = false }>
+    </cfcatch>
+</cftry>
+
+<cfif NOT (structKeyExists(recaptchaResult, "success") AND recaptchaResult.success)>
+    <cflog file="attic-ladder-quotes" type="Information" text="Quote reCAPTCHA verification failed. IP: #CGI.REMOTE_ADDR#">
+    <cfheader statuscode="400" statustext="Bad Request">
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Please check your form</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light">
+        <main class="container py-5">
+            <div class="card border-0 shadow-sm mx-auto" style="max-width:700px;">
+                <div class="card-body p-4 p-md-5">
+                    <h1 class="h3 mb-3">Please check your information</h1>
+                    <p class="text-danger mb-4">The reCAPTCHA verification failed. Please try again.</p>
+                    <a class="btn btn-dark" href="<cfoutput>#encodeForHTMLAttribute(settings.formPage)#</cfoutput>" onclick="history.back(); return false;">Return to the form</a>
+                </div>
+            </div>
+        </main>
+    </body>
+    </html>
+    <cfabort>
 </cfif>
 
 <!--- Normalize submitted values. --->
@@ -243,6 +322,7 @@
         to="#settings.quoteRecipient#"
         from="#settings.fromEmail#"
         replyto="#len(quote.email) ? quote.email : settings.replyToEmail#"
+        attributeCollection="#application.smtp.mailAttributes#"
         subject="New quote request - #quote.fullname# - #quote.city#"
         type="html">
         #businessEmailBody#
@@ -258,6 +338,7 @@
             to="#quote.email#"
             from="#settings.fromEmail#"
             replyto="#settings.replyToEmail#"
+            attributeCollection="#application.smtp.mailAttributes#"
             subject="We received your quote request - #settings.businessName#"
             type="html">
             <cfoutput>
