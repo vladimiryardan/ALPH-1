@@ -16,10 +16,10 @@
         <cfargument name="company" type="string" required="false" default="">
         <cfargument name="subject" type="string" required="true">
         <cfargument name="message" type="string" required="true">
-        <cfargument name="canswer" type="string" required="true">
+        <cfargument name="recaptchaToken" type="string" required="true">
         <cfargument name="website" type="string" required="false" default="">
 
-        <cftry>
+       
 
             <!--- Trim submitted values --->
             <cfset local.fullName = trim(arguments.name)>
@@ -28,7 +28,7 @@
             <cfset local.company = trim(arguments.company)>
             <cfset local.subject = trim(arguments.subject)>
             <cfset local.message = trim(arguments.message)>
-            <cfset local.captchaAnswer = trim(arguments.canswer)>
+            <cfset local.recaptchaToken = trim(arguments.recaptchaToken)>
             <cfset local.honeypot = trim(arguments.website)>
 
 
@@ -70,27 +70,42 @@
 
 
             <!---
-                CAPTCHA validation
-
-                IMPORTANT:
-                Replace session.captchaText below with the exact
-                session variable used inside generate_captcha.cfm.
+                Google reCAPTCHA v2 server-side verification
             --->
-            <cfif NOT structKeyExists(session, "captchaText")>
-                <cfreturn "The CAPTCHA has expired. Please refresh it and try again.">
+            <cfif NOT len(local.recaptchaToken)>
+                <cfreturn "Please complete the reCAPTCHA verification.">
             </cfif>
 
-            <cfif compareNoCase(
-                local.captchaAnswer,
-                trim(session.captchaText)
-            ) NEQ 0>
+            <cfhttp
+                url="https://www.google.com/recaptcha/api/siteverify"
+                method="post"
+                result="local.recaptchaHttpResult"
+                throwonerror="false">
 
-                <cfreturn "The CAPTCHA code is incorrect.">
+                <cfhttpparam type="formfield" name="secret" value="#application.recaptcha.secretKey#">
+                <cfhttpparam type="formfield" name="response" value="#local.recaptchaToken#">
+                <cfhttpparam type="formfield" name="remoteip" value="#cgi.remote_addr#">
+
+            </cfhttp>
+
+            <cfset local.recaptchaResult = {}>
+
+            <cftry>
+                <cfset local.recaptchaResult = deserializeJSON(local.recaptchaHttpResult.fileContent)>
+
+                <cfcatch type="any">
+                    <cfset local.recaptchaResult = { success = false }>
+                </cfcatch>
+            </cftry>
+
+            <cfif NOT (structKeyExists(local.recaptchaResult, "success") AND local.recaptchaResult.success)>
+                <cflog
+                    file="atticladderph-contact"
+                    type="Information"
+                    text="Contact reCAPTCHA verification failed. IP: #cgi.remote_addr#">
+
+                <cfreturn "The reCAPTCHA verification failed. Please try again.">
             </cfif>
-
-
-            <!--- Remove CAPTCHA after successful validation --->
-            <cfset structDelete(session, "captchaText")>
 
 
             <!--- Escape values for safe HTML email output --->
@@ -110,9 +125,10 @@
 
             <!--- Send notification to Attic Ladder PH --->
             <cfmail
-                to="sales@atticladderph.com"
-                from="website@atticladderph.com"
+                to="#application.smtp.toEmail#"
+                from="#application.smtp.fromEmail#"
                 replyto="#local.email#"
+                attributeCollection="#application.smtp.mailAttributes#"
                 subject="Website Contact: #local.subject#"
                 type="html">
 
@@ -316,7 +332,8 @@
             <!--- Customer acknowledgment email --->
             <cfmail
                 to="#local.email#"
-                from="sales@atticladderph.com"
+                from="#application.smtp.fromEmail#"
+                attributeCollection="#application.smtp.mailAttributes#"
                 subject="We received your message — Attic Ladder PH"
                 type="html">
 
@@ -428,7 +445,7 @@
 
             <cfreturn "Success">
 
-
+            <cftry>                 
             <cfcatch type="any">
 
                 <cflog

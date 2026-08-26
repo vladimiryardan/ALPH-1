@@ -2,6 +2,14 @@
 
 <cfinclude template="inc_header.cfm">
 
+<!--- Keep the contact page renderable while local reCAPTCHA configuration is being loaded. --->
+<cfif NOT structKeyExists(application, "recaptcha") OR NOT isStruct(application.recaptcha)>
+    <cfset application.recaptcha = {}>
+</cfif>
+<cfif NOT structKeyExists(application.recaptcha, "siteKey")>
+    <cfset application.recaptcha.siteKey = "">
+</cfif>
+
 <body class="d-flex flex-column min-vh-100">
 
 <main class="flex-shrink-0">
@@ -426,48 +434,28 @@
                                 </div>
 
 
-                                <!-- Existing ColdFusion CAPTCHA -->
+                                <!-- Google reCAPTCHA v2 (checkbox) -->
                                 <div class="col-12">
 
-                                    <label for="captcha" class="form-label">
+                                    <label class="form-label">
                                         Security Verification
                                         <span class="required-mark">*</span>
                                     </label>
 
-                                    <div class="captcha-wrapper">
-
-                                        <iframe
-                                            id="frameCaptcha"
-                                            src="generate_captcha.cfm"
-                                            title="CAPTCHA verification image"
-                                            width="300"
-                                            height="100"
-                                            scrolling="no"
-                                            frameborder="0">
-                                        </iframe>
-
-                                        <button
-                                            type="button"
-                                            class="captcha-refresh"
-                                            id="refreshCaptcha"
-                                            aria-label="Refresh CAPTCHA">
-
-                                            <i class="bi bi-arrow-clockwise"></i>
-                                            Refresh
-
-                                        </button>
-
-                                    </div>
-
-                                    <input
-                                        type="text"
-                                        class="form-control captcha-input"
-                                        id="captcha"
-                                        name="captcha"
-                                        placeholder="Enter the characters shown above"
-                                        maxlength="20"
-                                        autocomplete="off"
-                                        required>
+                                    <cfif len(trim(application.recaptcha.siteKey))>
+                                        <cfoutput>
+                                        <div
+                                            class="g-recaptcha"
+                                            id="contactRecaptcha"
+                                            data-sitekey="#encodeForHTMLAttribute(application.recaptcha.siteKey)#">
+                                        </div>
+                                        </cfoutput>
+                                    <cfelse>
+                                        <div class="alert alert-warning mb-0" role="alert">
+                                            Security verification is temporarily unavailable.
+                                            Please call or text us directly to send your inquiry.
+                                        </div>
+                                    </cfif>
 
                                 </div>
 
@@ -535,6 +523,9 @@
     crossorigin="anonymous">
 </script>
 
+<!-- Google reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
 <script>
 $(document).ready(function () {
@@ -548,17 +539,10 @@ $(document).ready(function () {
 
 
     function refreshCaptcha() {
-        const captchaUrl =
-            "generate_captcha.cfm?t=" + new Date().getTime();
-
-        $("#frameCaptcha").attr("src", captchaUrl);
-        $("#captcha").val("");
+        if (window.grecaptcha && typeof grecaptcha.reset === "function") {
+            grecaptcha.reset();
+        }
     }
-
-
-    $("#refreshCaptcha").on("click", function () {
-        refreshCaptcha();
-    });
 
 
     $message.on("input", function () {
@@ -578,6 +562,15 @@ $(document).ready(function () {
             return;
         }
 
+        const recaptchaToken =
+            window.grecaptcha ? grecaptcha.getResponse() : "";
+
+        if (!recaptchaToken) {
+            $errorText.text("Please complete the reCAPTCHA verification.");
+            $error.fadeIn(200);
+            return;
+        }
+
 
         const formData = {
             name: $.trim($("#name").val()),
@@ -586,7 +579,7 @@ $(document).ready(function () {
             company: $.trim($("#company").val()),
             subject: $("#subject").val(),
             message: $.trim($("#message").val()),
-            canswer: $.trim($("#captcha").val()),
+            recaptchaToken: recaptchaToken,
             website: $.trim($("#website").val())
         };
 
@@ -634,7 +627,7 @@ $(document).ready(function () {
                 } else {
 
                     let message =
-                        "We couldn't submit your message. Please check the CAPTCHA and try again.";
+                        "We couldn't submit your message. Please check the reCAPTCHA and try again.";
 
                     if (cleanedResponse.length > 0 &&
                         cleanedResponse.length < 300) {
