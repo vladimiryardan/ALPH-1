@@ -1,5 +1,7 @@
 <cfparam name="pageCanonicalURL" default="">
 <cfparam name="pageTitle" default="Attic Ladder PH | Attic Access Solutions">
+<cfparam name="pageImageURL" default="https://atticladderph.com/images/attic-ladder-main.png">
+<cfparam name="pageImageAlt" default="Retractable attic ladder installed beneath an open ceiling hatch">
 <cfparam name="pageDescription" default="Discover space-saving attic ladders from Attic Ladder PH. Explore attic access solutions, nationwide supply and installation options, and request a free quote.">
 <!DOCTYPE html>
 <html lang="en">
@@ -14,11 +16,21 @@
     <title><cfoutput>#encodeForHTML(pageTitle)#</cfoutput></title>
     <meta property="og:title" content="<cfoutput>#encodeForHTMLAttribute(pageTitle)#</cfoutput>" />
     <meta property="og:description" content="<cfoutput>#encodeForHTMLAttribute(pageDescription)#</cfoutput>" />
+    <meta property="og:image" content="<cfoutput>#encodeForHTMLAttribute(pageImageURL)#</cfoutput>" />
+    <meta property="og:image:alt" content="<cfoutput>#encodeForHTMLAttribute(pageImageAlt)#</cfoutput>" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<cfoutput>#encodeForHTMLAttribute(pageTitle)#</cfoutput>" />
+    <meta name="twitter:description" content="<cfoutput>#encodeForHTMLAttribute(pageDescription)#</cfoutput>" />
+    <meta name="twitter:image" content="<cfoutput>#encodeForHTMLAttribute(pageImageURL)#</cfoutput>" />
+    <meta name="twitter:image:alt" content="<cfoutput>#encodeForHTMLAttribute(pageImageAlt)#</cfoutput>" />
     <cfif len(pageCanonicalURL)>
       <link rel="canonical" href="<cfoutput>#encodeForHTMLAttribute(pageCanonicalURL)#</cfoutput>" />
+      <meta property="og:url" content="<cfoutput>#encodeForHTMLAttribute(pageCanonicalURL)#</cfoutput>" />
     </cfif>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png" />
     <!-- Bootstrap icons-->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
