@@ -121,3 +121,5 @@ mail-test.cfm
 temp_totp_check.py
 start-dev.sh
 
+# Secure local environment files and nested folders
+/snippets/
