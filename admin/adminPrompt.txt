@@ -1,0 +1,467 @@
+Create the initial Admin Dashboard UI for the Attic Ladder PH website using Bootstrap.
+
+This is an initial frontend/UI setup only. Do not build database integration or backend processing yet. Use placeholder content and realistic sample data so we can review the layout and workflow first.
+
+Use the existing project structure and existing Bootstrap version already installed in the project. Do not introduce a new frontend framework.
+
+## Goal
+
+Build a clean, modern, professional admin interface that can later manage:
+
+* Dashboard
+* Quote Requests
+* Contact Inquiries
+* Gallery
+* Products / Attic Ladder Types
+* Blog / Articles
+* Users
+* Website Settings
+
+The design should be simple, functional, responsive, and appropriate for an internal business admin portal.
+
+## Overall Layout
+
+Create a reusable admin layout consisting of:
+
+### Left Sidebar
+
+Desktop:
+
+* Fixed or sticky sidebar on the left
+* Attic Ladder PH logo/name at the top
+* Navigation menu underneath
+
+Menu items:
+
+* Dashboard
+* Quote Requests
+* Contact Inquiries
+* Gallery
+* Products
+* Blog / Articles
+* Users
+* Settings
+
+Use Bootstrap Icons if Bootstrap Icons already exists in the project.
+
+If Bootstrap Icons is not currently installed, use simple text placeholders or existing icon resources rather than adding unnecessary dependencies.
+
+Highlight the active page.
+
+The sidebar should collapse or convert to an offcanvas menu on mobile.
+
+### Top Navigation Bar
+
+Include:
+
+* Page title
+* Optional breadcrumb
+* Notification icon placeholder
+* Logged-in user dropdown
+
+Sample user:
+
+Name: Vladimir
+Role: Super Admin
+
+Dropdown items:
+
+* Profile
+* Account Settings
+* Logout
+
+## Dashboard Page
+
+Create a dashboard overview using Bootstrap cards.
+
+Display sample KPI cards:
+
+* New Quote Requests: 12
+* Pending Quotes: 7
+* New Contact Inquiries: 5
+* Gallery Photos: 28
+
+Add a Recent Quote Requests table.
+
+Columns:
+
+* Date
+* Customer
+* Location
+* Ladder Type
+* Service
+* Status
+* Action
+
+Use sample data such as:
+
+1. Maria Santos | Cavite | Folding Ladder | Supply & Install | New
+2. John Reyes | Alabang | Accordion Ladder | Supply & Install | Contacted
+3. Carlo Mendoza | Las Piñas | Folding Ladder | Supply Only | Quoted
+4. Anne Cruz | Taguig | Folding Ladder | Supply & Install | Scheduled
+5. Mark Lim | Parañaque | Accordion Ladder | Supply & Install | Completed
+
+Use Bootstrap badges for statuses.
+
+Suggested badge statuses:
+
+* New
+* Contacted
+* Quoted
+* Scheduled
+* Completed
+* Cancelled
+
+Add a "View All Quotes" button.
+
+Also add a Recent Activity section using placeholder data such as:
+
+* New quote request received from Maria Santos
+* Gallery image uploaded
+* Blog article updated
+* Quote marked as Scheduled
+* New admin user created
+
+## Quote Requests Page
+
+Create a Bootstrap table containing sample quote requests.
+
+Include:
+
+* Search field
+* Status filter
+* Service filter
+* Date filter placeholder
+* Newest first sorting placeholder
+
+Columns:
+
+* Quote ID
+* Date
+* Customer
+* Mobile
+* Email
+* Location
+* Ladder Type
+* Service
+* Status
+* Actions
+
+Sample IDs:
+
+ALPH-1001
+ALPH-1002
+ALPH-1003
+ALPH-1004
+ALPH-1005
+
+Actions should include:
+
+* View
+* Edit
+* Change Status
+
+Use Bootstrap buttons or dropdown menus.
+
+Do not implement actual backend actions yet.
+
+## Quote Details Page
+
+Create a sample quote details page.
+
+Sections:
+
+### Customer Information
+
+* Name
+* Mobile Number
+* Email
+* Address
+* City / Province
+
+### Project Information
+
+* Ladder Type
+* Ceiling Height
+* Ceiling Opening Size
+* Supply Only or Supply & Install
+* Preferred Installation Date
+* Customer Notes
+
+### Status
+
+Allow a visual placeholder dropdown containing:
+
+* New
+* Contacted
+* Quoted
+* Scheduled
+* Completed
+* Cancelled
+
+### Internal Notes
+
+Provide a textarea placeholder for admin notes.
+
+### Actions
+
+Buttons:
+
+* Save Changes
+* Send Quote
+* Mark as Contacted
+* Schedule Installation
+
+These are UI placeholders only.
+
+## Contact Inquiries Page
+
+Create a table containing:
+
+* Date
+* Name
+* Email
+* Mobile
+* Subject
+* Status
+* Action
+
+Statuses:
+
+* New
+* Replied
+* Closed
+
+Use sample data.
+
+## Gallery Management Page
+
+This section is important because the public website will have a Gallery.
+
+Create a Gallery admin page with:
+
+* "Add Photo" button
+* Responsive Bootstrap card/grid layout
+* Sample installation photos represented by placeholder images
+* Image title
+* Location
+* Ladder type
+* Display order
+* Published / Draft badge
+
+Each gallery card should contain buttons for:
+
+* Edit
+* Delete
+* Publish / Unpublish
+
+Create an "Add Gallery Photo" modal or page containing:
+
+* Image upload placeholder
+* Title
+* Short caption
+* Location
+* Ladder type
+
+Ladder type options:
+
+* Folding Attic Ladder
+* Accordion Attic Ladder
+* Other
+
+Also include:
+
+* Alt text
+* Display order
+* Published checkbox
+
+Use sample entries such as:
+
+* Folding Attic Ladder Installation — Cavite
+* Accordion Ladder Installation — Alabang
+* Ceiling Access Installation — Taguig
+* Folding Ladder Installation — Las Piñas
+* Residential Attic Access — Parañaque
+* Completed Ladder Installation — Muntinlupa
+
+Do not implement actual image upload yet.
+
+## Products Page
+
+Create a simple Bootstrap management table.
+
+Columns:
+
+* Product
+* Type
+* Short Description
+* Status
+* Updated
+* Actions
+
+Sample products:
+
+* Premium Folding Attic Ladder
+* Accordion Attic Ladder
+
+Actions:
+
+* Edit
+* Preview
+* Publish / Unpublish
+
+## Blog / Articles Page
+
+Create a Bootstrap table.
+
+Columns:
+
+* Title
+* Category
+* Status
+* Published Date
+* Last Updated
+* Actions
+
+Use sample articles:
+
+* The Luxury of Space
+* Types of Attic Ladders
+* The Cost of Inflation
+* Why an Attic Ladder Is a Smart Home Investment
+
+Statuses:
+
+* Draft
+* Published
+
+## Users Page
+
+Create an admin users table.
+
+Columns:
+
+* Name
+* Username
+* Role
+* Status
+* Last Login
+* Actions
+
+Sample users:
+
+Vladimir | vladimir | Super Admin | Active
+Admin User | admin | Administrator | Active
+
+Include an "Add User" button.
+
+## Settings Page
+
+Create placeholder sections for:
+
+### Company Information
+
+* Company Name
+* Email
+* Phone
+* Address
+
+### Website Settings
+
+* Facebook URL
+* Messenger URL
+* Default Meta Title
+* Default Meta Description
+
+### Quote Settings
+
+* Quote notification email
+* Default service area
+* Auto-response toggle placeholder
+
+### Gallery Settings
+
+* Images per page
+* Default sorting
+* Gallery enabled toggle
+
+Use Bootstrap forms only.
+
+## UI Style
+
+Use a clean professional Bootstrap admin style.
+
+Requirements:
+
+* Light background
+* White cards
+* Subtle borders and shadows
+* Consistent spacing
+* Clear typography
+* Responsive tables
+* Mobile-friendly
+* Avoid excessive animations
+* Avoid oversized components
+* Keep the interface practical rather than decorative
+
+Use Bootstrap utilities instead of excessive custom CSS.
+
+Create a small admin-specific stylesheet only where Bootstrap utilities are insufficient.
+
+## Code Structure
+
+Keep the admin interface modular.
+
+Where appropriate, create reusable includes/templates for:
+
+* sidebar
+* top navigation
+* footer
+* alerts/messages
+* page header
+
+Follow the existing ColdFusion / Lucee project conventions if the current project already uses `.cfm` includes.
+
+Do not modify the existing public website UI unless required to create the `/admin` section.
+
+Prefer an `/admin` directory structure similar to:
+
+/admin/
+
+* index.cfm
+* quotes/
+* contacts/
+* gallery/
+* products/
+* blog/
+* users/
+* settings/
+* includes/
+* assets/
+
+Adapt this structure if the project already has an established convention.
+
+## Important
+
+Before coding:
+
+1. Inspect the existing project structure.
+2. Identify the Bootstrap version currently being used.
+3. Identify existing shared CSS, JS, header, footer, and Application.cfc conventions.
+4. Reuse existing dependencies whenever possible.
+5. Do not replace working project configuration.
+6. Do not modify database schemas.
+7. Do not implement authentication changes yet.
+8. Do not connect any sample UI to production data.
+9. Use hard-coded placeholder/sample data for this first pass.
+
+After implementation, provide a summary of:
+
+* Files created
+* Files modified
+* Admin pages created
+* Reusable components created
+* Any assumptions made
+* Recommended next development step
+
+The objective of this task is to establish the Admin UI foundation and navigation first. Backend CRUD functionality will be implemented separately after the UI structure is approved.
