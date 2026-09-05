@@ -1,5 +1,5 @@
 <cfcomponent>
-	<cfset this.datasource = "alph">
+	<cfset this.datasource = "atticladderph">
 	<cfset this.sessionManagement = true>
 	<cfset this.sessionTimeout = createTimeSpan(0,0,30,0)>
 	<cfset this.adminTotpSecret = "" >

@@ -1,3 +1,4 @@
+<cfset pageTitle = "Attic Ladder Project Details | Attic Ladder PH">
 <cfinclude template = "inc_header.cfm">
   <!--
     ############

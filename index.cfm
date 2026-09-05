@@ -1,4 +1,5 @@
- <cfinclude template = "inc_header.cfm">
+ <cfset pageTitle = "Attic Ladder Supply & Installation Philippines | Attic Ladder PH">
+<cfinclude template = "inc_header.cfm">
 
 <cfset activeNav = "home"> 
 

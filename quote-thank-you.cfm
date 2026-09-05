@@ -1,3 +1,4 @@
+<cfset pageTitle = "Quote Request Received | Attic Ladder PH">
 <cfinclude template="inc_header.cfm">
 <body class="d-flex flex-column min-vh-100 bg-light">
     <main class="flex-grow-1">

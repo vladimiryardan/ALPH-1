@@ -1,3 +1,4 @@
+<cfparam name="pageTitle" default="Attic Ladder PH | Attic Access Solutions">
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,9 +9,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>
-      Attic Ladder PH - Retractable Folding Ladder - Free Space Lifestyle
-    </title>
+    <title><cfoutput>#encodeForHTML(pageTitle)#</cfoutput></title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->

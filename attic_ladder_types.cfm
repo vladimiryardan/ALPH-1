@@ -1,4 +1,5 @@
- <cfinclude template = "inc_header.cfm">
+ <cfset pageTitle = "Wood, Aluminum & Steel Attic Ladder Types | Attic Ladder PH">
+<cfinclude template = "inc_header.cfm">
  
   <body class="d-flex flex-column">
     <main class="flex-shrink-0">

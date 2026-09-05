@@ -1,4 +1,5 @@
- <cfinclude template = "inc_header.cfm">
+ <cfset pageTitle = "The Luxury of Space: Transforming Urban Living | Attic Ladder PH">
+<cfinclude template = "inc_header.cfm">
  
   <body class="d-flex flex-column">
     <main class="flex-shrink-0">

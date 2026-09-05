@@ -1,5 +1,6 @@
 <cfset activeNav = "contact">
 
+<cfset pageTitle = "Contact Us | Attic Ladder PH">
 <cfinclude template="inc_header.cfm">
 
 <!--- Keep the contact page renderable while local reCAPTCHA configuration is being loaded. --->

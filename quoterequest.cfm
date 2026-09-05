@@ -1,4 +1,5 @@
- <cfinclude template = "inc_header.cfm">
+ <cfset pageTitle = "Request a Free Attic Ladder Quote | Attic Ladder PH">
+<cfinclude template = "inc_header.cfm">
 
 <cfset hideFooter = true>
 <cfset hideFloatingContact = true>
