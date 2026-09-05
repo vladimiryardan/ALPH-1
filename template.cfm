@@ -1,5 +1,6 @@
  <cfset pageTitle = "Page Template | Attic Ladder PH">
 <cfset pageCanonicalURL = "https://atticladderph.com/template.cfm">
+<cfset pageDescription = "Preview the Attic Ladder PH page template, with sections for retractable attic ladder features and sample blog cards awaiting final website content.">
 <cfinclude template = "inc_header.cfm">
   <!--
     ############

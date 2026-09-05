@@ -1,5 +1,6 @@
  <cfset pageTitle = "Blog Post | Attic Ladder PH">
 <cfset pageCanonicalURL = "https://atticladderph.com/blog-post.cfm">
+<cfset pageDescription = "Sample blog post on the Attic Ladder PH website with reflections on science, space and the universe. This page currently contains demonstration content.">
 <cfinclude template = "inc_header.cfm">
  
   <body class="d-flex flex-column">

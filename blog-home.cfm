@@ -1,5 +1,6 @@
  <cfset pageTitle = "Attic Ideas & Home Tips | Attic Ladder PH">
 <cfset pageCanonicalURL = "https://atticladderph.com/blog-home.cfm">
+<cfset pageDescription = "Browse the Attic Ladder PH company blog, including featured stories and a guide to attic ladder types, with links to articles and company news.">
 <cfinclude template = "inc_header.cfm">
 <!--
   ############
