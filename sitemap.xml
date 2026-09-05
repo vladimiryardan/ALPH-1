@@ -1,0 +1,33 @@
+<!-- Sitemap for Attic Ladder PH -->
+<!-- Last updated: 2024-06-05 -->
+<!--After deployment, submit https://atticladderph.com/sitemap.xml to Google Search Console.-->
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://atticladderph.com/</loc>
+  </url>
+  <url>
+    <loc>https://atticladderph.com/gallery.cfm</loc>
+  </url>
+  <url>
+    <loc>https://atticladderph.com/contact.cfm</loc>
+  </url>
+  <url>
+    <loc>https://atticladderph.com/quoterequest.cfm</loc>
+  </url>
+  <url>
+    <loc>https://atticladderph.com/attic_ladder_types.cfm</loc>
+  </url>
+  <url>
+    <loc>https://atticladderph.com/attic_luxury_of_space.cfm</loc>
+  </url>
+  <url>
+    <loc>https://atticladderph.com/attic_ladder_smart_investment.cfm</loc>
+  </url>
+  <url>
+    <loc>https://atticladderph.com/privacy.cfm</loc>
+  </url>
+  <url>
+    <loc>https://atticladderph.com/terms-conditions.cfm</loc>
+  </url>
+</urlset>
