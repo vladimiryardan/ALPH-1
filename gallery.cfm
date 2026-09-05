@@ -10,6 +10,8 @@
 <cfset galleryRoot = expandPath("./gallery")>
 <cfset galleryAlbums = arrayNew(1)>
 <cfset validExtensions = "jpg,jpeg,png,gif,webp">
+<!--- Descriptions are keyed by image path; add an entry when uploading a photo. --->
+<cfset galleryAltText = deserializeJSON(fileRead(expandPath("./Content/gallery-alt.json"), "utf-8"))>
 
 <cfif directoryExists(galleryRoot)>
 
@@ -135,6 +137,10 @@
                   <cfloop from="1" to="#arrayLen(album.images)#" index="imgPos">
                     <cfset img = album.images[imgPos]>
                     <cfset imgIndex = imgPos - 1>
+                    <cfset imageAlt = "Attic ladder gallery image " & imgPos & " in the " & album.displayDate & " album">
+                    <cfif structKeyExists(galleryAltText, img.path) AND len(trim(galleryAltText[img.path]))>
+                        <cfset imageAlt = galleryAltText[img.path]>
+                    </cfif>
                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                       <a
                         href="#img.path#"
@@ -148,7 +154,7 @@
                           src="#img.path#"
                           class="img-fluid gallery-thumb-img"
                           loading="lazy"
-                          alt="Attic ladder installation, photo #imgPos# of #arrayLen(album.images)# in the #encodeForHTMLAttribute(album.displayDate)# album"
+                          alt="#encodeForHTMLAttribute(imageAlt)#"
                         />
                       </a>
                     </div>
