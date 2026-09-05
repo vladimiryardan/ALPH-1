@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "compress-gallery": "node compress-gallery.js"
+  },
   "dependencies": {
     "sharp": "^0.35.3"
   }

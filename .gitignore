@@ -126,6 +126,7 @@ start-dev.sh
 
 # Secure local environment files and nested folders
 /gallery/
+/gallery-backups/
 
 #we are good with the watermark.js file. this file have a constant directory path changes. we don't need more code changes. we only change it when necessary.
 watermark.js
