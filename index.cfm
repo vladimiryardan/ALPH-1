@@ -1,5 +1,6 @@
  <cfset pageTitle = "Attic Ladder Supply & Installation Philippines | Attic Ladder PH">
 <cfset pageDescription = "Premium attic ladder supply and installation in the Philippines. Nationwide supply, space-saving attic access and free quotations from Attic Ladder PH.">
+<cfset pageCanonicalURL = "https://atticladderph.com/">
 <cfinclude template = "inc_header.cfm">
 
 <cfset activeNav = "home"> 
@@ -73,7 +74,7 @@
             <img
                 class="hero-product rounded-3"
                 src="./images/attic-ladder-main.png"
-                alt="Premium Attic Ladder">
+                alt="Retractable scissor attic ladder extended beneath an open ceiling hatch">
 
               <!--src="./images/attic-ladder-main.png"
                 -->
@@ -213,7 +214,7 @@
                 <img
                   class="card-img-top"                 
                   src="./images/attic_ladder_types 900x400.png"                  
-                  alt="..."
+                  alt="Scissor, wooden folding, and aluminum attic ladders shown side by side"
                 />
                 <div class="card-body p-4">
                   <div class="badge-gold">
@@ -235,7 +236,7 @@
                       <img
                         class="rounded-circle me-3"
                         src="/images/vlad50x50.png"
-                        alt="..."
+                        alt=""
                       />
                       <div class="small">
                         <div class="fw-bold">Vlad Y.</div>
@@ -253,7 +254,7 @@
                 <img
                   class="card-img-top"
                   src="/images/attic_ladder_luxuryofspace_900x400.png"
-                  alt="..."
+                  alt="Open-plan living and dining room with built-in shelving and a white sofa"
                 />
                 <div class="card-body p-4">
                   <div class="badge-gold">
@@ -275,7 +276,7 @@
                       <img
                         class="rounded-circle me-3"
                         src="/images/mary50x50.png"
-                        alt="..."
+                        alt=""
                       />
                       <div class="small">
                         <div class="fw-bold">Moira C.</div>
@@ -293,7 +294,7 @@
                 <img
                   class="card-img-top"
                   src="/images/attic_the_cost_of_inflation900x400.png"
-                  alt="..."
+                  alt="Model houses beneath rising bars and an upward arrow illustrating increasing housing costs"
                 />
                <div class="card-body p-4">
                   <div class="badge-gold">
@@ -316,7 +317,7 @@
                       <img
                         class="rounded-circle me-3"
                         src="/images/mira50x50.png"
-                        alt="..."
+                        alt=""
                       />
                       <div class="small">
                         <div class="fw-bold">Mira Y.</div>

@@ -1,5 +1,6 @@
  <cfset pageTitle = "Request a Free Attic Ladder Quote | Attic Ladder PH">
 <cfset pageDescription = "Request a free attic ladder quote from Attic Ladder PH. Share your location, measurements and photos for supply only or supply and installation options.">
+<cfset pageCanonicalURL = "https://atticladderph.com/quoterequest.cfm">
 <cfinclude template = "inc_header.cfm">
 
 <cfset hideFooter = true>

@@ -1,5 +1,6 @@
  <cfset pageTitle = "Why an Attic Ladder Is a Smart Investment | Attic Ladder PH">
 <cfset pageDescription = "Discover how an attic ladder can unlock unused storage space and help you make more of your existing home as renovation costs rise. Read Attic Ladder PH tips.">
+<cfset pageCanonicalURL = "https://atticladderph.com/attic_ladder_smart_investment.cfm">
 <cfinclude template = "inc_header.cfm">
  
   <body class="d-flex flex-column">

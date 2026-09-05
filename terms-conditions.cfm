@@ -1,5 +1,6 @@
 <cfset pageTitle = "Terms & Conditions | Attic Ladder PH">
 <cfset pageDescription = "Read the terms and conditions for using the Attic Ladder PH online store, including website use, intellectual property, restrictions and related policies.">
+<cfset pageCanonicalURL = "https://atticladderph.com/terms-conditions.cfm">
 <cfinclude template = "inc_header.cfm">
 <!--
   ############
@@ -39,7 +40,7 @@
             <img
               class="img-fluid rounded-3 my-5"
               src="./images/attic-ladder-viewport.png"
-              alt="..."
+              alt=""
             />
             <!--src="./images/attic-ladder-main.png"
               -->

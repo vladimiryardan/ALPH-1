@@ -1,4 +1,5 @@
  <cfset pageTitle = "Blog Post | Attic Ladder PH">
+<cfset pageCanonicalURL = "https://atticladderph.com/blog-post.cfm">
 <cfinclude template = "inc_header.cfm">
  
   <body class="d-flex flex-column">
@@ -22,7 +23,7 @@
                 <img
                   class="img-fluid rounded-circle"
                   src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                  alt="..."
+                  alt=""
                 />
                 <div class="ms-3">
                   <div class="fw-bold">Vladimir Yardan</div>
@@ -56,7 +57,7 @@
                   <img
                     class="img-fluid rounded"
                     src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
-                    alt="..."
+                    alt=""
                   />
                 </figure>
                 <!-- Post content-->

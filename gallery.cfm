@@ -1,5 +1,6 @@
  <cfset pageTitle = "Attic Ladder Installation Gallery | Attic Ladder PH">
 <cfset pageDescription = "Browse attic ladder installation photos from Attic Ladder PH. Explore completed projects and find inspiration for practical, space-saving attic access.">
+<cfset pageCanonicalURL = "https://atticladderph.com/gallery.cfm">
 <cfinclude template = "inc_header.cfm">
 <cfset activeNav = "gallery">
 
@@ -147,7 +148,7 @@
                           src="#img.path#"
                           class="img-fluid gallery-thumb-img"
                           loading="lazy"
-                          alt="Attic Ladder gallery photo - #album.displayDate#"
+                          alt="Attic ladder installation, photo #imgPos# of #arrayLen(album.images)# in the #encodeForHTMLAttribute(album.displayDate)# album"
                         />
                       </a>
                     </div>
@@ -171,7 +172,7 @@
                     <button type="button" class="gallery-nav gallery-nav-prev" aria-label="Previous photo">
                       <i class="bi bi-chevron-left"></i>
                     </button>
-                    <img src="" alt="Gallery photo" class="gallery-modal-img" id="galleryModalImage" />
+                    <img src="" alt="" class="gallery-modal-img" id="galleryModalImage" />
                     <button type="button" class="gallery-nav gallery-nav-next" aria-label="Next photo">
                       <i class="bi bi-chevron-right"></i>
                     </button>

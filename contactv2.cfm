@@ -1,5 +1,6 @@
  <cfset pageTitle = "Product & Installation Inquiries | Attic Ladder PH">
 <cfset pageDescription = "Ask Attic Ladder PH about attic ladder products and installation. Send your questions and project details to get help with your attic access requirements.">
+<cfset pageCanonicalURL = "https://atticladderph.com/contactv2.cfm">
 <cfinclude template = "inc_header.cfm">
   <!--
     ############
@@ -53,7 +54,7 @@
           
             <div class="col-md-6">
               <!-- Image -->
-              <img src="images/14.jpg" alt="Attic Ladder Image" class="img-fluid" style="max-width: 100%; height: auto;">
+              <img src="images/14.jpg" alt="Living room with armchairs, wood flooring, and large windows beside an open kitchen" class="img-fluid" style="max-width: 100%; height: auto;">
             </div>
           </div>
           

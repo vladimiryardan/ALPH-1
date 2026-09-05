@@ -1,3 +1,4 @@
+<cfparam name="pageCanonicalURL" default="">
 <cfparam name="pageTitle" default="Attic Ladder PH | Attic Access Solutions">
 <cfparam name="pageDescription" default="Discover space-saving attic ladders from Attic Ladder PH. Explore attic access solutions, nationwide supply and installation options, and request a free quote.">
 <!DOCTYPE html>
@@ -11,6 +12,9 @@
     <meta name="description" content="<cfoutput>#encodeForHTMLAttribute(pageDescription)#</cfoutput>" />
     <meta name="author" content="" />
     <title><cfoutput>#encodeForHTML(pageTitle)#</cfoutput></title>
+    <cfif len(pageCanonicalURL)>
+      <link rel="canonical" href="<cfoutput>#encodeForHTMLAttribute(pageCanonicalURL)#</cfoutput>" />
+    </cfif>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->

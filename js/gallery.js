@@ -20,6 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     currentIndex = (currentIndex + images.length) % images.length;
     modalImage.src = images[currentIndex];
+    const thumbnail = Array.from(document.querySelectorAll(".gallery-thumb")).find(function (thumb) {
+      return thumb.getAttribute("data-album") === currentAlbum &&
+        Number(thumb.getAttribute("data-index")) === currentIndex;
+    });
+    const thumbnailImage = thumbnail ? thumbnail.querySelector("img") : null;
+    modalImage.alt = thumbnailImage ? thumbnailImage.alt : "Attic ladder installation photo";
   }
 
   document.querySelectorAll(".gallery-thumb").forEach(function (thumb) {

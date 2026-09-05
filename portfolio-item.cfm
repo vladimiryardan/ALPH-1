@@ -1,4 +1,5 @@
 <cfset pageTitle = "Attic Ladder Project Details | Attic Ladder PH">
+<cfset pageCanonicalURL = "https://atticladderph.com/portfolio-item.cfm">
 <cfinclude template = "inc_header.cfm">
   <!--
     ############
@@ -20,9 +21,9 @@
                         </div>
                     </div>
                     <div class="row gx-5">
-                        <div class="col-12"><img class="img-fluid rounded-3 mb-5" src="https://dummyimage.com/1300x700/343a40/6c757d" alt="..." /></div>
-                        <div class="col-lg-6"><img class="img-fluid rounded-3 mb-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
-                        <div class="col-lg-6"><img class="img-fluid rounded-3 mb-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+                        <div class="col-12"><img class="img-fluid rounded-3 mb-5" src="https://dummyimage.com/1300x700/343a40/6c757d" alt="" /></div>
+                        <div class="col-lg-6"><img class="img-fluid rounded-3 mb-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="" /></div>
+                        <div class="col-lg-6"><img class="img-fluid rounded-3 mb-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="" /></div>
                     </div>
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-6">

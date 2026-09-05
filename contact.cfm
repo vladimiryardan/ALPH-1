@@ -2,6 +2,7 @@
 
 <cfset pageTitle = "Contact Us | Attic Ladder PH">
 <cfset pageDescription = "Contact Attic Ladder PH for attic ladder supply, installation and product inquiries in the Philippines. Get help planning the right access for your attic.">
+<cfset pageCanonicalURL = "https://atticladderph.com/contact.cfm">
 <cfinclude template="inc_header.cfm">
 
 <!--- Keep the contact page renderable while local reCAPTCHA configuration is being loaded. --->

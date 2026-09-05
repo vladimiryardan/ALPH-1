@@ -1,5 +1,6 @@
 <cfset pageTitle = "Quote Request Received | Attic Ladder PH">
 <cfset pageDescription = "Your attic ladder quote request has been received by Attic Ladder PH. Learn what happens next while our team reviews your project details and requirements.">
+<cfset pageCanonicalURL = "https://atticladderph.com/quote-thank-you.cfm">
 <cfinclude template="inc_header.cfm">
 <body class="d-flex flex-column min-vh-100 bg-light">
     <main class="flex-grow-1">

@@ -1,5 +1,6 @@
  <cfset pageTitle = "Wood, Aluminum & Steel Attic Ladder Types | Attic Ladder PH">
 <cfset pageDescription = "Compare wood, aluminum and steel attic ladders. Explore their advantages, durability and safety considerations in this attic ladder guide from Attic Ladder PH.">
+<cfset pageCanonicalURL = "https://atticladderph.com/attic_ladder_types.cfm">
 <cfinclude template = "inc_header.cfm">
  
   <body class="d-flex flex-column">
@@ -23,7 +24,7 @@
                 <img
                   class="img-fluid rounded-circle"
                   src="/images/vlad50x50.png"
-                  alt="..."
+                  alt=""
                 />
                 <div class="ms-3">
                   <div class="fw-bold">Vladimir Yardan</div>
@@ -55,7 +56,7 @@
                   <img
                     class="img-fluid rounded"
                     src="/images/attic_ladder_types 900x400.png"
-                    alt="..."
+                    alt="Scissor, wooden folding, and aluminum attic ladders shown side by side"
                   />
                 </figure>
                 <!-- Post content-->

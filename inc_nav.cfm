@@ -9,7 +9,7 @@
         <div class="container px-5">
           <a class="navbar-brand" href="index.cfm">
             <!-- Attic Ladder PH -->
-            <img src="./images/vertical-logo-v2.png" class="logoz" />
+            <img alt="Attic Ladder PH home" src="./images/vertical-logo-v2.png" class="logoz" />
             <!-- src="./images/Logo-only-whitev2.png" -->
           </a>
           <button

@@ -1,5 +1,6 @@
 <cfset pageTitle = "Privacy Policy | Attic Ladder PH">
 <cfset pageDescription = "Read the Attic Ladder PH privacy policy to learn how we collect and use personal information, handle cookies and explain your privacy rights on our website.">
+<cfset pageCanonicalURL = "https://atticladderph.com/privacy.cfm">
 <cfinclude template = "inc_header.cfm">
 <!--
   ############
@@ -39,7 +40,7 @@
             <img
               class="img-fluid rounded-3 my-5"
               src="./images/attic-ladder-viewport.png"
-              alt="..."
+              alt=""
             />
             <!--src="./images/attic-ladder-main.png"
               -->

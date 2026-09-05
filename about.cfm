@@ -1,5 +1,6 @@
  <cfset pageTitle = "About Attic Ladder PH | Attic Access Solutions">
 <cfset pageDescription = "Learn about Attic Ladder PH and our retractable attic access solutions, designed to save space and help families make better use of storage and rooms.">
+<cfset pageCanonicalURL = "https://atticladderph.com/about.cfm">
 <cfinclude template = "inc_header.cfm">
   <!--
     ############
@@ -45,7 +46,7 @@
               <img
                 class="img-fluid rounded-3 my-5"
                 src="./images/attic-ladder-viewport.png"
-                alt="..."
+                alt=""
               />
               <!--src="./images/attic-ladder-main.png"
                 -->
@@ -62,7 +63,7 @@
         <div class="container px-5 my-5">
           <div class="row gx-5">
             <div class="col-lg-4 mb-5 mb-lg-0">
-              <img src="./images/attic-ladder-main.png" class="img-fluid" />
+              <img alt="Retractable scissor attic ladder extended beneath an open ceiling hatch" src="./images/attic-ladder-main.png" class="img-fluid" />
             </div>
             <div class="col-lg-8">
               <div class="row gx-5 row-cols-1 row-cols-md-2">
@@ -180,7 +181,7 @@
                 <img
                   class="card-img-top"
                   src="https://dummyimage.com/600x350/ced4da/6c757d"
-                  alt="..."
+                  alt=""
                 />
                 <div class="card-body p-4">
                   <div class="badge bg-primary bg-gradient rounded-pill mb-2">
@@ -202,7 +203,7 @@
                       <img
                         class="rounded-circle me-3"
                         src="https://dummyimage.com/40x40/ced4da/6c757d"
-                        alt="..."
+                        alt=""
                       />
                       <div class="small">
                         <div class="fw-bold">Kelly Rowan</div>
@@ -220,7 +221,7 @@
                 <img
                   class="card-img-top"
                   src="https://dummyimage.com/600x350/adb5bd/495057"
-                  alt="..."
+                  alt=""
                 />
                 <div class="card-body p-4">
                   <div class="badge bg-primary bg-gradient rounded-pill mb-2">
@@ -243,7 +244,7 @@
                       <img
                         class="rounded-circle me-3"
                         src="https://dummyimage.com/40x40/ced4da/6c757d"
-                        alt="..."
+                        alt=""
                       />
                       <div class="small">
                         <div class="fw-bold">Josiah Barclay</div>
@@ -261,7 +262,7 @@
                 <img
                   class="card-img-top"
                   src="https://dummyimage.com/600x350/6c757d/343a40"
-                  alt="..."
+                  alt=""
                 />
                 <div class="card-body p-4">
                   <div class="badge bg-primary bg-gradient rounded-pill mb-2">
@@ -286,7 +287,7 @@
                       <img
                         class="rounded-circle me-3"
                         src="https://dummyimage.com/40x40/ced4da/6c757d"
-                        alt="..."
+                        alt=""
                       />
                       <div class="small">
                         <div class="fw-bold">Evelyn Martinez</div>

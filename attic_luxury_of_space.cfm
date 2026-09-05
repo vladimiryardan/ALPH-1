@@ -1,5 +1,6 @@
  <cfset pageTitle = "The Luxury of Space: Transforming Urban Living | Attic Ladder PH">
 <cfset pageDescription = "Explore how creative use of space can improve urban living, reduce clutter and make room for a more comfortable home in this article from Attic Ladder PH.">
+<cfset pageCanonicalURL = "https://atticladderph.com/attic_luxury_of_space.cfm">
 <cfinclude template = "inc_header.cfm">
  
   <body class="d-flex flex-column">
@@ -23,7 +24,7 @@
                 <img
                   class="img-fluid rounded-circle"
                   src="/images/mary50x50.png"
-                  alt="..."
+                  alt=""
                 />
                 <div class="ms-3">
                   <div class="fw-bold">Moira Caberte</div>
@@ -61,7 +62,7 @@
                   <img
                     class="img-fluid rounded"
                     src="/images/attic_ladder_luxuryofspace_900x400.png"
-                    alt="..."
+                    alt="Open-plan living and dining room with built-in shelving and a white sofa"
                   />
                 </figure>
                 <!-- Post content-->
