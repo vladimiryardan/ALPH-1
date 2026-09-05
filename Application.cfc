@@ -67,9 +67,22 @@
     </cffunction>
 
 
+    <cffunction name="onMissingTemplate" access="public" returntype="boolean" output="true">
+        <cfargument name="targetPage" type="string" required="true">
+        <!--- Use a fixed template; never echo or include the requested URL. --->
+        <cfinclude template="404.cfm">
+        <cfreturn true>
+    </cffunction>
+
 	<cffunction name="onError" access="public" returntype="void" output="true">
         <cfargument name="exception" type="any" required="true">
         <cfargument name="eventName" type="string" required="true">
+        <!--- Some Lucee configurations dispatch missing requests directly here. --->
+        <cfif structKeyExists(arguments.exception, "MissingFileName")
+            AND compareNoCase(arguments.exception.MissingFileName, cgi.script_name) EQ 0>
+            <cfinclude template="404.cfm">
+            <cfreturn>
+        </cfif>
         <h1>Application Error</h1>
         <cfdump var="#arguments.exception#" label="Exception Details" expand="true">
         <cfdump var="#arguments.eventName#" label="Event Name">
@@ -84,6 +97,8 @@
         <cfargument name="targetPage" type="string" required="true">
 
         <cfif structKeyExists(url, "restartApp") AND url.restartApp EQ "1">
+            <!--- Recheck changed CFML templates as well as application variables. --->
+            <cfset inspectTemplates()>
             <cfset applicationStop()>
             <cflocation url="/" addtoken="false">
         </cfif>
