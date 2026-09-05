@@ -1,5 +1,34 @@
-/* Gallery lightbox: shows the clicked photo in a modal with prev/next navigation. */
+/* Load nearby gallery thumbnails and show photos in the lightbox. */
 document.addEventListener("DOMContentLoaded", function () {
+  const lazyImages = document.querySelectorAll(".gallery-thumb-img[data-src]");
+
+  function loadThumbnail(image) {
+    image.src = image.dataset.src;
+    image.removeAttribute("data-src");
+    image.hidden = false;
+  }
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const image = entry.target.querySelector("img[data-src]");
+        if (image) loadThumbnail(image);
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: "300px 0px" });
+
+    // Observe the square link: hidden images have no layout box of their own.
+    lazyImages.forEach(function (image) {
+      observer.observe(image.parentElement);
+    });
+  } else {
+    lazyImages.forEach(function (image) {
+      image.loading = "lazy";
+      loadThumbnail(image);
+    });
+  }
+
   const modalEl = document.getElementById("galleryModal");
   if (!modalEl) {
     return;

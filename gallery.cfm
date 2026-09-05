@@ -151,11 +151,15 @@
                         data-index="#imgIndex#"
                       >
                         <img
-                          src="#img.path#"
+                          data-src="#img.path#"
                           class="img-fluid gallery-thumb-img"
-                          loading="lazy"
+                          hidden
+                          decoding="async"
                           alt="#encodeForHTMLAttribute(imageAlt)#"
                         />
+                        <noscript>
+                          <img src="#img.path#" class="img-fluid gallery-thumb-img" loading="lazy" decoding="async" alt="#encodeForHTMLAttribute(imageAlt)#" />
+                        </noscript>
                       </a>
                     </div>
                   </cfloop>
