@@ -123,3 +123,6 @@ start-dev.sh
 
 # Secure local environment files and nested folders
 /snippets/
+
+# Secure local environment files and nested folders
+/gallery/
