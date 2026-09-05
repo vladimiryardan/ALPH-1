@@ -1,4 +1,5 @@
  <cfset pageTitle = "Request a Free Attic Ladder Quote | Attic Ladder PH">
+<cfset pageDescription = "Request a free attic ladder quote from Attic Ladder PH. Share your location, measurements and photos for supply only or supply and installation options.">
 <cfinclude template = "inc_header.cfm">
 
 <cfset hideFooter = true>
@@ -21,13 +22,21 @@
     <main class="flex-shrink-0">
       <cfinclude template = "inc_nav.cfm">
 
-      
+
       <!-- 
       ############
       quote Form
       ############
       -->
       <section class="mb-5">
+        <div class="text-center mb-5">
+                    <h1 class="fw-bold">Request a Free Quote</h1>
+
+                    <p class="lead text-muted">
+                        Tell us about your project and we'll recommend the
+                        best attic ladder solution for your home.
+                    </p>
+                </div>
 
     <div class="row text-center justify-content-center">
 
@@ -39,9 +48,9 @@
                     <i class="bi bi-chat-square-text-fill"></i>
                 </div>
 
-                <h5 class="mt-3 mb-2 fw-bold">
+                <h2 class="h5 mt-3 mb-2 fw-bold">
                     Tell Us About Your Project
-                </h5>
+                </h2>
 
                 <p class="text-muted mb-0">
                     Complete the short form and upload photos of your installation area.
@@ -59,9 +68,9 @@
                     <i class="bi bi-search"></i>
                 </div>
 
-                <h5 class="mt-3 mb-2 fw-bold">
+                <h2 class="h5 mt-3 mb-2 fw-bold">
                     We Review Your Requirements
-                </h5>
+                </h2>
 
                 <p class="text-muted mb-0">
                     Our team evaluates your project and recommends the best attic ladder solution.
@@ -79,9 +88,9 @@
                    <i class="bi bi-file-earmark-check-fill"></i>
                 </div>
 
-                <h5 class="mt-3 mb-2 fw-bold">
+                <h2 class="h5 mt-3 mb-2 fw-bold">
                     Receive Your Free Quote
-                </h5>
+                </h2>
 
                 <p class="text-muted mb-0">
                     We'll send you a personalized quotation and answer any questions you may have.
@@ -100,14 +109,7 @@
         <div class="row justify-content-center">
             <div class="col-xl-9">
 
-                <div class="text-center mb-5">
-                    <h1 class="fw-bold">Request a Free Quote</h1>
 
-                    <p class="lead text-muted">
-                        Tell us about your project and we'll recommend the
-                        best attic ladder solution for your home.
-                    </p>
-                </div>
 
                 <div class="card shadow-sm border-0 rounded-4">
 
@@ -121,7 +123,7 @@
                                 <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                             </div>
 
-                            <h4 class="mb-4">Your Information</h4>
+                            <h2 class="h4 mb-4">Your Information</h2>
 
                             <div class="row">
 
@@ -149,7 +151,7 @@
 
                             <hr class="my-5">
 
-                            <h4 class="mb-4">Project Information</h4>
+                            <h2 class="h4 mb-4">Project Information</h2>
 
                             <div class="mb-4">
 
@@ -320,7 +322,7 @@
 
     </div>
 </section>
-     
+
     </main>
 
 <!-- Google reCAPTCHA -->

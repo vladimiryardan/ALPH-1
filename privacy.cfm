@@ -1,4 +1,5 @@
 <cfset pageTitle = "Privacy Policy | Attic Ladder PH">
+<cfset pageDescription = "Read the Attic Ladder PH privacy policy to learn how we collect and use personal information, handle cookies and explain your privacy rights on our website.">
 <cfinclude template = "inc_header.cfm">
 <!--
   ############
@@ -19,10 +20,10 @@
         <div class="row gx-5 align-items-center justify-content-center">
           <div class="col-lg-8 col-xl-7 col-xxl-6">
             <div class="my-5 text-center text-xl-start">
-              <h1 class="display-5 fw-bolder text-white mb-2">
+              <p class="display-5 fw-bolder text-white mb-2">
                 Attic Ladder
                 <br />Free Space Lifestyle
-              </h1>
+              </p>
               <p class="lead fw-normal text-white-50 mb-4">
                 Create more spaces for the family.
                 <br />Build accessible storage and rooms.

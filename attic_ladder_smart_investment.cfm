@@ -1,4 +1,5 @@
  <cfset pageTitle = "Why an Attic Ladder Is a Smart Investment | Attic Ladder PH">
+<cfset pageDescription = "Discover how an attic ladder can unlock unused storage space and help you make more of your existing home as renovation costs rise. Read Attic Ladder PH tips.">
 <cfinclude template = "inc_header.cfm">
  
   <body class="d-flex flex-column">
@@ -111,25 +112,25 @@
         A professionally installed attic ladder offers several important advantages:
     </p>
 
-    <h4>Safe Access</h4>
+    <h3 class="h4">Safe Access</h3>
 
     <p>
         Modern attic ladders are engineered with stability, secure locking mechanisms, and high load capacities, providing confidence every time you climb.
     </p>
 
-    <h4>Space Saving</h4>
+    <h3 class="h4">Space Saving</h3>
 
     <p>
         Folding and telescopic attic ladders remain neatly hidden inside the ceiling or wall when not in use, preserving valuable interior space.
     </p>
 
-    <h4>Convenience</h4>
+    <h3 class="h4">Convenience</h3>
 
     <p>
         Accessing your attic takes only seconds, encouraging you to use the space regularly instead of letting it remain unused.
     </p>
 
-    <h4>Clean Appearance</h4>
+    <h3 class="h4">Clean Appearance</h3>
 
     <p>
         When closed, the ladder blends seamlessly into your home, maintaining a clean and uncluttered appearance.

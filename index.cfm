@@ -1,4 +1,5 @@
  <cfset pageTitle = "Attic Ladder Supply & Installation Philippines | Attic Ladder PH">
+<cfset pageDescription = "Premium attic ladder supply and installation in the Philippines. Nationwide supply, space-saving attic access and free quotations from Attic Ladder PH.">
 <cfinclude template = "inc_header.cfm">
 
 <cfset activeNav = "home"> 
@@ -222,7 +223,7 @@
                   <a
                     class="text-decoration-none link-dark stretched-link"
                     href="attic_ladder_types.cfm"
-                    ><h5 class="card-title mb-3">Types of Attic Ladders</h5></a
+                    ><h3 class="h5 card-title mb-3">Types of Attic Ladders</h3></a
                   >
                   <p class="card-text mb-0">
                     While wood offers classic appeal and aluminum provides lightweight convenience, steel stands out as the most durable and reliable option. Learn why steel attic ladders are the best choice for safety, longevity, and functionality.
@@ -262,7 +263,7 @@
                   <a
                     class="text-decoration-none link-dark stretched-link"
                     href="attic_luxury_of_space.cfm"
-                    ><h5 class="card-title mb-3">Luxury of Space</h5></a
+                    ><h3 class="h5 card-title mb-3">Luxury of Space</h3></a
                   >
                   <p class="card-text mb-0">
                     In a world of growing cities and limited resources, the luxury of space both physical and auditory is key to tackling overcrowding while enhancing the quality of life for all. Discover a vision for harmonious, sustainable cities that inspire and empower.
@@ -302,9 +303,9 @@
                   <a
                     class="text-decoration-none link-dark stretched-link"
                     href="attic_ladder_smart_investment.cfm"
-                    ><h5 class="card-title mb-3">
+                    ><h3 class="h5 card-title mb-3">
                       Attic Ladder Is a Smart Investment
-                    </h5></a
+                    </h3></a
                   >
                   <p class="card-text mb-0">
                     Discover how rising renovation costs are encouraging homeowners to maximize existing space instead of expanding. Learn why installing an attic ladder is a smart, affordable investment that improves storage, organization, and your home's long-term value. </p>

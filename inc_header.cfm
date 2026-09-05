@@ -1,4 +1,5 @@
 <cfparam name="pageTitle" default="Attic Ladder PH | Attic Access Solutions">
+<cfparam name="pageDescription" default="Discover space-saving attic ladders from Attic Ladder PH. Explore attic access solutions, nationwide supply and installation options, and request a free quote.">
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +8,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="" />
+    <meta name="description" content="<cfoutput>#encodeForHTMLAttribute(pageDescription)#</cfoutput>" />
     <meta name="author" content="" />
     <title><cfoutput>#encodeForHTML(pageTitle)#</cfoutput></title>
     <!-- Favicon-->

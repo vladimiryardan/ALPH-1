@@ -1,4 +1,5 @@
 <cfset pageTitle = "Terms & Conditions | Attic Ladder PH">
+<cfset pageDescription = "Read the terms and conditions for using the Attic Ladder PH online store, including website use, intellectual property, restrictions and related policies.">
 <cfinclude template = "inc_header.cfm">
 <!--
   ############
@@ -19,10 +20,10 @@
         <div class="row gx-5 align-items-center justify-content-center">
           <div class="col-lg-8 col-xl-7 col-xxl-6">
             <div class="my-5 text-center text-xl-start">
-              <h1 class="display-5 fw-bolder text-white mb-2">
+              <p class="display-5 fw-bolder text-white mb-2">
                 Attic Ladder
                 <br />Free Space Lifestyle
-              </h1>
+              </p>
               <p class="lead fw-normal text-white-50 mb-4">
                 Create more spaces for the family.
                 <br />Build accessible storage and rooms.
@@ -59,9 +60,9 @@
         <div class="row justify-content-center">
           <div class="col-md-8 gy-5">
 
-            <h3>
+            <h2 class="h3">
               1. Terms
-            </h3>
+            </h2>
             
             <p>
               By accessing this web site, you are agreeing to be bound by these 
@@ -72,9 +73,9 @@
               protected by applicable copyright and trade mark law.
             </p>
             
-            <h3>
+            <h2 class="h3">
               2. Use License
-            </h3>
+            </h2>
             
             <ol type="a">
               <li>
@@ -96,9 +97,9 @@
               </li>
             </ol>
             
-            <h3>
+            <h2 class="h3">
               3. Disclaimer
-            </h3>
+            </h2>
             
             <ol type="a">
               <li>
@@ -106,41 +107,41 @@
               </li>
             </ol>
             
-            <h3>
+            <h2 class="h3">
               4. Limitations
-            </h3>
+            </h2>
             
             <p>
               In no event shall Attic Ladder Ph or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Attic Ladder Ph's Internet site, even if Attic Ladder Ph or a Attic Ladder Ph authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.
             </p>
                   
-            <h3>
+            <h2 class="h3">
               5. Revisions and Errata
-            </h3>
+            </h2>
             
             <p>
               The materials appearing on Attic Ladder Ph's web site could include technical, typographical, or photographic errors. Attic Ladder Ph does not warrant that any of the materials on its web site are accurate, complete, or current. Attic Ladder Ph may make changes to the materials contained on its web site at any time without notice. Attic Ladder Ph does not, however, make any commitment to update the materials.
             </p>
             
-            <h3>
+            <h2 class="h3">
               6. Links
-            </h3>
+            </h2>
             
             <p>
               Attic Ladder Ph has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Attic Ladder Ph of the site. Use of any such linked web site is at the user's own risk.
             </p>
             
-            <h3>
+            <h2 class="h3">
               7. Site Terms of Use Modifications
-            </h3>
+            </h2>
             
             <p>
               Attic Ladder Ph may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.
             </p>
             
-            <h3>
+            <h2 class="h3">
               8. Governing Law
-            </h3>
+            </h2>
             
             <p>
               Any claim relating to Attic Ladder Ph's web site shall be governed by the laws of the Philippines without regard to its conflict of law provisions.

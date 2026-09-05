@@ -116,7 +116,7 @@ Story 1
                   <a
                     class="text-decoration-none link-dark stretched-link"
                     href="attic_ladder_types.cfm"
-                    ><h5 class="card-title mb-3">Attic Ladders Types</h5></a
+                    ><h3 class="h5 card-title mb-3">Attic Ladders Types</h3></a
                   >
                   <p class="card-text mb-0">
                     Some quick example text to build on the card title and make

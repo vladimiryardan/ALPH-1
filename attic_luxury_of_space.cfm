@@ -1,4 +1,5 @@
  <cfset pageTitle = "The Luxury of Space: Transforming Urban Living | Attic Ladder PH">
+<cfset pageDescription = "Explore how creative use of space can improve urban living, reduce clutter and make room for a more comfortable home in this article from Attic Ladder PH.">
 <cfinclude template = "inc_header.cfm">
  
   <body class="d-flex flex-column">
@@ -39,7 +40,7 @@
                   <h1 class="fw-bolder mb-1">                    
                   The Luxury of Space:               
                   </h1>
-                  <h3 class="fw-bolder mb-5">Transforming Urban Living for a Better Tomorrow</h3>
+                  <p class="h3 fw-bolder mb-5">Transforming Urban Living for a Better Tomorrow</p>
                   <!-- Post meta content-->
                   <div class="text-muted fst-italic mb-2">November 23, 2022</div>
                   <!-- Post categories-->

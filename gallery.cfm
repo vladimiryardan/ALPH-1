@@ -1,4 +1,5 @@
  <cfset pageTitle = "Attic Ladder Installation Gallery | Attic Ladder PH">
+<cfset pageDescription = "Browse attic ladder installation photos from Attic Ladder PH. Explore completed projects and find inspiration for practical, space-saving attic access.">
 <cfinclude template = "inc_header.cfm">
 <cfset activeNav = "gallery">
 

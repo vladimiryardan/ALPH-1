@@ -188,7 +188,7 @@
                   <a
                     class="text-decoration-none link-dark stretched-link"
                     href="#!"
-                    ><h5 class="card-title mb-3">Blog post title</h5></a
+                    ><h3 class="h5 card-title mb-3">Blog post title</h3></a
                   >
                   <p class="card-text mb-0">
                     Some quick example text to build on the card title and make
@@ -228,7 +228,7 @@
                   <a
                     class="text-decoration-none link-dark stretched-link"
                     href="#!"
-                    ><h5 class="card-title mb-3">Another blog post title</h5></a
+                    ><h3 class="h5 card-title mb-3">Another blog post title</h3></a
                   >
                   <p class="card-text mb-0">
                     This text is a bit longer to illustrate the adaptive height
@@ -269,10 +269,10 @@
                   <a
                     class="text-decoration-none link-dark stretched-link"
                     href="#!"
-                    ><h5 class="card-title mb-3">
+                    ><h3 class="h5 card-title mb-3">
                       The last blog post title is a little bit longer than the
                       others
-                    </h5></a
+                    </h3></a
                   >
                   <p class="card-text mb-0">
                     Some more quick example text to build on the card title and

@@ -1,4 +1,5 @@
  <cfset pageTitle = "Product & Installation Inquiries | Attic Ladder PH">
+<cfset pageDescription = "Ask Attic Ladder PH about attic ladder products and installation. Send your questions and project details to get help with your attic access requirements.">
 <cfinclude template = "inc_header.cfm">
   <!--
     ############
@@ -21,7 +22,7 @@
           <div class="row justify-content-center">
             <div class="col-md-6">
               <!-- Contact Form -->
-              <h2 class="text-center">Contact Us</h2>
+              <h1 class="h2 text-center">Contact Us</h1>
               <p class="text-center tracking-wide">If you have inquiries about our products or services at Attic Ladder PH, don't hesitate to contact us. We're here to help!</p>
               <form id="contactForm">
                 <div class="form-group pb-3">

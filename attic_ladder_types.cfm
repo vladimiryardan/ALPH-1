@@ -1,4 +1,5 @@
  <cfset pageTitle = "Wood, Aluminum & Steel Attic Ladder Types | Attic Ladder PH">
+<cfset pageDescription = "Compare wood, aluminum and steel attic ladders. Explore their advantages, durability and safety considerations in this attic ladder guide from Attic Ladder PH.">
 <cfinclude template = "inc_header.cfm">
  
   <body class="d-flex flex-column">
@@ -39,7 +40,7 @@
                   <h1 class="fw-bolder mb-1">                    
                     Attic Ladder Types:                
                   </h1>
-                  <h3 class="mb-4">A Comprehensive Guide to Wood, Aluminum, and Steel</h3>
+                  <p class="h3 mb-4">A Comprehensive Guide to Wood, Aluminum, and Steel</p>
                   <!-- Post meta content-->
                   <div class="text-muted fst-italic mb-2">January 1, 2022</div>
                   <!-- Post categories-->
