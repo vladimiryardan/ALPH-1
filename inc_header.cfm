@@ -12,6 +12,8 @@
     <meta name="description" content="<cfoutput>#encodeForHTMLAttribute(pageDescription)#</cfoutput>" />
     <meta name="author" content="" />
     <title><cfoutput>#encodeForHTML(pageTitle)#</cfoutput></title>
+    <meta property="og:title" content="<cfoutput>#encodeForHTMLAttribute(pageTitle)#</cfoutput>" />
+    <meta property="og:description" content="<cfoutput>#encodeForHTMLAttribute(pageDescription)#</cfoutput>" />
     <cfif len(pageCanonicalURL)>
       <link rel="canonical" href="<cfoutput>#encodeForHTMLAttribute(pageCanonicalURL)#</cfoutput>" />
     </cfif>

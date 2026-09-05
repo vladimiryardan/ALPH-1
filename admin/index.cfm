@@ -46,6 +46,8 @@
     <cfset navItems = [
         {key="dashboard", label="Dashboard", icon="bi-grid-1x2-fill"},
         {key="quote-requests", label="Quote Requests", icon="bi-clipboard-check"},
+        {key="create-quote", label="Create Quote", icon="bi-file-earmark-plus"},
+        {key="code-generation", label="Code Generation", icon="bi-code-slash"},
         {key="contact-inquiries", label="Contact Inquiries", icon="bi-envelope-paper"},
         {key="gallery", label="Gallery", icon="bi-images"},
         {key="products", label="Products", icon="bi-box-seam"},
@@ -58,6 +60,8 @@
         "dashboard"="Dashboard",
         "quote-requests"="Quote Requests",
         "quote-details"="Quote Details",
+        "create-quote"="Create Quote",
+        "code-generation"="Code Generation",
         "contact-inquiries"="Contact Inquiries",
         "gallery"="Gallery",
         "products"="Products",
@@ -70,6 +74,8 @@
         "dashboard"="Dashboard Overview",
         "quote-requests"="Quote Requests",
         "quote-details"="Quote Details",
+        "create-quote"="Create Quote Generator",
+        "code-generation"="Code & Quote Generation",
         "contact-inquiries"="Contact Inquiries",
         "gallery"="Gallery Management",
         "products"="Products / Attic Ladder Types",
@@ -380,7 +386,10 @@
                                     <div class="card-body">
                                         <div class="panel-header">
                                             <h5 class="mb-0 fw-bold">Recent Quote Requests</h5>
-                                            <button class="btn btn-primary btn-sm">View All Quotes</button>
+                                            <div class="d-flex gap-2">
+                                                <a href="index.cfm?view=create-quote" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Quote</a>
+                                                <a href="index.cfm?view=quote-requests" class="btn btn-outline-secondary btn-sm">View All Quotes</a>
+                                            </div>
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table align-middle">
@@ -480,6 +489,8 @@
                                 <div class="panel-header flex-wrap gap-3">
                                     <h5 class="mb-0 fw-bold">Quote Requests</h5>
                                     <div class="d-flex flex-wrap gap-2">
+                                        <a href="index.cfm?view=create-quote" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Quote</a>
+                                        <a href="index.cfm?view=code-generation" class="btn btn-outline-primary btn-sm"><i class="bi bi-code-slash me-1"></i>Code Generator</a>
                                         <input class="form-control" type="text" placeholder="Search quotes..." style="min-width: 220px;">
                                         <select class="form-select" style="max-width: 160px;">
                                             <option>Status</option>
@@ -617,6 +628,321 @@
                                     <button class="btn btn-outline-primary">Send Quote</button>
                                     <button class="btn btn-outline-secondary">Mark as Contacted</button>
                                     <button class="btn btn-outline-success">Schedule Installation</button>
+                                </div>
+                            </div>
+                        </div>
+                    </cfcase>
+
+                    <cfcase value="create-quote">
+                        <div class="row g-4 mb-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="panel-header flex-wrap gap-2">
+                                            <div>
+                                                <h5 class="mb-1 fw-bold"><i class="bi bi-file-earmark-plus text-primary me-2"></i>Create New Quote</h5>
+                                                <p class="text-muted small mb-0">Fill out client information and standard attic ladder specifications to generate a formal quote & code.</p>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <a href="index.cfm?view=quote-requests" class="btn btn-outline-secondary btn-sm">
+                                                    <i class="bi bi-arrow-left me-1"></i>Quote Requests
+                                                </a>
+                                                <a href="index.cfm?view=code-generation" class="btn btn-outline-primary btn-sm">
+                                                    <i class="bi bi-code-slash me-1"></i>Code Generation Tool
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <cfif structKeyExists(form, "submit_quote")>
+                                            <cfparam name="form.client_name" default="">
+                                            <cfparam name="form.client_phone" default="">
+                                            <cfparam name="form.client_address" default="">
+                                            <cfparam name="form.ladder_size" default="">
+                                            <cfparam name="form.ladder_type" default="Folding Ladder">
+                                            <cfparam name="form.service_type" default="Supply & Install">
+                                            <cfparam name="form.quote_price" default="18500">
+                                            <cfparam name="form.quote_notes" default="">
+
+                                            <cfset generatedCode = "ALPH-Q" & dateFormat(now(), "yyyy") & randRange(1000, 9999)>
+
+                                            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <i class="bi bi-check-circle-fill fs-4"></i>
+                                                    <div>
+                                                        <strong>Quote Created Successfully!</strong> Reference Code: <code>#htmlEditFormat(generatedCode)#</code> for #htmlEditFormat(form.client_name)# (#htmlEditFormat(form.ladder_size)#)
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        </cfif>
+
+                                        <form id="createQuoteForm" method="post" action="index.cfm?view=create-quote">
+                                            <div class="row g-4">
+                                                <!-- Client Details -->
+                                                <div class="col-lg-6">
+                                                    <div class="card h-100 bg-light border-0">
+                                                        <div class="card-body">
+                                                            <h6 class="fw-bold text-dark mb-3">
+                                                                <i class="bi bi-person-badge text-primary me-2"></i>Client Information
+                                                            </h6>
+                                                            
+                                                            <div class="mb-3">
+                                                                <label for="client_name" class="form-label fw-semibold">Client's Name <span class="text-danger">*</span></label>
+                                                                <input type="text" class="form-control" id="client_name" name="client_name" placeholder="e.g. Maria Santos" required value="<cfif structKeyExists(form, 'client_name')>#htmlEditFormat(form.client_name)#</cfif>">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="client_phone" class="form-label fw-semibold">Phone Number / Mobile <span class="text-danger">*</span></label>
+                                                                <input type="tel" class="form-control" id="client_phone" name="client_phone" placeholder="e.g. 0917-123-4567" required value="<cfif structKeyExists(form, 'client_phone')>#htmlEditFormat(form.client_phone)#</cfif>">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="client_address" class="form-label fw-semibold">Client Address <span class="text-danger">*</span></label>
+                                                                <textarea class="form-control" id="client_address" name="client_address" rows="3" placeholder="e.g. Block 3, Lot 12, Sunrise Street, Cavite" required><cfif structKeyExists(form, 'client_address')>#htmlEditFormat(form.client_address)#</cfif></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Specifications & Sizes -->
+                                                <div class="col-lg-6">
+                                                    <div class="card h-100 bg-light border-0">
+                                                        <div class="card-body">
+                                                            <h6 class="fw-bold text-dark mb-3">
+                                                                <i class="bi bi-tools text-primary me-2"></i>Attic Ladder Specifications
+                                                            </h6>
+
+                                                            <div class="mb-3">
+                                                                <label for="ladder_size" class="form-label fw-semibold">Standard Opening Size <span class="text-danger">*</span></label>
+                                                                <select class="form-select" id="ladder_size" name="ladder_size" required>
+                                                                    <option value="" disabled <cfif NOT structKeyExists(form, 'ladder_size') OR form.ladder_size EQ "">selected</cfif>>-- Select Standard Size --</option>
+                                                                    <option value="70cm x 90cm" <cfif structKeyExists(form, 'ladder_size') AND form.ladder_size EQ "70cm x 90cm">selected</cfif>>70cm x 90cm</option>
+                                                                    <option value="70cm x 100cm" <cfif structKeyExists(form, 'ladder_size') AND form.ladder_size EQ "70cm x 100cm">selected</cfif>>70cm x 100cm</option>
+                                                                    <option value="70cm x 120cm" <cfif structKeyExists(form, 'ladder_size') AND form.ladder_size EQ "70cm x 120cm">selected</cfif>>70cm x 120cm</option>
+                                                                    <option value="80cm x 100cm" <cfif structKeyExists(form, 'ladder_size') AND form.ladder_size EQ "80cm x 100cm">selected</cfif>>80cm x 100cm</option>
+                                                                    <option value="80cm x 120cm" <cfif structKeyExists(form, 'ladder_size') AND form.ladder_size EQ "80cm x 120cm">selected</cfif>>80cm x 120cm</option>
+                                                                </select>
+                                                                <div class="form-text">Choose one of the standard opening sizes.</div>
+                                                            </div>
+
+                                                            <div class="row g-2 mb-3">
+                                                                <div class="col-md-6">
+                                                                    <label for="ladder_type" class="form-label fw-semibold">Ladder Type</label>
+                                                                    <select class="form-select" id="ladder_type" name="ladder_type">
+                                                                        <option value="Folding Ladder">Folding Ladder</option>
+                                                                        <option value="Accordion Ladder">Accordion Ladder</option>
+                                                                        <option value="Telescopic Ladder">Telescopic Ladder</option>
+                                                                        <option value="Luxury Aluminium Ladder">Luxury Aluminium Ladder</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="service_type" class="form-label fw-semibold">Service Required</label>
+                                                                    <select class="form-select" id="service_type" name="service_type">
+                                                                        <option value="Supply & Install">Supply & Install</option>
+                                                                        <option value="Supply Only">Supply Only</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="quote_price" class="form-label fw-semibold">Estimated Price (PHP)</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-text">₱</span>
+                                                                    <input type="number" class="form-control" id="quote_price" name="quote_price" placeholder="18500" value="<cfif structKeyExists(form, 'quote_price')>#htmlEditFormat(form.quote_price)#<cfelse>18500</cfif>">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-0">
+                                                                <label for="quote_notes" class="form-label fw-semibold">Notes / Special Instructions</label>
+                                                                <textarea class="form-control" id="quote_notes" name="quote_notes" rows="2" placeholder="e.g. Standard ceiling height 2.8m, free delivery within Cavite"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex flex-wrap gap-2 mt-4">
+                                                <button type="button" class="btn btn-primary btn-lg" id="btnGenerateQuoteCode">
+                                                    <i class="bi bi-code-slash me-1"></i>Generate Code & Preview
+                                                </button>
+                                                <button type="submit" name="submit_quote" class="btn btn-success btn-lg">
+                                                    <i class="bi bi-check-lg me-1"></i>Save Quote
+                                                </button>
+                                                <button type="reset" class="btn btn-outline-secondary btn-lg">
+                                                    <i class="bi bi-arrow-counterclockwise me-1"></i>Reset Form
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Generated Code & Output Card -->
+                        <div class="card mt-4" id="quoteOutputCard" style="display:none;">
+                            <div class="card-body">
+                                <div class="panel-header">
+                                    <h5 class="mb-0 fw-bold"><i class="bi bi-terminal-box text-success me-2"></i>Generated Code & Quote Output</h5>
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="copyQuoteOutput('quoteTextMessage')">
+                                        <i class="bi bi-clipboard me-1"></i>Copy Message Code
+                                    </button>
+                                </div>
+
+                                <ul class="nav nav-tabs mb-3" id="quoteCodeTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="tab-text-tab" data-bs-toggle="tab" data-bs-target="##tab-text" type="button" role="tab">Message Text Code</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="tab-html-tab" data-bs-toggle="tab" data-bs-target="##tab-html" type="button" role="tab">HTML Embed Code</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="tab-json-tab" data-bs-toggle="tab" data-bs-target="##tab-json" type="button" role="tab">JSON Data Code</button>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content p-3 bg-light rounded-3 border">
+                                    <div class="tab-pane fade show active" id="tab-text" role="tabpanel">
+                                        <pre id="quoteTextMessage" class="mb-0 font-monospace text-dark" style="white-space: pre-wrap; font-size: 0.9rem;"></pre>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab-html" role="tabpanel">
+                                        <pre id="quoteHtmlCode" class="mb-0 font-monospace text-dark" style="white-space: pre-wrap; font-size: 0.85rem;"></pre>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab-json" role="tabpanel">
+                                        <pre id="quoteJsonCode" class="mb-0 font-monospace text-dark" style="white-space: pre-wrap; font-size: 0.85rem;"></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </cfcase>
+
+                    <cfcase value="code-generation">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="panel-header flex-wrap gap-2 mb-3">
+                                    <div>
+                                        <h5 class="mb-1 fw-bold"><i class="bi bi-code-slash text-primary me-2"></i>Code Generation Hub</h5>
+                                        <p class="text-muted small mb-0">Generate quote codes, customer communication templates, and HTML code snippets for website integration.</p>
+                                    </div>
+                                    <a href="index.cfm?view=create-quote" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-file-earmark-plus me-1"></i>Create New Quote
+                                    </a>
+                                </div>
+
+                                <ul class="nav nav-pills mb-4" id="codeGenTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="gen-quote-tab" data-bs-toggle="pill" data-bs-target="##gen-quote" type="button" role="tab">
+                                            <i class="bi bi-receipt me-1"></i>Quote Code Generator
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="gen-embed-tab" data-bs-toggle="pill" data-bs-target="##gen-embed" type="button" role="tab">
+                                            <i class="bi bi-box-arrow-up-right me-1"></i>Website Button Embed Code
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content" id="codeGenTabContent">
+                                    <!-- Quote Code Generator -->
+                                    <div class="tab-pane fade show active" id="gen-quote" role="tabpanel">
+                                        <div class="row g-4">
+                                            <div class="col-lg-6">
+                                                <div class="card bg-light border-0">
+                                                    <div class="card-body">
+                                                        <h6 class="fw-bold mb-3">Quick Quote Code Generator</h6>
+                                                        <div class="mb-3">
+                                                            <label class="form-label small fw-semibold">Client Name</label>
+                                                            <input type="text" id="cg_name" class="form-control" placeholder="e.g. Maria Santos">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label small fw-semibold">Phone Number</label>
+                                                            <input type="tel" id="cg_phone" class="form-control" placeholder="e.g. 0917-123-4567">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label small fw-semibold">Address</label>
+                                                            <input type="text" id="cg_address" class="form-control" placeholder="e.g. Alabang, Muntinlupa">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label small fw-semibold">Standard Opening Size</label>
+                                                            <select id="cg_size" class="form-select">
+                                                                <option value="" disabled selected>-- Select Standard Size --</option>
+                                                                <option value="70cm x 90cm">70cm x 90cm</option>
+                                                                <option value="70cm x 100cm">70cm x 100cm</option>
+                                                                <option value="70cm x 120cm">70cm x 120cm</option>
+                                                                <option value="80cm x 100cm">80cm x 100cm</option>
+                                                                <option value="80cm x 120cm">80cm x 120cm</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type="button" class="btn btn-primary w-100" onclick="generateCgQuoteCode()">
+                                                            <i class="bi bi-gear-wide-connected me-1"></i>Generate Code
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="card border">
+                                                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                                                        <span class="fw-semibold small"><i class="bi bi-code me-1"></i>Generated Quote Code Output</span>
+                                                        <button class="btn btn-xs btn-outline-light" onclick="copyCodeElement('cg_code_output')">Copy Code</button>
+                                                    </div>
+                                                    <div class="card-body bg-light">
+                                                        <pre id="cg_code_output" class="mb-0 font-monospace small" style="white-space: pre-wrap; min-height: 220px;">// Fill the form on the left and click "Generate Code"...</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Embed Button Generator -->
+                                    <div class="tab-pane fade" id="gen-embed" role="tabpanel">
+                                        <div class="row g-4">
+                                            <div class="col-lg-6">
+                                                <div class="card bg-light border-0">
+                                                    <div class="card-body">
+                                                        <h6 class="fw-bold mb-3">Configure Embed Button</h6>
+                                                        <div class="mb-3">
+                                                            <label class="form-label small fw-semibold">Button Text</label>
+                                                            <input type="text" id="eb_text" class="form-control" value="Request a Free Quote">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label small fw-semibold">Default Size Pre-selection</label>
+                                                            <select id="eb_size" class="form-select">
+                                                                <option value="">Any Size</option>
+                                                                <option value="70cm x 90cm">70cm x 90cm</option>
+                                                                <option value="70cm x 100cm">70cm x 100cm</option>
+                                                                <option value="70cm x 120cm">70cm x 120cm</option>
+                                                                <option value="80cm x 100cm">80cm x 100cm</option>
+                                                                <option value="80cm x 120cm">80cm x 120cm</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label small fw-semibold">Button Style</label>
+                                                            <select id="eb_style" class="form-select">
+                                                                <option value="btn btn-warning">Gold Warning Button</option>
+                                                                <option value="btn btn-primary">Primary Blue Button</option>
+                                                                <option value="btn btn-success">Success Green Button</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type="button" class="btn btn-primary w-100" onclick="generateEmbedCode()">
+                                                            <i class="bi bi-code-square me-1"></i>Generate Embed Code
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="card border">
+                                                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                                                        <span class="fw-semibold small"><i class="bi bi-file-earmark-code me-1"></i>HTML Embed Code Snippet</span>
+                                                        <button class="btn btn-xs btn-outline-light" onclick="copyCodeElement('eb_code_output')">Copy Code</button>
+                                                    </div>
+                                                    <div class="card-body bg-light">
+                                                        <pre id="eb_code_output" class="mb-0 font-monospace small" style="white-space: pre-wrap; min-height: 220px;">// Click "Generate Embed Code" to get HTML button code snippet...</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -832,6 +1158,144 @@
 
     </cfoutput>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function generateQuotePreview() {
+            var clientName = document.getElementById('client_name') ? document.getElementById('client_name').value.trim() : '';
+            var clientPhone = document.getElementById('client_phone') ? document.getElementById('client_phone').value.trim() : '';
+            var clientAddress = document.getElementById('client_address') ? document.getElementById('client_address').value.trim() : '';
+            var ladderSize = document.getElementById('ladder_size') ? document.getElementById('ladder_size').value : '';
+            var ladderType = document.getElementById('ladder_type') ? document.getElementById('ladder_type').value : 'Folding Ladder';
+            var serviceType = document.getElementById('service_type') ? document.getElementById('service_type').value : 'Supply & Install';
+            var quotePrice = document.getElementById('quote_price') ? document.getElementById('quote_price').value.trim() : '18500';
+            var quoteNotes = document.getElementById('quote_notes') ? document.getElementById('quote_notes').value.trim() : '';
+
+            if (!clientName || !clientPhone || !clientAddress || !ladderSize) {
+                alert('Please fill out Client Name, Phone Number, Address, and select a Standard Opening Size.');
+                return;
+            }
+
+            var refCode = 'ALPH-Q' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+            
+            // Text Message Code
+            var msg = "====================================\n";
+            msg += "  ATTIC LADDER PH - OFFICIAL QUOTE\n";
+            msg += "====================================\n";
+            msg += "Quote Ref    : " + refCode + "\n";
+            msg += "Date         : " + new Date().toLocaleDateString() + "\n\n";
+            msg += "CLIENT INFORMATION:\n";
+            msg += "Name         : " + clientName + "\n";
+            msg += "Phone        : " + clientPhone + "\n";
+            msg += "Address      : " + clientAddress + "\n\n";
+            msg += "ATTIC LADDER SPECIFICATIONS:\n";
+            msg += "Opening Size : " + ladderSize + "\n";
+            msg += "Model Type   : " + ladderType + "\n";
+            msg += "Service      : " + serviceType + "\n";
+            msg += "Est. Total   : PHP " + Number(quotePrice).toLocaleString('en-US') + "\n";
+            if (quoteNotes) {
+                msg += "Notes        : " + quoteNotes + "\n";
+            }
+            msg += "\nThank you for choosing Attic Ladder PH!";
+
+            // HTML Code
+            var html = '<div class="attic-quote-card" style="border:1px solid #e5e7eb;padding:20px;border-radius:12px;background:#ffffff;">\n';
+            html += '  <h4 style="color:#111827;margin-top:0;">Attic Ladder PH Quote (' + refCode + ')</h4>\n';
+            html += '  <p><strong>Client:</strong> ' + clientName + ' | ' + clientPhone + '</p>\n';
+            html += '  <p><strong>Address:</strong> ' + clientAddress + '</p>\n';
+            html += '  <hr style="border:0;border-top:1px solid #eee;">\n';
+            html += '  <p><strong>Opening Size:</strong> ' + ladderSize + '</p>\n';
+            html += '  <p><strong>Ladder Model:</strong> ' + ladderType + '</p>\n';
+            html += '  <p><strong>Service:</strong> ' + serviceType + '</p>\n';
+            html += '  <p><strong>Estimated Price:</strong> PHP ' + Number(quotePrice).toLocaleString('en-US') + '</p>\n';
+            html += '</div>';
+
+            // JSON Code
+            var jsonObj = {
+                quoteRef: refCode,
+                date: new Date().toISOString().split('T')[0],
+                client: {
+                    name: clientName,
+                    phone: clientPhone,
+                    address: clientAddress
+                },
+                specifications: {
+                    openingSize: ladderSize,
+                    ladderType: ladderType,
+                    service: serviceType,
+                    estimatedPricePhp: Number(quotePrice),
+                    notes: quoteNotes
+                }
+            };
+
+            document.getElementById('quoteTextMessage').textContent = msg;
+            document.getElementById('quoteHtmlCode').textContent = html;
+            document.getElementById('quoteJsonCode').textContent = JSON.stringify(jsonObj, null, 2);
+
+            var outputCard = document.getElementById('quoteOutputCard');
+            if (outputCard) {
+                outputCard.style.display = 'block';
+                outputCard.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function copyQuoteOutput(elementId) {
+            var text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Copied to clipboard!');
+            });
+        }
+
+        function copyCodeElement(elementId) {
+            var text = document.getElementById(elementId).textContent;
+            if (text.startsWith('//')) {
+                alert('Please generate code first.');
+                return;
+            }
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Code copied to clipboard!');
+            });
+        }
+
+        function generateCgQuoteCode() {
+            var name = document.getElementById('cg_name').value.trim() || 'Client Name';
+            var phone = document.getElementById('cg_phone').value.trim() || '0917-000-0000';
+            var address = document.getElementById('cg_address').value.trim() || 'Client Address';
+            var size = document.getElementById('cg_size').value || '70cm x 120cm';
+
+            var code = "<!-- Attic Ladder PH Generated Quote Snippet -->\n";
+            code += '<div class="quote-snippet" data-size="' + size + '">\n';
+            code += '  <span class="quote-client">' + name + '</span>\n';
+            code += '  <span class="quote-phone">' + phone + '</span>\n';
+            code += '  <span class="quote-address">' + address + '</span>\n';
+            code += '  <span class="quote-size">Size: ' + size + '</span>\n';
+            code += '</div>';
+
+            document.getElementById('cg_code_output').textContent = code;
+        }
+
+        function generateEmbedCode() {
+            var text = document.getElementById('eb_text').value.trim() || 'Request a Free Quote';
+            var size = document.getElementById('eb_size').value;
+            var style = document.getElementById('eb_style').value;
+
+            var url = 'quoterequest.cfm';
+            if (size) {
+                url += '?size=' + encodeURIComponent(size);
+            }
+
+            var embed = '<a href="' + url + '" class="' + style + '">\n';
+            embed += '  <i class="bi bi-chat-quote-fill me-2"></i>' + text + '\n';
+            embed += '</a>';
+
+            document.getElementById('eb_code_output').textContent = embed;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var btnGen = document.getElementById('btnGenerateQuoteCode');
+            if (btnGen) {
+                btnGen.addEventListener('click', generateQuotePreview);
+            }
+        });
+    </script>
 </body>
 </html>
 
