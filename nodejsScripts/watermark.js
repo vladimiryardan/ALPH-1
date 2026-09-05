@@ -6,9 +6,12 @@ const sharp = require("sharp");
 // SETTINGS
 // ============================================================
 
+//"C:\\BsiTask\\Attic Ladder\\fb\\GroupsFB\\20240812";
 // Change this to the folder containing the images
-const SOURCE_DIR =
-    "C:\\BsiTask\\Attic Ladder\\fb\\GroupsFB\\20240812";
+
+//const SOURCE_DIR = "C:\\BsiTask\\Attic Ladder\\fb\\GroupsFB\\20240827";
+const SOURCE_DIR = "C:\\BsiTask\\Attic Ladder\\fb\\GroupsFB\\20240829";
+
 
 // Watermark image must be in the same folder as watermark.js
 const WATERMARK_FILE = path.join(__dirname, "watermark.png");
