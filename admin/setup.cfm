@@ -1,3 +1,19 @@
+<!--- Local development setup only. Check before any database or session changes.
+      Never enable APP_ENV=development on the production server. --->
+<cfset localDevEnvironment = createObject("java", "java.lang.System").getenv("APP_ENV")>
+<cfset allowLocalDevSetup = false>
+<cfif NOT isNull(localDevEnvironment)>
+    <cfset allowLocalDevSetup = compareNoCase(trim(localDevEnvironment), "development") EQ 0
+        AND listFindNoCase("127.0.0.1,::1,0:0:0:0:0:0:0:1,::ffff:127.0.0.1", trim(cgi.remote_addr)) GT 0>
+</cfif>
+<cfif NOT allowLocalDevSetup>
+    <cfsetting showdebugoutput="false">
+    <cfheader statuscode="404" statustext="Not Found">
+    <cfcontent type="text/plain; charset=utf-8" reset="true">
+    <cfoutput>Not Found</cfoutput>
+    <cfabort>
+</cfif>
+
 <cfif NOT structKeyExists(session, 'authenticated') OR session.authenticated neq true>
     <cfsilent>
         <cfset userCreated = false>
