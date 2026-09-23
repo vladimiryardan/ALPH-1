@@ -4,7 +4,7 @@
 	<cfset this.sessionTimeout = createTimeSpan(0,0,30,0)>
 	<!--- http://127.0.0.1:60082/lucee/admin/server.cfm?action=server.error --->
 
-	<cfset this.showDebugOutput = true>
+	<cfset this.showDebugOutput = false>
 	<!--- recatpcha: https://www.google.com/recaptcha/admin/site/762118480 atticladderph@gmail.com--->
 
 
@@ -76,24 +76,71 @@
 	<cffunction name="onError" access="public" returntype="void" output="true">
         <cfargument name="exception" type="any" required="true">
         <cfargument name="eventName" type="string" required="true">
+        <cfset var errorReference = createUUID()>
+        <cfset var errorDetails = { reference = errorReference, event = arguments.eventName }>
+        <cfinclude template="inc_local_dev.cfm">
+        <cfsetting showdebugoutput="false">
         <!--- Some Lucee configurations dispatch missing requests directly here. --->
         <cfif structKeyExists(arguments.exception, "MissingFileName")
             AND compareNoCase(arguments.exception.MissingFileName, cgi.script_name) EQ 0>
             <cfinclude template="404.cfm">
             <cfreturn>
         </cfif>
-        <h1>Application Error</h1>
-        <cfdump var="#arguments.exception#" label="Exception Details" expand="true">
-        <cfdump var="#arguments.eventName#" label="Event Name">
-        <cfdump var="#CGI#" label="CGI Scope" expand="false">
-        <cfdump var="#URL#" label="URL Scope" expand="false">
-        <cfdump var="#FORM#" label="FORM Scope" expand="false">
-        <cfabort>
+        <!--- Log diagnostic fields privately, never entire request/session scopes. --->
+        <cftry>
+            <cfif structKeyExists(arguments.exception, "type")>
+                <cfset errorDetails.type = arguments.exception.type>
+            </cfif>
+            <cfif structKeyExists(arguments.exception, "message")>
+                <cfset errorDetails.message = arguments.exception.message>
+            </cfif>
+            <cfif structKeyExists(arguments.exception, "detail")>
+                <cfset errorDetails.detail = arguments.exception.detail>
+            </cfif>
+            <cfif structKeyExists(arguments.exception, "stackTrace")>
+                <cfset errorDetails.stackTrace = arguments.exception.stackTrace>
+            </cfif>
+            <cflog file="atticladderph-errors" type="error" text="#serializeJSON(errorDetails)#">
+            <cfcatch type="any">
+                <!--- A logging failure must not reveal the original exception. --->
+            </cfcatch>
+        </cftry>
+        <cfheader statuscode="500" statustext="Internal Server Error">
+        <cfheader name="Cache-Control" value="no-store">
+        <cfheader name="X-Robots-Tag" value="noindex, nofollow">
+        <cfcontent type="text/html; charset=utf-8" reset="true">
+        <cfif request.isLocalDevelopment>
+            <h1>Application Error (Local Development)</h1>
+            <p>Reference: <cfoutput>#encodeForHTML(errorReference)#</cfoutput></p>
+            <cfdump var="#arguments.exception#" label="Exception Details" expand="true">
+            <cfdump var="#arguments.eventName#" label="Event Name">
+            <cfdump var="#CGI#" label="CGI Scope" expand="false">
+            <cfdump var="#URL#" label="URL Scope" expand="false">
+            <cfdump var="#FORM#" label="FORM Scope" expand="false">
+            <cfreturn>
+        </cfif>
+        <!doctype html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Something Went Wrong | Attic Ladder PH</title>
+        </head>
+        <body>
+            <main>
+                <h1>Something went wrong</h1>
+                <p>We couldn't complete your request. Please try again later.</p>
+                <p><a href="/">Return to Home</a> or <a href="tel:+639778497190">call 0977 849 7190</a> for help.</p>
+                <p>Reference: <cfoutput>#encodeForHTML(errorReference)#</cfoutput></p>
+            </main>
+        </body>
+        </html>
     </cffunction>
 
 
     <cffunction name="onRequestStart" returntype="boolean" output="false">
         <cfargument name="targetPage" type="string" required="true">
+        <cfsetting showdebugoutput="false">
 
         <cfif structKeyExists(url, "restartApp") AND url.restartApp EQ "1">
             <!--- Recheck changed CFML templates as well as application variables. --->
