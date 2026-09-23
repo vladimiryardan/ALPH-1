@@ -19,124 +19,78 @@ function getCurrentTotpCounter() {
 }
 
 function decodeBase32(requiredSecret) {
-    var secret = trim(arguments.requiredSecret);
+    var secret = uCase(trim(arguments.requiredSecret));
     var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-    var cleanedSecret = reReplace(secret, "[^A-Z2-7]", "", "all");
-    var bitString = "";
-    var outputBytes = [];
-    var charIndex = 0;
-    var charValue = 0;
+    var bits = "";
+    var hex = "";
+    var position = 0;
+    var value = 0;
     var binaryValue = "";
-    var byteIndex = 0;
-    var byteBits = "";
-    var currentByte = 0;
-    var bitIndex = 0;
-    var secretBytes = 0;
-    var encodedBits = 0;
+    var remainder = 0;
 
-    if (len(cleanedSecret) EQ 0) {
-        return createObject("java", "[B", [0]);
+    if (!reFind("^[A-Z2-7]+={0,6}$", secret)) {
+        throw(type="InvalidTotpSecret", message="Invalid Base32 authenticator secret.");
     }
-
-    for (charIndex = 1; charIndex LTE len(cleanedSecret); charIndex = charIndex + 1) {
-        charValue = find(mid(cleanedSecret, charIndex, 1), alphabet) - 1;
-        if (charValue LT 0) {
-            continue;
-        }
-
-        binaryValue = createObject("java", "java.lang.Integer").toBinaryString(charValue);
-        if (len(binaryValue) LT 5) {
-            binaryValue = repeatString("0", 5 - len(binaryValue)) & binaryValue;
-        }
-        bitString &= binaryValue;
+    secret = reReplace(secret, "=+$", "");
+    if (!listFind("0,2,4,5,7", len(secret) MOD 8)) {
+        throw(type="InvalidTotpSecret", message="Invalid Base32 authenticator secret length.");
     }
-
-    encodedBits = len(bitString) - (len(bitString) MOD 8);
-    for (byteIndex = 1; byteIndex LTE encodedBits; byteIndex = byteIndex + 8) {
-        byteBits = mid(bitString, byteIndex, 8);
-        currentByte = 0;
-        for (bitIndex = 1; bitIndex LTE 8; bitIndex = bitIndex + 1) {
-            currentByte = bitSHLN(currentByte, 1);
-            if (mid(byteBits, bitIndex, 1) EQ "1") {
-                currentByte = bitOr(currentByte, 1);
-            }
-        }
-        arrayAppend(outputBytes, currentByte);
+    for (position = 1; position LTE len(secret); position++) {
+        value = find(mid(secret, position, 1), alphabet) - 1;
+        binaryValue = formatBaseN(value, 2);
+        bits &= right("00000" & binaryValue, 5);
     }
-
-    secretBytes = createObject("java", "[B", [arrayLen(outputBytes)]);
-    for (byteIndex = 1; byteIndex LTE arrayLen(outputBytes); byteIndex = byteIndex + 1) {
-        secretBytes[byteIndex - 1] = javacast("byte", outputBytes[byteIndex]);
+    for (position = 1; position + 7 LTE len(bits); position += 8) {
+        hex &= right("00" & formatBaseN(inputBaseN(mid(bits, position, 8), 2), 16), 2);
     }
-
-    return secretBytes;
-}
-
-function getSecretBytes(requiredSecret) {
-    var secret = trim(arguments.requiredSecret);
-    var secretBytes = [];
-    var index = 0;
-    var charCode = 0;
-
-    if (len(secret) EQ 0) {
-        return [];
+    remainder = len(bits) MOD 8;
+    if (remainder GT 0 AND inputBaseN(right(bits, remainder), 2) NEQ 0) {
+        throw(type="InvalidTotpSecret", message="Invalid Base32 authenticator secret padding.");
     }
-
-    for (index = 1; index LTE len(secret); index = index + 1) {
-        charCode = asc(mid(secret, index, 1));
-        arrayAppend(secretBytes, javacast("byte", charCode));
-    }
-
-    return secretBytes;
+    return binaryDecode(hex, "hex");
 }
 
 function generateTotpCode(requiredSecret, currentCounter) {
-    var secret = trim(arguments.requiredSecret);
-    var secretBytes = getSecretBytes(secret);
+    var secretBytes = decodeBase32(arguments.requiredSecret);
     var counterValue = arguments.currentCounter;
-    var counterBytes = [];
+    var counterHex = "";
     var byteIndex = 0;
-    var mac = 0;
-    var digest = 0;
+    var mac = createObject("java", "javax.crypto.Mac").getInstance("HmacSHA1");
+    var key = createObject("java", "javax.crypto.spec.SecretKeySpec").init(secretBytes, "HmacSHA1");
+    var digestHex = "";
     var offset = 0;
     var binaryCode = 0;
-    var otp = 0;
 
-    if (len(secret) EQ 0) {
-        return "";
-    }
-
-    for (byteIndex = 7; byteIndex GTE 0; byteIndex = byteIndex - 1) {
-        arrayAppend(counterBytes, javacast("byte", bitAnd(counterValue, 255)));
+    // Eight-byte, big-endian counter; avoid signed Java byte/index conversions.
+    for (byteIndex = 1; byteIndex LTE 8; byteIndex++) {
+        counterHex = right("00" & formatBaseN(counterValue MOD 256, 16), 2) & counterHex;
         counterValue = int(counterValue / 256);
     }
-
-    mac = createObject("java", "javax.crypto.Mac").getInstance("HmacSHA1");
-    mac.init(createObject("java", "javax.crypto.spec.SecretKeySpec", [secretBytes, "HmacSHA1"]));
-    digest = mac.doFinal(counterBytes);
-
-    offset = bitAnd(javacast("int", digest[arrayLen(digest) - 1]), 15);
-    binaryCode = (bitAnd(javacast("int", digest[offset]), 127) * 16777216)
-        + (bitAnd(javacast("int", digest[offset + 1]), 255) * 65536)
-        + (bitAnd(javacast("int", digest[offset + 2]), 255) * 256)
-        + bitAnd(javacast("int", digest[offset + 3]), 255);
-
-    otp = bitAnd(binaryCode, 2147483647) % 1000000;
-    return right("000000" & otp, 6);
+    mac.init(key);
+    digestHex = binaryEncode(mac.doFinal(binaryDecode(counterHex, "hex")), "hex");
+    offset = inputBaseN(right(digestHex, 1), 16);
+    binaryCode = bitAnd(inputBaseN(mid(digestHex, offset * 2 + 1, 2), 16), 127) * 16777216
+        + inputBaseN(mid(digestHex, offset * 2 + 3, 6), 16);
+    return right("000000" & (binaryCode MOD 1000000), 6);
 }
 
 function isValidTotpCode(requiredSecret, submittedCode) {
     var timeCounter = getCurrentTotpCounter();
     var loopIndex = 0;
-    var candidateCode = "";
-
-    for (loopIndex = -2; loopIndex LTE 2; loopIndex = loopIndex + 1) {
-        candidateCode = generateTotpCode(arguments.requiredSecret, timeCounter + loopIndex);
-        if (trim(arguments.submittedCode) EQ candidateCode) {
-            return true;
-        }
+    var code = trim(arguments.submittedCode);
+    if (!reFind("^[0-9]{6}$", code)) {
+        return false;
     }
-
+    try {
+        for (loopIndex = -2; loopIndex LTE 2; loopIndex++) {
+            if (compare(code, generateTotpCode(arguments.requiredSecret, timeCounter + loopIndex)) EQ 0) {
+                return true;
+            }
+        }
+    } catch (any error) {
+        // Invalid configuration must not authenticate or expose the secret.
+        return false;
+    }
     return false;
 }
 </cfscript>
