@@ -144,23 +144,11 @@ function isValidTotpCode(requiredSecret, submittedCode) {
 <cfif form.step EQ "2fa">
     <cfif structKeyExists(session, 'twofa_pending') AND session.twofa_pending EQ true AND structKeyExists(session, 'twofa_secret')>
         <cfset submittedCode = trim(form.twofa_code)>
-        <cfset storedExpectedCode = "">
-        <cfif structKeyExists(session, 'expected_totp_code') AND len(trim(session.expected_totp_code))>
-            <cfset storedExpectedCode = trim(session.expected_totp_code)>
-        </cfif>
-
-        <cfif len(storedExpectedCode) AND submittedCode EQ storedExpectedCode>
-            <cfset session.authenticated = true>
-            <cfset session.username = session.pending_username>
-            <cfset structDelete(session, 'twofa_pending')>
-            <cfset structDelete(session, 'twofa_secret')>
-            <cfset structDelete(session, 'twofa_expiresAt')>
-            <cfset structDelete(session, 'pending_username')>
-            <cfset structDelete(session, 'expected_totp_code')>
-            <cfset structDelete(session, 'expected_totp_code_display')>
-            <cfheader statusCode="302" name="Location" value="index.cfm">
-            <cfabort>
-        <cfelseif isValidTotpCode(session.twofa_secret, submittedCode)>
+        <cfif reFind("^[0-9]{6}$", submittedCode)
+            AND structKeyExists(session, 'twofa_expiresAt')
+            AND isDate(session.twofa_expiresAt)
+            AND now() LT session.twofa_expiresAt
+            AND isValidTotpCode(session.twofa_secret, submittedCode)>
             <cfset session.authenticated = true>
             <cfset session.username = session.pending_username>
             <cfset structDelete(session, 'twofa_pending')>
@@ -248,10 +236,8 @@ function isValidTotpCode(requiredSecret, submittedCode) {
         <cfset session.twofa_pending = true>
         <cfset session.pending_username = testUsername>
         <cfset session.twofa_secret = secretForTotp>
-        <cfset session.expected_totp_code = generateTotpCode(secretForTotp, getCurrentTotpCounter())>
         <cfset session.twofa_expiresAt = dateAdd("n", 10, now())>
-        <cfset session.expected_totp_code_display = session.expected_totp_code>
-        <cfheader statusCode="302" name="Location" value="login.cfm?msg=Enter+your+6-digit+authenticator+code&expected=#urlEncodedFormat(session.expected_totp_code)#">
+        <cfheader statusCode="302" name="Location" value="login.cfm?msg=Enter+your+6-digit+authenticator+code">
         <cfabort>
     <cfelse>
         <cfheader statusCode="302" name="Location" value="login.cfm?msg=Invalid+credentials">

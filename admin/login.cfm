@@ -5,12 +5,8 @@
 <body>
     <h2>Admin Login</h2>
     <cfset loginMessage = "">
-    <cfset expectedCode = "">
     <cfif structKeyExists(url, 'msg') AND len(trim(url.msg))>
         <cfset loginMessage = urlDecode(url.msg)>
-    </cfif>
-    <cfif structKeyExists(url, 'expected') AND len(trim(url.expected))>
-        <cfset expectedCode = urlDecode(url.expected)>
     </cfif>
     <cfif len(trim(loginMessage))>
         <cfoutput>
