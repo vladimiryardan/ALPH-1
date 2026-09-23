@@ -47,7 +47,6 @@
         {key="dashboard", label="Dashboard", icon="bi-grid-1x2-fill"},
         {key="quote-requests", label="Quote Requests", icon="bi-clipboard-check"},
         {key="create-quote", label="Create Quote", icon="bi-file-earmark-plus"},
-        {key="code-generation", label="Code Generation", icon="bi-code-slash"},
         {key="contact-inquiries", label="Contact Inquiries", icon="bi-envelope-paper"},
         {key="gallery", label="Gallery", icon="bi-images"},
         {key="products", label="Products", icon="bi-box-seam"},
@@ -61,7 +60,6 @@
         "quote-requests"="Quote Requests",
         "quote-details"="Quote Details",
         "create-quote"="Create Quote",
-        "code-generation"="Code Generation",
         "contact-inquiries"="Contact Inquiries",
         "gallery"="Gallery",
         "products"="Products",
@@ -74,8 +72,7 @@
         "dashboard"="Dashboard Overview",
         "quote-requests"="Quote Requests",
         "quote-details"="Quote Details",
-        "create-quote"="Create Quote Generator",
-        "code-generation"="Code & Quote Generation",
+        "create-quote"="Create New Quote",
         "contact-inquiries"="Contact Inquiries",
         "gallery"="Gallery Management",
         "products"="Products / Attic Ladder Types",
@@ -490,7 +487,6 @@
                                     <h5 class="mb-0 fw-bold">Quote Requests</h5>
                                     <div class="d-flex flex-wrap gap-2">
                                         <a href="index.cfm?view=create-quote" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Quote</a>
-                                        <a href="index.cfm?view=code-generation" class="btn btn-outline-primary btn-sm"><i class="bi bi-code-slash me-1"></i>Code Generator</a>
                                         <input class="form-control" type="text" placeholder="Search quotes..." style="min-width: 220px;">
                                         <select class="form-select" style="max-width: 160px;">
                                             <option>Status</option>
@@ -641,14 +637,11 @@
                                         <div class="panel-header flex-wrap gap-2">
                                             <div>
                                                 <h5 class="mb-1 fw-bold"><i class="bi bi-file-earmark-plus text-primary me-2"></i>Create New Quote</h5>
-                                                <p class="text-muted small mb-0">Fill out client information and standard attic ladder specifications to generate a formal quote & code.</p>
+                                                <p class="text-muted small mb-0">Fill out client information and select attic ladder standard opening sizes to create a new quote request.</p>
                                             </div>
                                             <div class="d-flex gap-2">
                                                 <a href="index.cfm?view=quote-requests" class="btn btn-outline-secondary btn-sm">
                                                     <i class="bi bi-arrow-left me-1"></i>Quote Requests
-                                                </a>
-                                                <a href="index.cfm?view=code-generation" class="btn btn-outline-primary btn-sm">
-                                                    <i class="bi bi-code-slash me-1"></i>Code Generation Tool
                                                 </a>
                                             </div>
                                         </div>
@@ -762,10 +755,7 @@
                                             </div>
 
                                             <div class="d-flex flex-wrap gap-2 mt-4">
-                                                <button type="button" class="btn btn-primary btn-lg" id="btnGenerateQuoteCode">
-                                                    <i class="bi bi-code-slash me-1"></i>Generate Code & Preview
-                                                </button>
-                                                <button type="submit" name="submit_quote" class="btn btn-success btn-lg">
+                                                <button type="submit" name="submit_quote" class="btn btn-primary btn-lg">
                                                     <i class="bi bi-check-lg me-1"></i>Save Quote
                                                 </button>
                                                 <button type="reset" class="btn btn-outline-secondary btn-lg">
@@ -773,175 +763,6 @@
                                                 </button>
                                             </div>
                                         </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Generated Code & Output Card -->
-                        <div class="card mt-4" id="quoteOutputCard" style="display:none;">
-                            <div class="card-body">
-                                <div class="panel-header">
-                                    <h5 class="mb-0 fw-bold"><i class="bi bi-terminal-box text-success me-2"></i>Generated Code & Quote Output</h5>
-                                    <button class="btn btn-sm btn-outline-secondary" onclick="copyQuoteOutput('quoteTextMessage')">
-                                        <i class="bi bi-clipboard me-1"></i>Copy Message Code
-                                    </button>
-                                </div>
-
-                                <ul class="nav nav-tabs mb-3" id="quoteCodeTabs" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="tab-text-tab" data-bs-toggle="tab" data-bs-target="##tab-text" type="button" role="tab">Message Text Code</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="tab-html-tab" data-bs-toggle="tab" data-bs-target="##tab-html" type="button" role="tab">HTML Embed Code</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="tab-json-tab" data-bs-toggle="tab" data-bs-target="##tab-json" type="button" role="tab">JSON Data Code</button>
-                                    </li>
-                                </ul>
-
-                                <div class="tab-content p-3 bg-light rounded-3 border">
-                                    <div class="tab-pane fade show active" id="tab-text" role="tabpanel">
-                                        <pre id="quoteTextMessage" class="mb-0 font-monospace text-dark" style="white-space: pre-wrap; font-size: 0.9rem;"></pre>
-                                    </div>
-                                    <div class="tab-pane fade" id="tab-html" role="tabpanel">
-                                        <pre id="quoteHtmlCode" class="mb-0 font-monospace text-dark" style="white-space: pre-wrap; font-size: 0.85rem;"></pre>
-                                    </div>
-                                    <div class="tab-pane fade" id="tab-json" role="tabpanel">
-                                        <pre id="quoteJsonCode" class="mb-0 font-monospace text-dark" style="white-space: pre-wrap; font-size: 0.85rem;"></pre>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </cfcase>
-
-                    <cfcase value="code-generation">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="panel-header flex-wrap gap-2 mb-3">
-                                    <div>
-                                        <h5 class="mb-1 fw-bold"><i class="bi bi-code-slash text-primary me-2"></i>Code Generation Hub</h5>
-                                        <p class="text-muted small mb-0">Generate quote codes, customer communication templates, and HTML code snippets for website integration.</p>
-                                    </div>
-                                    <a href="index.cfm?view=create-quote" class="btn btn-primary btn-sm">
-                                        <i class="bi bi-file-earmark-plus me-1"></i>Create New Quote
-                                    </a>
-                                </div>
-
-                                <ul class="nav nav-pills mb-4" id="codeGenTabs" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="gen-quote-tab" data-bs-toggle="pill" data-bs-target="##gen-quote" type="button" role="tab">
-                                            <i class="bi bi-receipt me-1"></i>Quote Code Generator
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="gen-embed-tab" data-bs-toggle="pill" data-bs-target="##gen-embed" type="button" role="tab">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i>Website Button Embed Code
-                                        </button>
-                                    </li>
-                                </ul>
-
-                                <div class="tab-content" id="codeGenTabContent">
-                                    <!-- Quote Code Generator -->
-                                    <div class="tab-pane fade show active" id="gen-quote" role="tabpanel">
-                                        <div class="row g-4">
-                                            <div class="col-lg-6">
-                                                <div class="card bg-light border-0">
-                                                    <div class="card-body">
-                                                        <h6 class="fw-bold mb-3">Quick Quote Code Generator</h6>
-                                                        <div class="mb-3">
-                                                            <label class="form-label small fw-semibold">Client Name</label>
-                                                            <input type="text" id="cg_name" class="form-control" placeholder="e.g. Maria Santos">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label small fw-semibold">Phone Number</label>
-                                                            <input type="tel" id="cg_phone" class="form-control" placeholder="e.g. 0917-123-4567">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label small fw-semibold">Address</label>
-                                                            <input type="text" id="cg_address" class="form-control" placeholder="e.g. Alabang, Muntinlupa">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label small fw-semibold">Standard Opening Size</label>
-                                                            <select id="cg_size" class="form-select">
-                                                                <option value="" disabled selected>-- Select Standard Size --</option>
-                                                                <option value="70cm x 90cm">70cm x 90cm</option>
-                                                                <option value="70cm x 100cm">70cm x 100cm</option>
-                                                                <option value="70cm x 120cm">70cm x 120cm</option>
-                                                                <option value="80cm x 100cm">80cm x 100cm</option>
-                                                                <option value="80cm x 120cm">80cm x 120cm</option>
-                                                            </select>
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary w-100" onclick="generateCgQuoteCode()">
-                                                            <i class="bi bi-gear-wide-connected me-1"></i>Generate Code
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="card border">
-                                                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                                                        <span class="fw-semibold small"><i class="bi bi-code me-1"></i>Generated Quote Code Output</span>
-                                                        <button class="btn btn-xs btn-outline-light" onclick="copyCodeElement('cg_code_output')">Copy Code</button>
-                                                    </div>
-                                                    <div class="card-body bg-light">
-                                                        <pre id="cg_code_output" class="mb-0 font-monospace small" style="white-space: pre-wrap; min-height: 220px;">// Fill the form on the left and click "Generate Code"...</pre>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Embed Button Generator -->
-                                    <div class="tab-pane fade" id="gen-embed" role="tabpanel">
-                                        <div class="row g-4">
-                                            <div class="col-lg-6">
-                                                <div class="card bg-light border-0">
-                                                    <div class="card-body">
-                                                        <h6 class="fw-bold mb-3">Configure Embed Button</h6>
-                                                        <div class="mb-3">
-                                                            <label class="form-label small fw-semibold">Button Text</label>
-                                                            <input type="text" id="eb_text" class="form-control" value="Request a Free Quote">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label small fw-semibold">Default Size Pre-selection</label>
-                                                            <select id="eb_size" class="form-select">
-                                                                <option value="">Any Size</option>
-                                                                <option value="70cm x 90cm">70cm x 90cm</option>
-                                                                <option value="70cm x 100cm">70cm x 100cm</option>
-                                                                <option value="70cm x 120cm">70cm x 120cm</option>
-                                                                <option value="80cm x 100cm">80cm x 100cm</option>
-                                                                <option value="80cm x 120cm">80cm x 120cm</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label small fw-semibold">Button Style</label>
-                                                            <select id="eb_style" class="form-select">
-                                                                <option value="btn btn-warning">Gold Warning Button</option>
-                                                                <option value="btn btn-primary">Primary Blue Button</option>
-                                                                <option value="btn btn-success">Success Green Button</option>
-                                                            </select>
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary w-100" onclick="generateEmbedCode()">
-                                                            <i class="bi bi-code-square me-1"></i>Generate Embed Code
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="card border">
-                                                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                                                        <span class="fw-semibold small"><i class="bi bi-file-earmark-code me-1"></i>HTML Embed Code Snippet</span>
-                                                        <button class="btn btn-xs btn-outline-light" onclick="copyCodeElement('eb_code_output')">Copy Code</button>
-                                                    </div>
-                                                    <div class="card-body bg-light">
-                                                        <pre id="eb_code_output" class="mb-0 font-monospace small" style="white-space: pre-wrap; min-height: 220px;">// Click "Generate Embed Code" to get HTML button code snippet...</pre>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
