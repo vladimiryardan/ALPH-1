@@ -186,8 +186,16 @@ function isValidTotpCode(requiredSecret, submittedCode) {
 <cfset username = trim(form.username)>
 <cfset password = trim(form.password)>
 
-<!--- Local development fallback; production authentication remains database-backed. --->
-<cfif username EQ "admin" AND password EQ "admin123">
+<!--- Explicit development opt-in plus a direct loopback request; fail closed by default.
+      Set APP_ENV=development in the local server process only.
+      Do not trust Host or forwarded headers to enable this bypass. --->
+<cfset localDevEnvironment = createObject("java", "java.lang.System").getenv("APP_ENV")>
+<cfset allowLocalDevLogin = false>
+<cfif NOT isNull(localDevEnvironment)>
+    <cfset allowLocalDevLogin = compareNoCase(trim(localDevEnvironment), "development") EQ 0
+        AND listFindNoCase("127.0.0.1,::1,0:0:0:0:0:0:0:1,::ffff:127.0.0.1", trim(cgi.remote_addr)) GT 0>
+</cfif>
+<cfif allowLocalDevLogin AND username EQ "admin" AND password EQ "admin123">
     <cfset session.authenticated = true>
     <cfset session.username = "admin">
     <cfheader statusCode="302" name="Location" value="index.cfm">
