@@ -36,6 +36,26 @@ Always inspect the repository before assuming architecture, file locations, conf
 
 The following specialist agents are available:
 
+## DevOps Agent
+
+`devops`
+
+Use for:
+
+- Ubuntu server administration
+- Nginx
+- Lucee / CommandBox
+- Deployment
+- GitHub Actions
+- CI/CD
+- SSL/TLS
+- DNS
+- Environment configuration
+- Logs
+- Backups
+- Rollbacks
+- Production troubleshooting
+
 ## Security Agent
 
 `security`
@@ -162,9 +182,11 @@ RE-TEST
    ↓
 DOCUMENTATION AGENT (when relevant)
    ↓
+DEVOPS AGENT (deployment/infrastructure changes)
+   ↓
 FINAL VERIFICATION
    ↓
-READY FOR COMMIT / PR
+READY FOR COMMIT / PR / DEPLOYMENT
 
 Not every task requires every specialist.
 
