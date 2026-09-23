@@ -2,7 +2,6 @@
 	<cfset this.datasource = "atticladderph">
 	<cfset this.sessionManagement = true>
 	<cfset this.sessionTimeout = createTimeSpan(0,0,30,0)>
-	<cfset this.adminTotpSecret = "" >
 	<!--- http://127.0.0.1:60082/lucee/admin/server.cfm?action=server.error --->
 
 	<cfset this.showDebugOutput = true>
@@ -13,7 +12,7 @@
 	<cffunction name="onApplicationStart" access="public" returntype="boolean">
         <!--- Keep credentials in the server process environment, not source control. --->
 		<cfset application.datasource = this.datasource>
-		<cfset application.adminTotpSecret = this.adminTotpSecret>
+        <cfset application.adminTotpSecret = trim(readEnvironmentVariable("ADMIN_TOTP_SECRET", ""))>
         <cfset application.smtp = {
             server = readEnvironmentVariable("SMTP_HOST", ""),
             port = val(readEnvironmentVariable("SMTP_PORT", "465")),

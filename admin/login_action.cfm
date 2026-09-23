@@ -224,10 +224,17 @@ function isValidTotpCode(requiredSecret, submittedCode) {
     </cfif>
 
     <cfif passwordMatches>
-        <cfset secretForTotp = "JBSWY3DPEHPK3PXP">
-        <cfif structKeyExists(application, 'adminTotpSecret') AND len(trim(application.adminTotpSecret))>
-            <cfset secretForTotp = application.adminTotpSecret>
+        <!--- Never fall back to a shared development secret. --->
+        <cfif NOT structKeyExists(application, 'adminTotpSecret') OR NOT len(trim(application.adminTotpSecret))>
+            <cfset structDelete(session, 'twofa_pending')>
+            <cfset structDelete(session, 'pending_username')>
+            <cfset structDelete(session, 'twofa_secret')>
+            <cfset structDelete(session, 'twofa_expiresAt')>
+            <cflog file="atticladderph-auth" type="error" text="Admin login unavailable: ADMIN_TOTP_SECRET is not configured.">
+            <cfheader statusCode="302" name="Location" value="login.cfm?msg=Login+temporarily+unavailable">
+            <cfabort>
         </cfif>
+        <cfset secretForTotp = trim(application.adminTotpSecret)>
         <cfif NOT isDefined('qUser.Username')>
             <cfset testUsername = "admin">
         <cfelse>
