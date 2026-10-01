@@ -1,3 +1,12 @@
+<!--- Diagnostics are available only in the local development server process. --->
+<cfsetting showdebugoutput="false">
+<cfinclude template="../inc_local_dev.cfm">
+<cfif NOT request.isLocalDevelopment>
+    <cfheader statuscode="404" statustext="Not Found">
+    <cfabort>
+</cfif>
+<cfheader name="Cache-Control" value="no-store">
+<cfheader name="X-Robots-Tag" value="noindex, nofollow">
 <cftry>
     <cfquery name="qTest" datasource="#application.datasource#">
         SELECT 1 AS testval

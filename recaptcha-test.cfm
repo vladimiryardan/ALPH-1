@@ -1,6 +1,7 @@
 <!--- Local diagnostic page; never expose verification tokens or secret keys. --->
 <cfsetting showdebugoutput="false">
-<cfif NOT listFindNoCase("127.0.0.1,::1,0:0:0:0:0:0:0:1", cgi.remote_addr)>
+<cfinclude template="inc_local_dev.cfm">
+<cfif NOT request.isLocalDevelopment>
     <cfheader statuscode="404" statustext="Not Found">
     <cfabort>
 </cfif>

@@ -33,7 +33,9 @@
 <cfparam name="form.contact_method" default="">
 <cfparam name="form.notes" default="">
 <cfparam name="form.website" default="">
-<cfparam name="form.g-recaptcha-response" default="">
+<cfif NOT structKeyExists(form, "g-recaptcha-response")>
+    <cfset form["g-recaptcha-response"] = "">
+</cfif>
 
 <!--- Honeypot: bots often fill hidden fields. --->
 <cfif len(trim(form.website))>
