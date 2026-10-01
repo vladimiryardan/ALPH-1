@@ -1,0 +1,89 @@
+# Public website release candidate
+
+Host-independent preparation only. Production host, deployment method, paths,
+service names and server configuration remain to be agreed. Nothing here deploys.
+
+## Build and review
+
+- Run `python scripts/build_release.py` from the repository with Python 3.9+.
+  It creates a uniquely named directory under the OS temp directory outside the
+  web root, containing `public-site.zip` and `release-manifest.json`.
+- Keep both artifacts together in approved private release storage; temp storage
+  is not a durable backup. Deploy only the ZIP contents, never the manifest.
+- The ZIP uses an explicit public-page allowlist, required shared templates,
+  `Content/gallery-alt.json`, CSS/JS and filtered image assets including the
+  Git-ignored `gallery/`. Missing gallery images fail the build. Review gallery
+  content for publication approval. Future required assets need allowlist updates.
+- The manifest records each packaged file's SHA256 and size, ZIP SHA256, Git HEAD,
+  working-tree dirty state and builder hash. The package snapshots current files,
+  including uncommitted work; review the diff before approval. Do not edit source
+  while building. Rebuild after approved changes and verify the final ZIP hash.
+- Excluded: admin, diagnostics, templates/sample pages, environment files, server
+  config, editor/Git files, SQL, tooling, logs, documents, backups and customer
+  uploads. Admin release scope remains pending; this candidate has no admin UI.
+
+## Production prerequisites (values stay in the environment)
+
+- Confirm the target CFML/Lucee version and datasource named `atticladderph`.
+  Provision datasource credentials through the host's protected configuration.
+- Supply environment names `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`,
+  `SMTP_PASSWORD`, `SMTP_SSL`, `SMTP_TLS`, `SMTP_FROM`, `SMTP_TO`, `SMTP_REPLY_TO`,
+  `RECAPTCHA_SITE_KEY`, `RECAPTCHA_SECRET_KEY`, and `APP_ENV`.
+  Set `APP_ENV` to production, never development. Preserve the tested SMTP values
+  and the existing TLS/SSL interpretation; this release does not change them.
+- `ADMIN_TOTP_SECRET` is optional for this public-only package; decide admin
+  scope before deploying admin separately. Never copy the local development
+  launcher or environment files into production. Local testing, if needed, uses
+  `ZvladSecureFolderIgnore/start-dev.sh` as requested.
+- Configure reCAPTCHA for the production hostname, HTTPS, database connectivity,
+  SMTP connectivity and restricted writable `uploads/quote-requests/` storage.
+  Block HTTP access and script execution in customer-upload storage at the host.
+- Confirm existing remote diagnostics and private files are removed or denied:
+  omission from this ZIP does not remove files already on the server. Check
+  `mail-test.cfm`, `recaptcha-test.cfm`, `admin/db_test.cfm` and admin setup tools.
+- Implement host-specific static/missing-route handling using
+  [404-DEPLOYMENT.md](404-DEPLOYMENT.md). Server-side 404 mapping is deferred until
+  the host is selected; keep HTTP 404 and the original requested URL.
+
+## Backup and deployment procedure to finalize with the host
+
+1. Record the deployed version and the approved candidate ZIP hash. Take a private,
+   dated backup of current application files, server/routing configuration, protected
+   environment configuration, database, published gallery and customer-upload data.
+   Record storage location, owner and a tested restore procedure without credentials.
+2. Identify persistent paths (`uploads/`, `quote-requests/`, `gallery/`) and preserve
+   current production contents. Do not mirror/delete or replace them wholesale.
+   Reconcile packaged gallery images with newer production images before copying.
+3. Stage the candidate in a fresh release directory. Connect persistent storage
+   and existing protected runtime configuration; do not overwrite it with local
+   settings. No database migration is included in this candidate.
+4. After host details and deployment authorization are established, validate the
+   server configuration and switch to the staged release using the host's chosen
+   procedure. Capture the exact switch/restart and rollback commands beforehand.
+
+## Release checks and current limits
+
+- Verify Home, About, Gallery, FAQ, Contact, quote and legal pages on mobile and
+  desktop; verify CSS/JS and gallery images load, including nested album paths.
+- Verify diagnostic endpoints return 404/403 and private files are inaccessible.
+- Verify HTTPS, nested missing CFML URLs, missing static files and extensionless
+  URLs; all missing routes must return the branded HTTP 404 without redirecting.
+- Successful contact/quote submissions, attachment delivery and inbox receipt are
+  **assumed working at the user's direction, not verified end to end**. Carry this
+  explicit release limitation until a controlled test is completed. The designated
+  customer test address is `vladimiryardan@gmail.com`; avoid unsolicited test sends.
+- A source dependency check found `quote_process.cfm` references
+  `css/bootstrap.min.css`, which is absent locally. Resolve that existing error-page
+  styling dependency or explicitly accept it before release; the builder invents
+  no replacement asset. Runtime and production verification are still required.
+- Monitor application errors and mail delivery after the release; record outcome.
+
+## Rollback
+
+If core pages or lead delivery fail, switch application code back to the recorded
+previous release using the agreed host procedure, restore only changed server
+configuration if necessary, then repeat page/form and 404 checks. Preserve all
+customer uploads, new requests, newer gallery assets and database writes received
+since deployment. Do not restore an old database or mirror an old upload directory
+as routine rollback. Any database recovery requires a separately reviewed data
+reconciliation plan. Keep the failed artifact and diagnostic evidence privately.
