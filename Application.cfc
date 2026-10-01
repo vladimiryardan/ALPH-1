@@ -143,6 +143,12 @@
         <cfsetting showdebugoutput="false">
 
         <cfif structKeyExists(url, "restartApp") AND url.restartApp EQ "1">
+            <cfinclude template="inc_local_dev.cfm">
+            <cfif (NOT structKeyExists(session, "authenticated") OR session.authenticated NEQ true)
+                AND NOT request.isLocalDevelopment>
+                <cfheader statuscode="403" statustext="Forbidden">
+                <cfabort>
+            </cfif>
             <!--- Recheck changed CFML templates as well as application variables. --->
             <cfset inspectTemplates()>
             <cfset applicationStop()>

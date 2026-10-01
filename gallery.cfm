@@ -102,7 +102,7 @@
               <div class="my-5 text-center">
                 <h1 class="display-5 fw-bolder text-white mb-2">Gallery</h1>
                 <p class="lead fw-normal text-white-50 mb-0">
-                  A look at our completed Attic Ladder installations.
+                  Our completed Attic Ladder installations.
                 </p>
               </div>
             </div>
