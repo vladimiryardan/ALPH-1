@@ -1,0 +1,122 @@
+name: Deploy AtticLadderPH Production
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: atticladderph-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy to Linode
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout application
+        uses: actions/checkout@v4
+
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.LINODE_SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.LINODE_HOST }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/linode
+          chmod 600 ~/.ssh/linode
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Test SSH connection
+        env:
+          SSH_HOST: ${{ secrets.LINODE_HOST }}
+        run: |
+          ssh -i ~/.ssh/linode root@"$SSH_HOST" \
+            "echo 'SSH connection successful'"
+
+      - name: Prepare release directory
+        env:
+          SSH_HOST: ${{ secrets.LINODE_HOST }}
+        run: |
+          ssh -i ~/.ssh/linode root@"$SSH_HOST" \
+            "rm -rf /tmp/atticladderph-release && mkdir -p /tmp/atticladderph-release"
+
+      - name: Upload application
+        env:
+          SSH_HOST: ${{ secrets.LINODE_HOST }}
+        run: |
+          rsync -az --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.vscode' \
+            --exclude='server.json' \
+            -e "ssh -i ~/.ssh/linode" \
+            ./ root@"$SSH_HOST":/tmp/atticladderph-release/
+
+      - name: Deploy application
+        env:
+          SSH_HOST: ${{ secrets.LINODE_HOST }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: |
+          ssh -i ~/.ssh/linode root@"$SSH_HOST" "
+            set -e
+
+            rsync -a --delete \
+              --exclude='server.json' \
+              /tmp/atticladderph-release/ \
+              /var/www/atticladderph/
+
+            chown -R www-data:www-data /var/www/atticladderph
+
+            printf '%s\n' '$GITHUB_SHA' \
+              > /var/www/atticladderph/.deployed-commit
+
+            chown www-data:www-data \
+              /var/www/atticladderph/.deployed-commit
+          "
+
+      - name: Restart AtticLadderPH
+        env:
+          SSH_HOST: ${{ secrets.LINODE_HOST }}
+        run: |
+          ssh -i ~/.ssh/linode root@"$SSH_HOST" \
+            "systemctl restart commandbox-atticladderph"
+
+      - name: Wait for Lucee
+        env:
+          SSH_HOST: ${{ secrets.LINODE_HOST }}
+        run: |
+          ssh -i ~/.ssh/linode root@"$SSH_HOST" "
+            for attempt in {1..30}; do
+              if curl -fsS \
+                -H 'Host: atticladderph.com' \
+                http://127.0.0.1/ \
+                >/dev/null; then
+                exit 0
+              fi
+
+              sleep 2
+            done
+
+            echo 'AtticLadderPH failed health check'
+            exit 1
+          "
+
+      - name: Verify deployed commit
+        env:
+          SSH_HOST: ${{ secrets.LINODE_HOST }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: |
+          ssh -i ~/.ssh/linode root@"$SSH_HOST" \
+            "test \"\$(cat /var/www/atticladderph/.deployed-commit)\" = '$GITHUB_SHA'"
+
+      - name: Cleanup
+        if: always()
+        env:
+          SSH_HOST: ${{ secrets.LINODE_HOST }}
+        run: |
+          ssh -i ~/.ssh/linode root@"$SSH_HOST" \
+            "rm -rf /tmp/atticladderph-release" || true
