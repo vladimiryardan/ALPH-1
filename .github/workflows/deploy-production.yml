@@ -91,26 +91,20 @@ jobs:
             systemctl restart commandbox-atticladderph
           "
 
-      - name: Health check
+      - name: Production smoke tests
         id: health
         continue-on-error: true
-        env:
-          SSH_HOST: ${{ secrets.LINODE_HOST }}
         run: |
-          ssh -i ~/.ssh/linode root@"$SSH_HOST" "
-            for attempt in {1..30}; do
-              if curl -fsS \
-                -H 'Host: atticladderph.com' \
-                http://127.0.0.1/ \
-                >/dev/null; then
-                exit 0
-              fi
+          for attempt in {1..30}; do
+            if ./scripts/production-smoke-test.sh; then
+              exit 0
+            fi
 
-              sleep 2
-            done
+            echo "Smoke test attempt $attempt failed; retrying..."
+            sleep 2
+          done
 
-            exit 1
-          "
+          exit 1
 
       - name: Roll back failed deployment
         if: steps.health.outcome == 'failure'
