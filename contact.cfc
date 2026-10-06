@@ -77,13 +77,12 @@
             </cfif>
 
             <cfset local.recaptchaPayload = {
-                event = {
-                    token = local.recaptchaToken,
-                    siteKey = application.recaptcha.siteKey,
-                    expectedAction = "CONTACT"
+                "event" = {
+                    "token" = local.recaptchaToken,
+                    "siteKey" = application.recaptcha.siteKey,
+                    "expectedAction" = "CONTACT"
                 }
             }>
-
             <cfhttp
                 url="https://recaptchaenterprise.googleapis.com/v1/projects/atticladderph/assessments?key=#application.recaptcha.enterpriseApiKey#"
                 method="post"

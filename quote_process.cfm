@@ -73,10 +73,10 @@
 </cfif>
 
 <cfset recaptchaPayload = {
-    event = {
-        token = recaptchaToken,
-        siteKey = application.recaptcha.siteKey,
-        expectedAction = "QUOTE"
+    "event" = {
+        "token" = recaptchaToken,
+        "siteKey" = application.recaptcha.siteKey,
+        "expectedAction" = "QUOTE"
     }
 }>
 
