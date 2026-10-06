@@ -70,39 +70,59 @@
 
 
             <!---
-                Google reCAPTCHA v2 server-side verification
+                Google reCAPTCHA Enterprise server-side verification
             --->
             <cfif NOT len(local.recaptchaToken)>
                 <cfreturn "Please complete the reCAPTCHA verification.">
             </cfif>
 
+            <cfset local.recaptchaPayload = {
+                event = {
+                    token = local.recaptchaToken,
+                    siteKey = application.recaptcha.siteKey,
+                    expectedAction = "CONTACT"
+                }
+            }>
+
             <cfhttp
-                url="https://www.google.com/recaptcha/api/siteverify"
+                url="https://recaptchaenterprise.googleapis.com/v1/projects/atticladderph/assessments?key=#application.recaptcha.enterpriseApiKey#"
                 method="post"
                 result="local.recaptchaHttpResult"
                 throwonerror="false">
 
-                <cfhttpparam type="formfield" name="secret" value="#application.recaptcha.secretKey#">
-                <cfhttpparam type="formfield" name="response" value="#local.recaptchaToken#">
-                <cfhttpparam type="formfield" name="remoteip" value="#cgi.remote_addr#">
+                <cfhttpparam
+                    type="header"
+                    name="Content-Type"
+                    value="application/json">
+
+                <cfhttpparam
+                    type="body"
+                    value="#serializeJSON(local.recaptchaPayload)#">
 
             </cfhttp>
 
             <cfset local.recaptchaResult = {}>
 
             <cftry>
-                <cfset local.recaptchaResult = deserializeJSON(local.recaptchaHttpResult.fileContent)>
+                <cfset local.recaptchaResult =
+                    deserializeJSON(local.recaptchaHttpResult.fileContent)>
 
                 <cfcatch type="any">
-                    <cfset local.recaptchaResult = { success = false }>
+                    <cfset local.recaptchaResult = {}>
                 </cfcatch>
             </cftry>
 
-            <cfif NOT (structKeyExists(local.recaptchaResult, "success") AND local.recaptchaResult.success)>
+            <cfif NOT (
+                structKeyExists(local.recaptchaResult, "tokenProperties")
+                AND structKeyExists(local.recaptchaResult.tokenProperties, "valid")
+                AND local.recaptchaResult.tokenProperties.valid
+                AND structKeyExists(local.recaptchaResult.tokenProperties, "action")
+                AND local.recaptchaResult.tokenProperties.action EQ "CONTACT"
+            )>
                 <cflog
                     file="atticladderph-contact"
                     type="Information"
-                    text="Contact reCAPTCHA verification failed. IP: #cgi.remote_addr#">
+                    text="Contact reCAPTCHA Enterprise verification failed. IP: #cgi.remote_addr#">
 
                 <cfreturn "The reCAPTCHA verification failed. Please try again.">
             </cfif>

@@ -268,6 +268,7 @@
                                     <div
                                         class="g-recaptcha"
                                         id="quoteRecaptcha"
+                                        data-action="QUOTE"
                                         data-sitekey="#encodeForHTMLAttribute(application.recaptcha.siteKey)#">
                                     </div>
                                     </cfoutput>
@@ -327,6 +328,6 @@
     </main>
 
 <!-- Google reCAPTCHA -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 
  <cfinclude template = "inc_footer.cfm">

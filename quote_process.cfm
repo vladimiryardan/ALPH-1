@@ -72,15 +72,28 @@
     <cfabort>
 </cfif>
 
+<cfset recaptchaPayload = {
+    event = {
+        token = recaptchaToken,
+        siteKey = application.recaptcha.siteKey,
+        expectedAction = "QUOTE"
+    }
+}>
+
 <cfhttp
-    url="https://www.google.com/recaptcha/api/siteverify"
+    url="https://recaptchaenterprise.googleapis.com/v1/projects/atticladderph/assessments?key=#application.recaptcha.enterpriseApiKey#"
     method="post"
     result="recaptchaHttpResult"
     throwonerror="false">
 
-    <cfhttpparam type="formfield" name="secret" value="#application.recaptcha.secretKey#">
-    <cfhttpparam type="formfield" name="response" value="#recaptchaToken#">
-    <cfhttpparam type="formfield" name="remoteip" value="#CGI.REMOTE_ADDR#">
+    <cfhttpparam
+        type="header"
+        name="Content-Type"
+        value="application/json">
+
+    <cfhttpparam
+        type="body"
+        value="#serializeJSON(recaptchaPayload)#">
 
 </cfhttp>
 
@@ -90,11 +103,17 @@
     <cfset recaptchaResult = deserializeJSON(recaptchaHttpResult.fileContent)>
 
     <cfcatch type="any">
-        <cfset recaptchaResult = { success = false }>
+        <cfset recaptchaResult = {}>
     </cfcatch>
 </cftry>
 
-<cfif NOT (structKeyExists(recaptchaResult, "success") AND recaptchaResult.success)>
+<cfif NOT (
+    structKeyExists(recaptchaResult, "tokenProperties")
+    AND structKeyExists(recaptchaResult.tokenProperties, "valid")
+    AND recaptchaResult.tokenProperties.valid
+    AND structKeyExists(recaptchaResult.tokenProperties, "action")
+    AND recaptchaResult.tokenProperties.action EQ "QUOTE"
+)>
     <cflog file="attic-ladder-quotes" type="Information" text="Quote reCAPTCHA verification failed. IP: #CGI.REMOTE_ADDR#">
     <cfheader statuscode="400" statustext="Bad Request">
     <!doctype html>

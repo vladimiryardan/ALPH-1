@@ -450,6 +450,7 @@
                                         <div
                                             class="g-recaptcha"
                                             id="contactRecaptcha"
+                                            data-action="CONTACT"
                                             data-sitekey="#encodeForHTMLAttribute(application.recaptcha.siteKey)#">
                                         </div>
                                         </cfoutput>
@@ -527,7 +528,7 @@
 </script>
 
 <!-- Google reCAPTCHA -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 
 
 <script>

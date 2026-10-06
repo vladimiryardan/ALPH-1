@@ -37,7 +37,8 @@
         }>
         <cfset application.recaptcha = {
             siteKey = readEnvironmentVariable("RECAPTCHA_SITE_KEY", ""),
-            secretKey = readEnvironmentVariable("RECAPTCHA_SECRET_KEY", "")
+            secretKey = readEnvironmentVariable("RECAPTCHA_SECRET_KEY", ""),
+            enterpriseApiKey = readEnvironmentVariable("RECAPTCHA_ENTERPRISE_API_KEY")
         }>
 
         <cfset smtpServer = structNew()>
