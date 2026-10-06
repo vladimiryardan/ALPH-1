@@ -106,6 +106,11 @@
                 type="Information"
                 text="reCAPTCHA Enterprise HTTP status: #local.recaptchaHttpResult.statusCode#">
 
+            <cflog
+                file="atticladderph-contact"
+                type="Information"
+                text="reCAPTCHA Enterprise response: #left(local.recaptchaHttpResult.fileContent, 1000)#">
+
             <cfset local.recaptchaResult = {}>
 
             <cftry>
