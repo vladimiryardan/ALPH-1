@@ -100,16 +100,6 @@
 
             </cfhttp>
 
-            <cflog
-                file="atticladderph-contact"
-                type="Information"
-                text="reCAPTCHA Enterprise HTTP status: #local.recaptchaHttpResult.statusCode#">
-
-            <cflog
-                file="atticladderph-contact"
-                type="Information"
-                text="reCAPTCHA Enterprise response: #left(local.recaptchaHttpResult.fileContent, 1000)#">
-
             <cfset local.recaptchaResult = {}>
 
             <cftry>
@@ -131,7 +121,7 @@
                 <cflog
                     file="atticladderph-contact"
                     type="Information"
-                    text="Contact reCAPTCHA Enterprise verification failed. IP: #cgi.remote_addr#">
+                    text="Contact reCAPTCHA Enterprise verification failed. HTTP status: #local.recaptchaHttpResult.statusCode#. IP: #cgi.remote_addr#">
 
                 <cfreturn "The reCAPTCHA verification failed. Please try again.">
             </cfif>
