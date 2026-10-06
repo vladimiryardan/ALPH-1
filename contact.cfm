@@ -543,8 +543,12 @@ $(document).ready(function () {
 
 
     function refreshCaptcha() {
-        if (window.grecaptcha && typeof grecaptcha.reset === "function") {
-            grecaptcha.reset();
+        if (
+            window.grecaptcha &&
+            grecaptcha.enterprise &&
+            typeof grecaptcha.enterprise.reset === "function"
+        ) {
+            grecaptcha.enterprise.reset();
         }
     }
 
@@ -567,7 +571,9 @@ $(document).ready(function () {
         }
 
         const recaptchaToken =
-            window.grecaptcha ? grecaptcha.getResponse() : "";
+            window.grecaptcha && grecaptcha.enterprise
+            ? grecaptcha.enterprise.getResponse()
+            : "";
 
         if (!recaptchaToken) {
             $errorText.text("Please complete the reCAPTCHA verification.");
