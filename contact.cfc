@@ -101,6 +101,11 @@
 
             </cfhttp>
 
+            <cflog
+                file="atticladderph-contact"
+                type="Information"
+                text="reCAPTCHA Enterprise HTTP status: #local.recaptchaHttpResult.statusCode#">
+
             <cfset local.recaptchaResult = {}>
 
             <cftry>
