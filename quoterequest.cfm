@@ -235,12 +235,17 @@
                                     type="file"
                                     class="form-control"
                                     name="photos"
+                                    id="quotePhotos"
+                                    accept=".jpg,.jpeg,.png,.webp,.pdf"
+                                    aria-describedby="quotePhotosHelp quotePhotosFeedback"
                                     multiple>
 
-                                <div class="form-text">
+                                <div class="form-text" id="quotePhotosHelp">
+                                    Upload up to 5 JPG, JPEG, PNG, WEBP, or PDF files, 5 MB maximum per file.
                                     Photos of the ceiling or installation area
                                     help us provide a more accurate quotation.
                                 </div>
+                                <div id="quotePhotosFeedback" class="text-danger mt-2" role="status" aria-live="polite"></div>
 
                             </div>
 
@@ -326,6 +331,22 @@
 </section>
 
     </main>
+
+<script>
+    const quotePhotos = document.getElementById('quotePhotos');
+    const quotePhotosFeedback = document.getElementById('quotePhotosFeedback');
+    quotePhotos.addEventListener('change', function () {
+        let message = '';
+        if (this.files.length > 5) {
+            message = 'Please select no more than 5 files.';
+        } else if (Array.from(this.files).some(file => file.size > 5 * 1024 * 1024)) {
+            message = 'Each uploaded file must be 5 MB or smaller.';
+        }
+        this.setCustomValidity(message);
+        quotePhotosFeedback.textContent = message;
+        if (message) this.reportValidity();
+    });
+</script>
 
 <!-- Google reCAPTCHA -->
 <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>

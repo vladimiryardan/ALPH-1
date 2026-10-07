@@ -13,6 +13,7 @@
     formPage = "quoterequest.cfm",
     uploadFolder = expandPath("./uploads/quote-requests"),
     uploadUrl = application.siteUrl & "/uploads/quote-requests",
+    maxFiles = 5,
     maxFileSizeBytes = 5 * 1024 * 1024,
     allowedExtensions = "jpg,jpeg,png,webp,pdf"
 }>
@@ -226,88 +227,109 @@
     <cfabort>
 </cfif>
 
-<!--- Ensure the upload directory exists. --->
-<cfif NOT directoryExists(settings.uploadFolder)>
-    <cfdirectory action="create" directory="#settings.uploadFolder#">
-</cfif>
-
+<!--- Keep base paths separate from the submission-date paths. --->
 <cfset uploadedFiles = []>
+<cfset uploadDatePath = dateFormat(quote.submittedAt, "yyyy/mm/dd")>
+<cfset datedUploadFolder = settings.uploadFolder & "/" & uploadDatePath>
+<cfset datedUploadUrl = settings.uploadUrl & "/" & uploadDatePath>
+<!--- Isolate partial uploads so cleanup cannot touch another submission. --->
+<cfset uploadSubmissionId = createUUID()>
+<cfset stagingUploadFolder = getTempDirectory() & "quote-request-" & uploadSubmissionId>
 
-<!---
-    The form field should be:
-    <input type="file" name="photos" multiple>
+<cftry>
+    <cfset directoryCreate(stagingUploadFolder)>
+    <!--- Lucee fileUploadAll has no file-field argument: it processes all uploaded file fields.
+          This form has only the photos field, with multiple enabled. --->
+    <cfset uploadResults = fileUploadAll(
+        destination = stagingUploadFolder,
+        accept = "image/jpeg,image/png,image/webp,application/pdf",
+        nameConflict = "makeunique",
+        strict = true,
+        allowedExtensions = settings.allowedExtensions
+    )>
 
-    Adobe ColdFusion and Lucee may expose multiple uploads differently.
-    This loop supports photos, photos1, photos2, etc. and the common photos field.
---->
-<cfset uploadFieldNames = []>
-<cfloop collection="#form#" item="fieldName">
-    <cfif reFindNoCase("^photos[0-9]*$", fieldName)>
-        <cfset arrayAppend(uploadFieldNames, fieldName)>
+    <cfif arrayLen(uploadResults) GT settings.maxFiles>
+        <cfthrow message="Please upload no more than 5 files.">
     </cfif>
-</cfloop>
 
-<cfloop array="#uploadFieldNames#" index="uploadFieldName">
-    <cfif structKeyExists(form, uploadFieldName) AND len(trim(form[uploadFieldName]))>
+    <!--- Validate the entire batch before publishing any files. --->
+    <cfloop array="#uploadResults#" index="uploadResult">
+        <cfif NOT listFindNoCase(settings.allowedExtensions, lCase(uploadResult.serverFileExt))>
+            <cfthrow message="Unsupported file type.">
+        </cfif>
+        <cfif uploadResult.fileSize GT settings.maxFileSizeBytes>
+            <cfthrow message="Each uploaded file must be 5 MB or smaller.">
+        </cfif>
+    </cfloop>
+
+    <cfif arrayLen(uploadResults)>
+        <cfset directoryCreate(datedUploadFolder, true, true)>
+    </cfif>
+    <cfloop array="#uploadResults#" index="uploadResult">
+        <!--- Request-unique names prevent overwriting previous submissions. --->
+        <cfset savedName = uploadSubmissionId & "-" & uploadResult.serverFile>
+        <cfset savedFilePath = datedUploadFolder & "/" & savedName>
+        <cffile action="move"
+            source="#stagingUploadFolder & '/' & uploadResult.serverFile#"
+            destination="#savedFilePath#" nameconflict="error">
+        <cfset arrayAppend(uploadedFiles, {
+            path = savedFilePath,
+            originalName = uploadResult.clientFile,
+            savedName = savedName
+        })>
+    </cfloop>
+
+    <cfcatch type="any">
+        <cfset uploadErrorMessage = cfcatch.message>
+        <!--- Roll back only files successfully moved by this submission. --->
+        <cfloop array="#uploadedFiles#" index="uploadedFile">
+            <cftry>
+                <cfif fileExists(uploadedFile.path)>
+                    <cfset fileDelete(uploadedFile.path)>
+                </cfif>
+                <cfcatch type="any">
+                    <cflog file="attic-ladder-quotes" type="error" text="Quote upload cleanup failed: #cfcatch.message#">
+                </cfcatch>
+            </cftry>
+        </cfloop>
+        <cfheader statuscode="400" statustext="Bad Request">
+        <cfoutput>
+            <!doctype html>
+            <html lang="en">
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <title>Photo upload problem</title>
+                <link href="css/bootstrap.min.css" rel="stylesheet">
+            </head>
+            <body class="bg-light">
+                <main class="container py-5">
+                    <div class="card border-0 shadow-sm mx-auto" style="max-width:700px;">
+                        <div class="card-body p-4 p-md-5">
+                            <h1 class="h3 mb-3">We could not upload one of your files</h1>
+                            <p class="text-muted">#encodeForHTML(uploadErrorMessage)#</p>
+                            <p>Please upload up to 5 JPG, PNG, WEBP, or PDF files no larger than 5 MB each.</p>
+                            <a class="btn btn-dark" href="#encodeForHTMLAttribute(settings.formPage)#" onclick="history.back(); return false;">Return to the form</a>
+                        </div>
+                    </div>
+                </main>
+            </body>
+            </html>
+        </cfoutput>
+        <cfabort>
+    </cfcatch>
+    <cffinally>
+        <!--- Also removes partial files when fileUploadAll throws mid-batch. --->
         <cftry>
-            <cffile
-                action="upload"
-                filefield="#uploadFieldName#"
-                destination="#settings.uploadFolder#"
-                nameconflict="makeunique"
-                accept="image/jpeg,image/png,image/webp,application/pdf"
-                strict="true"
-                result="uploadResult">
-
-            <cfset fileExtension = lCase(uploadResult.serverFileExt)>
-            <cfset savedFilePath = settings.uploadFolder & "/" & uploadResult.serverFile>
-
-            <cfif NOT listFindNoCase(settings.allowedExtensions, fileExtension)>
-                <cffile action="delete" file="#savedFilePath#">
-                <cfthrow message="Unsupported file type.">
+            <cfif directoryExists(stagingUploadFolder)>
+                <cfset directoryDelete(stagingUploadFolder, true)>
             </cfif>
-
-            <cfif uploadResult.fileSize GT settings.maxFileSizeBytes>
-                <cffile action="delete" file="#savedFilePath#">
-                <cfthrow message="Each uploaded file must be 5 MB or smaller.">
-            </cfif>
-
-            <cfset arrayAppend(uploadedFiles, {
-                path = savedFilePath,
-                originalName = uploadResult.clientFile,
-                savedName = uploadResult.serverFile
-            })>
-
             <cfcatch type="any">
-                <cfheader statuscode="400" statustext="Bad Request">
-                <cfoutput>
-                    <!doctype html>
-                    <html lang="en">
-                    <head>
-                        <meta charset="utf-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1">
-                        <title>Photo upload problem</title>
-                        <link href="css/bootstrap.min.css" rel="stylesheet">
-                    </head>
-                    <body class="bg-light">
-                        <main class="container py-5">
-                            <div class="card border-0 shadow-sm mx-auto" style="max-width:700px;">
-                                <div class="card-body p-4 p-md-5">
-                                    <h1 class="h3 mb-3">We could not upload one of your files</h1>
-                                    <p class="text-muted">#encodeForHTML(cfcatch.message)#</p>
-                                    <p>Please upload JPG, PNG, WEBP, or PDF files no larger than 5 MB each.</p>
-                                    <a class="btn btn-dark" href="#encodeForHTMLAttribute(settings.formPage)#" onclick="history.back(); return false;">Return to the form</a>
-                                </div>
-                            </div>
-                        </main>
-                    </body>
-                    </html>
-                </cfoutput>
-                <cfabort>
+                <cflog file="attic-ladder-quotes" type="error" text="Quote staging cleanup failed: #cfcatch.message#">
             </cfcatch>
         </cftry>
-    </cfif>
-</cfloop>
+    </cffinally>
+</cftry>
 
 <!--- Build safe email content. --->
 <cfsavecontent variable="businessEmailBody">
@@ -334,8 +356,8 @@
                 <td style="font-weight:bold;border-bottom:1px solid ##eee;vertical-align:top;">Photos / Files</td>
                 <td style="border-bottom:1px solid ##eee;">
                     <cfloop array="#uploadedFiles#" index="uploadedFile">
-                        <a href="#encodeForHTMLAttribute(settings.uploadUrl & "/" & urlEncodedFormat(uploadedFile.savedName))#">
-                            View #encodeForHTML(uploadedFile.originalName)#
+                        <a href="#encodeForHTMLAttribute(datedUploadUrl & "/" & urlEncodedFormat(uploadedFile.savedName))#">
+                            #encodeForHTML(uploadedFile.originalName)#
                         </a><br>
                     </cfloop>
                 </td>
