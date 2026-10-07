@@ -1,6 +1,9 @@
 name: Deploy AtticLadderPH Production
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 concurrency:
@@ -77,6 +80,7 @@ jobs:
 
             rsync -a --delete \
               --exclude='server.json' \
+              --exclude='uploads/quote-requests/' \
               /tmp/atticladderph-release/ \
               /var/www/atticladderph/
 
