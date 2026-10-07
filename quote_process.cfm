@@ -345,7 +345,6 @@
         replyto="#len(quote.email) ? quote.email : settings.replyToEmail#"
         attributeCollection="#application.smtp.mailAttributes#"
         subject="New quote request - #quote.fullname# - #quote.city#"
-        async="false"
         type="html">
         #businessEmailBody#
 
@@ -406,12 +405,5 @@
         <cfabort>
     </cfcatch>
 </cftry>
-
-<!--- Remove temporary attachments after successful sending. --->
-<cfloop array="#uploadedFiles#" index="uploadedFile">
-    <cfif fileExists(uploadedFile.path)>
-        <cffile action="delete" file="#uploadedFile.path#">
-    </cfif>
-</cfloop>
 
 <cflocation url="#settings.thankYouPage#" addtoken="false">
