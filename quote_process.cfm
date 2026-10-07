@@ -345,6 +345,7 @@
         replyto="#len(quote.email) ? quote.email : settings.replyToEmail#"
         attributeCollection="#application.smtp.mailAttributes#"
         subject="New quote request - #quote.fullname# - #quote.city#"
+        async="false"
         type="html">
         #businessEmailBody#
 
