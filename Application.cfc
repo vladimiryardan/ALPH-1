@@ -2,8 +2,6 @@
 	<cfset this.datasource = "atticladderph">
 	<cfset this.sessionManagement = true>
 	<cfset this.sessionTimeout = createTimeSpan(0,0,30,0)>
-	<!--- http://127.0.0.1:60082/lucee/admin/server.cfm?action=server.error --->
-
 	<cfset this.showDebugOutput = false>
 	<!--- recatpcha: https://www.google.com/recaptcha/admin/site/762118480 atticladderph@gmail.com--->
 
@@ -12,6 +10,7 @@
 	<cffunction name="onApplicationStart" access="public" returntype="boolean">
         <!--- Keep credentials in the server process environment, not source control. --->
 		<cfset application.datasource = this.datasource>
+        <cfset application.siteUrl = readEnvironmentVariable("SITE_URL", "")>
         <cfset application.adminTotpSecret = trim(readEnvironmentVariable("ADMIN_TOTP_SECRET", ""))>
         <cfset application.smtp = {
             server = readEnvironmentVariable("SMTP_HOST", ""),

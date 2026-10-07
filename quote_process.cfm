@@ -12,6 +12,7 @@
     thankYouPage = "quote-thank-you.cfm",
     formPage = "quoterequest.cfm",
     uploadFolder = expandPath("./uploads/quote-requests"),
+    uploadUrl = application.siteUrl & "/uploads/quote-requests",
     maxFileSizeBytes = 5 * 1024 * 1024,
     allowedExtensions = "jpg,jpeg,png,webp,pdf"
 }>
@@ -328,6 +329,18 @@
         <tr><td style="font-weight:bold;border-bottom:1px solid ##eee;">Ceiling Height</td><td style="border-bottom:1px solid ##eee;">#encodeForHTML(quote.height)#</td></tr>
         <tr><td style="font-weight:bold;border-bottom:1px solid ##eee;">Ceiling Opening</td><td style="border-bottom:1px solid ##eee;">#encodeForHTML(quote.opening)#</td></tr>
         <tr><td style="font-weight:bold;border-bottom:1px solid ##eee;">Uploaded Files</td><td style="border-bottom:1px solid ##eee;">#arrayLen(uploadedFiles)#</td></tr>
+        <cfif arrayLen(uploadedFiles)>
+            <tr>
+                <td style="font-weight:bold;border-bottom:1px solid ##eee;vertical-align:top;">Photos / Files</td>
+                <td style="border-bottom:1px solid ##eee;">
+                    <cfloop array="#uploadedFiles#" index="uploadedFile">
+                        <a href="#encodeForHTMLAttribute(settings.uploadUrl & "/" & urlEncodedFormat(uploadedFile.savedName))#">
+                            View #encodeForHTML(uploadedFile.originalName)#
+                        </a><br>
+                    </cfloop>
+                </td>
+            </tr>
+        </cfif>
         <tr><td style="font-weight:bold;vertical-align:top;">Additional Notes</td><td>#replace(encodeForHTML(quote.notes), chr(10), "<br>", "all")#</td></tr>
     </table>
 
@@ -347,10 +360,6 @@
         subject="New quote request - #quote.fullname# - #quote.city#"
         type="html">
         #businessEmailBody#
-
-        <cfloop array="#uploadedFiles#" index="uploadedFile">
-            <cfmailparam file="#uploadedFile.path#" disposition="attachment">
-        </cfloop>
     </cfmail>
 
     <!--- Optional confirmation email when the customer provides an email address. --->
