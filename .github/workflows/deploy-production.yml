@@ -1,3 +1,4 @@
+
 name: Deploy AtticLadderPH Production
 
 on:
@@ -54,6 +55,9 @@ jobs:
             mkdir -p /var/backups/atticladderph-previous
 
             rsync -a \
+              --exclude='server.json' \
+              --exclude='uploads/quote-requests/' \
+              --exclude='gallery/' \
               /var/www/atticladderph/ \
               /var/backups/atticladderph-previous/
           "
@@ -66,7 +70,6 @@ jobs:
             --exclude='.git' \
             --exclude='.github' \
             --exclude='.vscode' \
-            --exclude='server.json' \
             --exclude='server.json' \
             --exclude='uploads/quote-requests/' \
             --exclude='gallery/' \
@@ -84,6 +87,7 @@ jobs:
             rsync -a --delete \
               --exclude='server.json' \
               --exclude='uploads/quote-requests/' \
+              --exclude='gallery/' \
               /tmp/atticladderph-release/ \
               /var/www/atticladderph/
 
@@ -122,6 +126,9 @@ jobs:
             set -e
 
             rsync -a --delete \
+              --exclude='server.json' \
+              --exclude='uploads/quote-requests/' \
+              --exclude='gallery/' \
               /var/backups/atticladderph-previous/ \
               /var/www/atticladderph/
 
