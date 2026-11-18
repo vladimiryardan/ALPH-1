@@ -16,10 +16,15 @@
                         </div>
 
                         <h1 class="fw-bold mb-3">Quote Request Received</h1>
-                        <p class="lead text-muted mb-4">
-                            Thank you for contacting Attic Ladder PH. Our team will review your project details and get in touch with you shortly.
-                        </p>
-
+                                <p class="lead text-muted mb-4">
+                                    Thank you for contacting Attic Ladder PH. Our team will review your project details and get in touch with you shortly.
+                                    <br><br>
+                                    For a quicker response to your inquiry or if you have additional questions,
+                                    feel free to contact us via phone call, SMS, or Viber at
+                                    <a href="tel:+639778497190" class="fw-bold text-decoration-none">
+                                        0977 849 7190
+                                    </a>.
+                                </p>
                         <a href="index.cfm" class="btn btn-dark btn-lg px-4">Return to Home</a>
                     </div>
                 </div>
